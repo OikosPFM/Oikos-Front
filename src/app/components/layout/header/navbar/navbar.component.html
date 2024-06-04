@@ -1,0 +1,27 @@
+<section class="navbar-container fade-in">
+  <h1 class="logo"></h1>
+  <nav class="navbar">
+    <ul>
+      <!-- <li *ngIf="!isLoggedIn()"> -->
+      <li>
+        <a href="login">Iniciar sesión</a>
+      </li>
+      <li>
+        <a routerLink="about">Acerca de nosotros</a>
+      </li>
+      <!-- <li *ngIf="isLoggedIn()"> -->
+      <li>
+        <a (click)="logout()">Cerrar sesión</a>
+      </li>
+      <li>
+        <button class="cta">
+          <span>Contáctanos</span>
+          <svg width="15px" height="10px" viewBox="0 0 13 10">
+            <path d="M1,5 L11,5"></path>
+            <polyline points="8 1 12 5 8 9"></polyline>
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</section>
