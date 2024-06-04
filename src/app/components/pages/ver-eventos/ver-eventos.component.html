@@ -1,0 +1,25 @@
+<div class="home-div-container">
+    <app-layout-header />
+    <main class="home-main">
+      <div class="evento-container">
+        <div *ngFor="let evento of eventos" class="evento-card">
+          <div class="evento-header">
+            <h2>{{ evento.titulo }}</h2>
+            <h4>{{ evento.fecha }}</h4>
+          </div>
+          <div class="evento-info">
+            <p><b>Hora:</b> {{ evento.hora }}</p>
+            <p><b>Description:</b> {{ evento.descrpcion }}</p>
+            <p><b>Categoria:</b> {{ evento.categoria }}</p>
+            <p><b>Participantes:</b> {{ evento.participantes }}</p>
+            <p><b>Aforo:</b> {{ evento.aforo }}</p>
+          </div>
+          <div class="evento-footer">
+            <small>Created: {{ evento.created_at | date : "medium" }}</small>
+          </div>
+        </div>
+      </div>
+      <div><button (click)="onRefreshClick()">Actualizar Eventos</button></div>
+    </main>
+    <app-layout-footer />
+  </div>
