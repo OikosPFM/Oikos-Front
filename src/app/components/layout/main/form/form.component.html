@@ -1,0 +1,118 @@
+<section class="register-container">
+  <div class="register-form">
+    <h2>Formulario de registro</h2>
+
+    <mat-vertical-stepper [linear]="false" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel
+            >Completa con los datos de tu domicilio</ng-template
+          >
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Portal"
+              formControlName="firstCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Piso"
+              formControlName="secondCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Letra"
+              formControlName="thirdCtrl"
+              required
+            />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Continuar</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel
+            >Completa con tus datos personales</ng-template
+          >
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Nombre"
+              formControlName="fourthCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Primer Apellido"
+              formControlName="fifthCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Segundo Apellido"
+              formControlName="sixthCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="DNI"
+              formControlName="seventhCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Teléfono"
+              formControlName="eighthCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="ninthCtrl"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Contraseña"
+              formControlName="tenthCtrl"
+              required
+            />
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Regresar</button>
+            <button mat-button matStepperNext>Continuar</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </div>
+</section>
