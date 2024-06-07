@@ -35,7 +35,7 @@
   color: black;
 }
 
-.cta {
+.btn-nav {
   position: relative;
   margin: auto;
   padding: 12px 18px;
@@ -46,7 +46,7 @@
   border-radius: 50px;
 }
 
-.cta:before {
+.btn-nav:before {
   content: "";
   position: absolute;
   top: 0;
@@ -59,7 +59,7 @@
   transition: all 0.3s ease;
 }
 
-.cta span {
+.btn-nav span {
   position: relative;
   font-family: "Ubuntu", sans-serif;
   font-size: 18px;
@@ -69,7 +69,7 @@
   transition: all 0.3s ease;
 }
 
-.cta svg {
+.btn-nav svg {
   position: relative;
   top: 0;
   margin-left: 10px;
@@ -82,23 +82,23 @@
   transition: all 0.3s ease;
 }
 
-.cta:before {
+.btn-nav:before {
   background: #b1dae7;
 }
-.cta:hover span {
+.btn-nav:hover span {
   color: rgb(222, 235, 233);
 }
-.cta:hover:before {
+.btn-nav:hover:before {
   width: 100%;
   background: #4996ae;
 }
 
-.cta:hover svg {
+.btn-nav:hover svg {
   transform: translateX(0);
   stroke: rgb(222, 235, 233);
 }
 
-.cta:active {
+.btn-nav:active {
   transform: scale(0.95);
 }
 
