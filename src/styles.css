@@ -21,10 +21,17 @@ a {
   color: inherit;
 }
 
+:root {
+  --naranja-oikos: rgb(226, 133, 105);
+  --verde-oikos: rgb(155, 188, 182);
+  --verde-claro-oikos: rgb(222, 235, 233);
+  --azul-oscuros-oikos: rgb(67, 110, 142);
+}
+
 body {
   min-height: 100vh;
   flex-direction: column;
-  background-color: rgb(226, 133, 105);
+  background-color: var(--naranja-oikos);
   width: 100vw;
 }
 
@@ -56,5 +63,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
