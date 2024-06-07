@@ -1,8 +1,7 @@
 <div class="home-div-container">
-    <app-layout-header />
     <h1>Crear Contacto</h1>
     <form
-      (ngSubmit)="createEvento(eventoForm)"
+      (ngSubmit)="createEventos(eventoForm)"
       #eventoForm="ngForm"
       novalidate
     >
@@ -50,7 +49,7 @@
       <input
         type="text"
         id="description"
-        [(ngModel)]="evento.description"
+        [(ngModel)]="evento.descripcion"
         name="description"
       />
     </div>
@@ -83,5 +82,4 @@
     </div>
       <button type="submit">Crear Evento</button>
     </form>
-    <app-layout-footer />
   </div>

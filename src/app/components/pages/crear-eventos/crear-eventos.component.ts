@@ -1,24 +1,27 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../layout/header/header.component';
+//import { HeaderComponent } from '../../layout/header/header.component';
 import { FooterComponent } from '../../layout/footer/footer.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EventosService } from '../../../services/eventos.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-crear-eventos',
   standalone: true,
   imports: [
-    HeaderComponent,
+    //HeaderComponent,
     FooterComponent,
     FormsModule,
     CommonModule,
+    HttpClientModule,
   ],
   templateUrl: './crear-eventos.component.html',
   styleUrl: './crear-eventos.component.css',
+  providers: [EventosService]
 })
-export class CrearContactosComponent {
-  evento = { titulo: '', fecha: '', hora: '', descripcion: '', categoria: '', participantes: '', aforo: '' };
+export class CrearEventosComponent {
+  evento = { id_evento: '',titulo: '', fecha: '', hora: '', descripcion: '', categoria: '', participantes: '', aforo: '' };
 
   constructor(private eventosService: EventosService) { }
 
