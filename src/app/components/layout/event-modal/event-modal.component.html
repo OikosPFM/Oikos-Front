@@ -1,0 +1,17 @@
+<div class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="onClose()">&times;</span>
+    <div class="modal-info">
+      <h2>{{ event?.title }}</h2>
+      <p><strong>Fecha:</strong> {{ event?.extendedProps.dates }}</p>
+      <p><strong>Hora:</strong> {{ event?.extendedProps.time }}</p>
+      <p>
+        <strong>Descripcion:</strong> {{ event?.extendedProps.description }}
+      </p>
+      <p><strong>Categoria:</strong> {{ event?.extendedProps.category }}</p>
+      <p><strong>Aforo:</strong> {{ event?.extendedProps.capacity }}</p>
+      <p><strong>Organizador:</strong> {{ event?.extendedProps.organizer }}</p>
+      <button (click)="deleteEvent()">Eliminar Evento</button>
+    </div>
+  </div>
+</div>
