@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro - Entradas</title>
+</head>
+<body>
+    <div class="home-div-container">
+        <!-- <app-layout-header/> -->
+        <main class="home-main">
+            <!-- Entrada Creada -->
+            <h1>Crear Entrada</h1>
+            <div class="entry-form">
+                <form (ngSubmit)="createEntradaForo(entryForm)" #entryForm="ngForm" novalidate>
+                    <div>
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" [(ngModel)]="entradaForo.nombre" class="text-input" name="nombre" required>
+                    </div>
+                    <div>
+                        <label for="titulo">Título:</label>
+                        <input type="text" id="titulo" [(ngModel)]="entradaForo.titulo" class="text-input" name="titulo" required>
+                    </div>
+                    <div>
+                        <label for="texto_comentario">Asunto:</label>
+                        <textarea id="texto_comentario" [(ngModel)]="entradaForo.texto_comentario" name="texto_comentario" class="text-input" rows="4" cols="50"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Crear Entrada
+                    </button>
+                </form>
+            </div>
+
+            <!-- Ver Entradas Creadas -->
+            <br>
+            <h1>Ver Entradas</h1>
+            <div class="entry-container">
+                <div *ngFor="let entradaForo of entradasForo" class="entry-card">
+                    <a [href]="'/entrada-foro/'+ entradaForo.id">
+                        <div class="entry-card">
+                            <h2>{{ entradaForo.name }}</h2>
+                        </div>
+                        <div class="entry-info">
+                            <p><b>ID:</b>{{ entradaForo.ID_entrada }}</p>
+                            <p><b>Título:</b>{{ entradaForo.title }}</p>
+                            <p><b>Mensaje:</b> {{ entradaForo.subject }} </p>
+                        </div>
+                        <hr>
+                        <div class="entry-footer">
+                            <small>Created: {{ entradaForo.created_at | date : "medium" }} </small>
+                        </div>
+                    </a>
+
+                    <!-- editar entradas -->
+                    <!-- <button (click)="updateEntrada()" class="btn btn-primary">
+                        Editar
+                    </button> -->
+                    <!-- <button (click)="updateEntrada(entradaForo.ID_entrada)" class = "btn btn-info"> Update</button> -->
+                    <!-- <button (click) = "deleteUser(u.id)" class = "btn btn-danger" style="margin-left: 10px"> Delete</button> -->
+                    <!-- fin de intento de editar entradas -->
+
+                </div>
+
+                <br>
+            </div>
+            <div><button (click)="onRefreshClick()" class="btn btn-primary">Actualizar Entradas</button></div>
+            <br>
+
+            <!-- Editar y Actualizar Entradas Creadas -->
+            <!-- <h1>Editar Contacto</h1>
+            <div class="entry-form">
+                <form (ngSubmit)="updateEntrada()">
+                    <div>
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" [(ngModel)]="entradaForo.name" class="text-input" name="name" required>
+                        <label for="name">Título:</label>
+                        <input type="text" id="title" [(ngModel)]="entradaForo.title" class="text-input" name="title" required>
+                    </div>
+                    <div>
+                        <label for="subject">Asunto:</label>
+                        <textarea id="subject" [(ngModel)]="entradaForo.subject" class="text-input" name="subject" required></textarea>
+                    </div>
+                    <button type="submit" class="edit-button">
+                        <img src="pencil-icon.png" alt="Editar">
+                    </button>
+                </form>
+            </div> -->
+            <br>
+        </main>
+        <!-- <app-footer/> -->
+    </div>
+</body>
+</html>

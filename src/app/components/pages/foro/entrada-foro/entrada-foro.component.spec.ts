@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerTemasComponent } from './ver-temas.component';
+import { EntradaForoComponent } from './entrada-foro.component';
 
-describe('VerTemasComponent', () => {
-  let component: VerTemasComponent;
-  let fixture: ComponentFixture<VerTemasComponent>;
+describe('EntradaForoComponent', () => {
+  let component: EntradaForoComponent;
+  let fixture: ComponentFixture<EntradaForoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VerTemasComponent]
+      imports: [EntradaForoComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(VerTemasComponent);
+    fixture = TestBed.createComponent(EntradaForoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
