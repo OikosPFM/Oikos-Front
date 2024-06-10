@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerTareaComponent } from './ver-tarea.component';
+import { TareaModalComponent } from './tarea-modal.component';
 
-describe('VerTareaComponent', () => {
-  let component: VerTareaComponent;
-  let fixture: ComponentFixture<VerTareaComponent>;
+describe('TareaModalComponent', () => {
+  let component: TareaModalComponent;
+  let fixture: ComponentFixture<TareaModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VerTareaComponent]
+      imports: [TareaModalComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(VerTareaComponent);
+    fixture = TestBed.createComponent(TareaModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
