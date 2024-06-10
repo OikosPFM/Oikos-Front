@@ -31,7 +31,9 @@ a {
 body {
   min-height: 100vh;
   flex-direction: column;
+
   background-color: var(--naranja-oikos);
+
   width: 100vw;
 }
 
