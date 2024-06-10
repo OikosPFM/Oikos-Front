@@ -1,17 +1,3 @@
-.example-input-wrapper {
-  margin-bottom: 16px;
-}
-
-label {
-  margin-right: 4px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  margin: 2rem;
-}
-
 .register-container {
   display: flex;
   justify-content: center;
@@ -24,9 +10,24 @@ form {
 
 .register-form {
   background-color: rgb(222, 235, 233);
-  height: 100vh;
+  height: auto;
   width: 50vw;
   padding: 3rem;
   border-radius: 20px;
   margin: 7rem 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+mat-vertical-stepper {
+  background-color: var(--verde-claro-oikos);
+  font-weight: bolder;
+}
+
+mat-radio-group div {
+  padding-bottom: 1rem;
 }

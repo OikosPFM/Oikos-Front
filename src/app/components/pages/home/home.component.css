@@ -63,5 +63,5 @@
 }
 path {
   stroke: none;
-  fill: #9bbcb6;
+  fill: var(--verde-oikos);
 }
