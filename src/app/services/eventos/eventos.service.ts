@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventosService {
-  private apiUrl = 'http://localhost:4200/oikos-bbdd';
+  private apiUrl = 'http://localhost:8081/api/v1/eventos';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getEventos(): Observable<any> {
     return this.http.get(this.apiUrl);
@@ -22,8 +22,9 @@ export class EventosService {
     return this.http.put(`${this.apiUrl}`, evento);
   }
 
-  deleteEventos(evento: { deleteId: string }): Observable<any> {
-    console.log('Eliminando evento en servicio', evento);
-    return this.http.delete(`${this.apiUrl}`, { body: evento });
+  deleteEventos(idEvento: string): Observable<any> {
+    console.log(`${this.apiUrl}/${idEvento}`);
+    console.log('Eliminando evento en servicio', idEvento);
+    return this.http.delete(`${this.apiUrl}/${idEvento}`);
   }
 }

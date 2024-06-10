@@ -25,6 +25,7 @@ body {
   min-height: 100vh;
   flex-direction: column;
   background-color: rgb(226, 133, 105);
+
   width: 100vw;
 }
 
@@ -56,5 +57,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

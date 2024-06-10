@@ -1,0 +1,25 @@
+body {
+  background-color: greenyellow;
+}
+
+.dashboard-main {
+  display: flex;
+}
+
+.app-sidebar {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+}
+.app-sidebar button {
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  font-weight: 600;
+  &:hover {
+    background-color: rgb(186, 121, 121);
+  }
+  width: 400px;
+}

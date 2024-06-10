@@ -1,23 +1,27 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FooterComponent } from '../../layout/footer/footer.component';
-import { HeaderComponent } from '../../layout/header/header.component';
-import { EventosService } from '../../../services/eventos.service';
+import { EventosService } from '../../../services/eventos/eventos.service';
 
 @Component({
   selector: 'app-editar-eventos',
   standalone: true,
-  imports: [ HeaderComponent,
-    FooterComponent,
-    FormsModule,
-    CommonModule,],
+  imports: [FormsModule, CommonModule],
   templateUrl: './editar-eventos.component.html',
-  styleUrl: './editar-eventos.component.css'
+  styleUrl: './editar-eventos.component.css',
 })
 export class EditarEventosComponent {
   eventos: any[] = [];
-  evento: any = { id_evento:'',titulo: '', fecha: '', hora: '', descripcion: '', categoria:'',participantes:'', aforo:''};;
+  evento: any = {
+    id_evento: '',
+    titulo: '',
+    fecha: '',
+    hora: '',
+    descripcion: '',
+    categoria: '',
+    participantes: '',
+    aforo: '',
+  };
   constructor(private eventosService: EventosService) {}
   ngOnInit(): void {
     this.evento();
@@ -76,4 +80,3 @@ export class EditarEventosComponent {
     });
   }
 }
-
