@@ -137,4 +137,12 @@ export class FullcalendarComponent {
   handleCalendarToggle() {
     this.calendarVisible.update((bool) => !bool);
   }
+
+  onEventoEliminado(): void {
+    this.getEventos();
+  }
+
+  onEventoCreado(): void {
+    this.getEventos();
+  }
 }

@@ -19,6 +19,7 @@ import { EventosService } from '../../../services/eventos/eventos.service';
 export class CreateEventModalComponent {
   //Recibimos del padre(Donde usemos este modal) el selectDate y le enviamos el método para cerrarlo
   @Output() close = new EventEmitter<void>();
+  @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
 
   constructor(
@@ -84,7 +85,8 @@ export class CreateEventModalComponent {
           descripcion: ${this.evento.descripcion}, categoria: ${this.evento.categoria},
           participantes: ${this.evento.participantes}, aforo: ${this.evento.aforo} ha sido creado exitosamente.`
         );
-        eventoForm.resetForm();
+        this.onClose(); // Cerrar el modal después de eliminar el evento
+        this.eventoCreado.emit(); // Emitir el evento después de que la eliminación sea exitosa
       },
       error: (error: any) => {
         console.error('Error al crear el evento', error);

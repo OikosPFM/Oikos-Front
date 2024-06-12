@@ -2,12 +2,12 @@
   <div class="modal-content">
     <span class="close" (click)="onClose()">&times;</span>
     <div class="modal-info">
-      <h1>Crear Evento</h1>
       <form
         (ngSubmit)="createEventos(eventoForm)"
         #eventoForm="ngForm"
         novalidate
       >
+        <h1>Crear Evento</h1>
         <div>
           <label for="titulo">Titulo:</label>
           <input

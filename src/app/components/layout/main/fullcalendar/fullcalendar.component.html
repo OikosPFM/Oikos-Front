@@ -55,11 +55,13 @@
       *ngIf="selectedEvent"
       [event]="selectedEvent"
       (close)="closeModal()"
+      (eventoEliminado)="onEventoEliminado()"
     ></app-event-modal>
   </div>
   <app-create-event-modal
     *ngIf="showCreateEventModal"
     [selectedDate]="selectedDate"
     (close)="closeModal()"
+    (eventoCreado)="onEventoCreado()"
   ></app-create-event-modal>
 </div>

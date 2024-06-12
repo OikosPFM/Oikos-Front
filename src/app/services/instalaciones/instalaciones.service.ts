@@ -13,4 +13,20 @@ export class InstalacionesService {
   getAllInstalaciones(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  createInstalaciones(instalacion: any): Observable<any> {
+    return this.http.post(this.apiUrl, instalacion);
+  }
+
+  deleteEventos(idInstalacion: string): Observable<any> {
+    console.log('Eliminando evento en servicio', idInstalacion);
+    return this.http.delete(`${this.apiUrl}/${idInstalacion}`);
+  }
+
+  updateInstalacion(instalacion: any): Observable<any> {
+    return this.http.put(
+      `${this.apiUrl}/${instalacion.idInstalacion}`,
+      instalacion
+    );
+  }
 }

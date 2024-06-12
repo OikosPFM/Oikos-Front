@@ -2,16 +2,109 @@
   <div class="modal-content">
     <span class="close" (click)="onClose()">&times;</span>
     <div class="modal-info">
-      <h2>{{ event?.title }}</h2>
-      <p><strong>Fecha:</strong> {{ event?.extendedProps.dates }}</p>
-      <p><strong>Hora:</strong> {{ event?.extendedProps.time }}</p>
-      <p>
-        <strong>Descripcion:</strong> {{ event?.extendedProps.description }}
-      </p>
-      <p><strong>Categoria:</strong> {{ event?.extendedProps.category }}</p>
-      <p><strong>Aforo:</strong> {{ event?.extendedProps.capacity }}</p>
-      <p><strong>Organizador:</strong> {{ event?.extendedProps.organizer }}</p>
-      <button (click)="deleteEvent()">Eliminar Evento</button>
+      <div class="event-info">
+        <h2>{{ event?.title }}</h2>
+        <p><strong>Fecha:</strong> {{ event?.extendedProps.dates }}</p>
+        <p><strong>Hora:</strong> {{ event?.extendedProps.time }}</p>
+        <p>
+          <strong>Descripcion:</strong> {{ event?.extendedProps.description }}
+        </p>
+        <p><strong>Categoria:</strong> {{ event?.extendedProps.category }}</p>
+        <p><strong>Aforo:</strong> {{ event?.extendedProps.capacity }}</p>
+        <p>
+          <strong>Organizador:</strong> {{ event?.extendedProps.organizer }}
+        </p>
+        <button (click)="deleteEvent()">Eliminar Evento</button>
+        <button (click)="startEditing(event)">Editar Evento</button>
+      </div>
+      <form *ngIf="isEditing" (ngSubmit)="updateInstalacion()" novalidate>
+        <h1>Editando evento</h1>
+        <div>
+          <label for="titulo">Titulo:</label>
+          <input
+            type="text"
+            id="titulo"
+            [(ngModel)]="evento.titulo"
+            name="titulo"
+            required
+          />
+        </div>
+        <div>
+          <label for="fecha">Fecha:</label>
+          <input
+            type="date"
+            id="fecha"
+            [(ngModel)]="evento.fecha"
+            name="fecha"
+            required
+          />
+        </div>
+        <div>
+          <label for="hora">Hora:</label>
+          <input type="time" id="hora" [(ngModel)]="evento.hora" name="hora" />
+        </div>
+        <div>
+          <label for="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            [(ngModel)]="evento.descripcion"
+            name="description"
+          />
+        </div>
+        <div>
+          <label for="categoria">Categoria:</label>
+          <select
+            id="categoria"
+            [(ngModel)]="evento.categoria"
+            name="categoria"
+          >
+            <option value="" disabled selected>Selecciona una categoria</option>
+            <option value="Fiesta">Fiesta</option>
+            <option value="Junta">Junta</option>
+            <option value="Excursion">Excursion</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+        <div>
+          <label for="instalacion">Instalación:</label>
+          <select
+            id="instalacion"
+            [(ngModel)]="evento.instalacion.idInstalacion"
+            name="instalacion"
+            required
+          >
+            <option value="" disabled selected>
+              Selecciona una instalación
+            </option>
+            <option
+              *ngFor="let instalacion of instalaciones"
+              [value]="instalacion.idInstalacion"
+            >
+              {{ instalacion.nombre }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label for="participantes">Participantes:</label>
+          <input
+            type="number"
+            id="participantes"
+            [(ngModel)]="evento.participantes"
+            name="participantes"
+          />
+        </div>
+        <div>
+          <label for="aforo">aforo:</label>
+          <input
+            type="number"
+            id="aforo"
+            [(ngModel)]="evento.aforo"
+            name="aforo"
+          />
+        </div>
+        <button type="submit">Crear Evento</button>
+      </form>
     </div>
   </div>
 </div>
