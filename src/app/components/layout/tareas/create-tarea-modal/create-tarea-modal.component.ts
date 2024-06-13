@@ -17,6 +17,7 @@ import { InstalacionesService } from '../../../../services/instalaciones/instala
   providers: [TareasService, InstalacionesService, DatePipe],
 })
 export class CreateTareaModalComponent {
+
   //Recibimos del padre(Donde usemos este modal) el selectDate y le enviamos el método para cerrarlo
   @Output() close = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
