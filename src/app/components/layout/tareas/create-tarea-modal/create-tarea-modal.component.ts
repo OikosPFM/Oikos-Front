@@ -26,8 +26,12 @@ export class CreateTareaModalComponent {
     private instalacionesService: InstalacionesService,
     private datePipe: DatePipe
   ) {}
+  instalaciones: any[] = [];
+  tareas: any[] = [];
+  editando = false;
 
   tarea = {
+    idTarea: '',
     instalacion: {
       idInstalacion: '',
     },
@@ -36,26 +40,33 @@ export class CreateTareaModalComponent {
     fecha: '',
     duracion: '',
     usuarioAsignado: null,
-    tareaAcabada: '',
+    tareaAcabada: false,
   };
 
   ngOnInit(): void {
-    //Al iniciar el componente
-    //get de instalaciones para que nos muestre en el formulario
     this.getInstalaciones();
-    //Si se ha seleccionado una fecha en el calendario añadimos tal fecha al formulario
+    this.getTareas();
     if (this.selectedDate) {
       this.tarea.fecha =
         this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
     }
   }
 
-  instalaciones: any[] = [];
-
   getInstalaciones(): void {
     this.instalacionesService.getAllInstalaciones().subscribe(
       (data) => {
         this.instalaciones = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error al obtener las fincas', error);
+      }
+    );
+  }
+  getTareas(): void {
+    this.tareasService.getTareas().subscribe(
+      (data) => {
+        this.tareas = data;
         console.log(data);
       },
       (error) => {
@@ -69,9 +80,6 @@ export class CreateTareaModalComponent {
       alert('Por favor, rellena todos los campos.');
       return;
     }
-    // Asigna el ID del organizador al objeto evento, tendremos que hacer un get del usuario
-    //this.evento.organizadorId = userId;
-
     this.tareasService.createTarea(this.tarea).subscribe({
       next: (data: any) => {
         console.log('Tarea created successfully', data);
@@ -83,15 +91,7 @@ export class CreateTareaModalComponent {
         tareaForm.resetForm();
       },
       error: (error: any) => {
-        console.error(
-          alert(
-            `La tarea con nombre:  ${this.tarea.nombre}, fecha: ${this.tarea.fecha}, duración: ${this.tarea.duracion},
-            descripcion: ${this.tarea.descripcion}, instalacion: ${this.tarea.instalacion},
-            con usuario asignado: ${this.tarea.usuarioAsignado} ha sido creada exitosamente.`
-          ),
-          tareaForm.resetForm(),
-          error
-        );
+        console.error(alert(), tareaForm.resetForm(), error);
       },
     });
   }
