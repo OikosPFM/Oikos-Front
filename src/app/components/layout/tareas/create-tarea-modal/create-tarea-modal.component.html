@@ -1,1 +1,70 @@
-<p>create-tarea-modal works!</p>
+<div class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="onClose()">&times;</span>
+    <div class="modal-info">
+      <h1>Crear Tarea</h1>
+      <form (ngSubmit)="createTarea(tareaForm)" #tareaForm="ngForm" novalidate>
+        <div>
+          <label for="nombre">Nombre:</label>
+          <input
+            type="text"
+            id="nombre"
+            [(ngModel)]="tarea.nombre"
+            name="nombre"
+            required
+          />
+        </div>
+        <div>
+          <label for="fecha">Fecha:</label>
+          <input
+            type="date"
+            id="fecha"
+            [(ngModel)]="tarea.fecha"
+            name="fecha"
+            required
+          />
+        </div>
+        <div>
+          <label for="duracion">Duracion:</label>
+          <input
+            type="text"
+            id="duracion"
+            [(ngModel)]="tarea.duracion"
+            name="duracion"
+          />
+        </div>
+        <div>
+          <label for="description">Descripción:</label>
+          <input
+            type="text"
+            id="description"
+            [(ngModel)]="tarea.descripcion"
+            name="description"
+          />
+        </div>
+        <div>
+          <label for="instalacion">Instalación:</label>
+          <select
+            id="instalacion"
+            [(ngModel)]="tarea.instalacion.idInstalacion"
+            name="instalacion"
+            required
+          >
+            <option value="" disabled selected>
+              Selecciona una instalación
+            </option>
+            <option
+              *ngFor="let instalacion of instalaciones"
+              [value]="instalacion.idInstalacion"
+            >
+              {{ instalacion.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <button type="submit">Crear Tarea</button>
+      </form>
+    </div>
+  </div>
+</div>
+

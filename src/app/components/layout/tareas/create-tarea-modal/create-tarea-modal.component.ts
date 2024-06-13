@@ -5,56 +5,53 @@ import { CommonModule, DatePipe } from '@angular/common';
 //Importamos lo necesario para utilizar los servicios
 //Después habrá que ponerlos en el provider e instanciarlos en el constructor
 import { HttpClientModule } from '@angular/common/http';
-import { InstalacionesService } from '../../../services/instalaciones/instalaciones.service';
 import { TareasService } from '../../../../services/tarea/tareas.service';
+import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
 
 @Component({
-  selector: 'app-create-event-modal',
+  selector: 'app-create-tarea-modal',
   standalone: true,
   imports: [FormsModule, CommonModule, HttpClientModule, DatePipe],
-  templateUrl: './create-event-modal.component.html',
-  styleUrl: './create-event-modal.component.css',
+  templateUrl: './create-tarea-modal.component.html',
+  styleUrl: './create-tarea-modal.component.css',
   providers: [TareasService, InstalacionesService, DatePipe],
 })
-export class CreateEventModalComponent {
+export class CreateTareaModalComponent {
+
   //Recibimos del padre(Donde usemos este modal) el selectDate y le enviamos el método para cerrarlo
   @Output() close = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
 
   constructor(
-    private eventosService: EventosService,
+    private tareasService: TareasService,
     private instalacionesService: InstalacionesService,
     private datePipe: DatePipe
   ) {}
+  instalaciones: any[] = [];
+  tareas: any[] = [];
+  editando = false;
 
-  evento = {
-    titulo: '',
-    fecha: '',
-    hora: '',
-    descripcion: '',
-    categoria: '',
+  tarea = {
+    idTarea: '',
     instalacion: {
       idInstalacion: '',
     },
-    participantes: '',
-    aforo: '',
-    /*organizador: {
-      idUsuario: '',
-    },*/
+    nombre: '',
+    descripcion: '',
+    fecha: '',
+    duracion: '',
+    usuarioAsignado: null,
+    tareaAcabada: false,
   };
 
   ngOnInit(): void {
-    //Al iniciar el componente
-    //get de instalaciones para que nos muestre en el formulario
     this.getInstalaciones();
-    //Si se ha seleccionado una fecha en el calendario añadimos tal fecha al formulario
+    this.getTareas();
     if (this.selectedDate) {
-      this.evento.fecha =
+      this.tarea.fecha =
         this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
     }
   }
-
-  instalaciones: any[] = [];
 
   getInstalaciones(): void {
     this.instalacionesService.getAllInstalaciones().subscribe(
@@ -67,27 +64,35 @@ export class CreateEventModalComponent {
       }
     );
   }
+  getTareas(): void {
+    this.tareasService.getTareas().subscribe(
+      (data) => {
+        this.tareas = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error al obtener las fincas', error);
+      }
+    );
+  }
 
-  createEventos(eventoForm: NgForm): void {
-    if (eventoForm.invalid) {
+  createTarea(tareaForm: NgForm): void {
+    if (tareaForm.invalid) {
       alert('Por favor, rellena todos los campos.');
       return;
     }
-    // Asigna el ID del organizador al objeto evento, tendremos que hacer un get del usuario
-    //this.evento.organizadorId = userId;
-
-    this.eventosService.createEventos(this.evento).subscribe({
+    this.tareasService.createTarea(this.tarea).subscribe({
       next: (data: any) => {
-        console.log('Evento created successfully', data);
+        console.log('Tarea created successfully', data);
         alert(
-          `El evento es:  ${this.evento.titulo}, fecha: ${this.evento.fecha}, hora: ${this.evento.hora},
-          descripcion: ${this.evento.descripcion}, categoria: ${this.evento.categoria},
-          participantes: ${this.evento.participantes}, aforo: ${this.evento.aforo} ha sido creado exitosamente.`
+          `La tarea con nombre:  ${this.tarea.nombre}, fecha: ${this.tarea.fecha}, duración: ${this.tarea.duracion},
+          descripcion: ${this.tarea.descripcion}, instalacion: ${this.tarea.instalacion},
+          con usuario asignado: ${this.tarea.usuarioAsignado} ha sido creada exitosamente.`
         );
-        eventoForm.resetForm();
+        tareaForm.resetForm();
       },
       error: (error: any) => {
-        console.error('Error al crear el evento', error);
+        console.error(alert(), tareaForm.resetForm(), error);
       },
     });
   }
