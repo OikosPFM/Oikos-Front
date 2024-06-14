@@ -1,7 +1,7 @@
 body {
     background-color: #a5c2be;
-
 }
+
 .home-div-container {
     display: flex;
     flex-direction: column;
@@ -29,7 +29,11 @@ body {
     padding-right: 5px;
     margin-bottom: 20px;
     text-align: left;
-    /* max-width: 440px; */
+    max-width: 1086px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .entry-form label {
@@ -53,22 +57,13 @@ body {
     padding: 10px 10px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .entry-form .btn:hover {
     background-color: #a5c2be;
     color: #45718c;
-}
-
-.footer {
-    background-color: red;
-    width: 100%;
-}
-
-.footer-bottom {
-    text-align: center;
-    color: #666;
-    padding: 20px 0;
+    text-decoration: none;
 }
 
 /* ver */
@@ -92,7 +87,7 @@ body {
     margin-bottom: 20px;
 }
 
-.contact-details {
+.entry-details {
     background-color: lightblue;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -101,13 +96,13 @@ body {
     text-align: left;
 }
 
-.contact-details h2 {
+.entry-details h2 {
     font-size: 24px;
     color: #45718c;
     margin-bottom: 10px;
 }
 
-.contact-details p {
+.entry-details p {
     font-size: 16px;
     color: #45718c;
     margin-bottom: 10px;
@@ -120,33 +115,39 @@ body {
     padding: 10px 10px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .btn:hover {
     background-color: #a5c2be;
     color: #45718c;
+    text-decoration: none;
 }
 
 .entry-container {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 20px;
     justify-content: center;
     width: 90%;
     max-width: 1200px;
     margin: auto;
+    text-decoration: none !important;
+
 }
 
 .entry-card {
-    background-color: rgb(112, 206, 201);
+    color: #45718c;
+    background-color: #e9f2f1;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 20px;
-    flex: 2 2 calc(30% - 40px);
     margin-bottom: 20px;
     text-align: left;
     transition: transform 0.3s ease;
     box-sizing: border-box;
+    text-decoration: none !important;
+    width: 100%;
 }
 
 .entry-card:hover {
@@ -157,18 +158,21 @@ body {
     font-size: 20px;
     color: #45718c;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 
 .entry-card h4 {
     font-size: 16px;
     color: #45718c;
     margin-bottom: 10px;
+    text-decoration: none;
 }
 
 .entry-info p {
     font-size: 14px;
     color: #45718c;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 
 .entry-footer small {
@@ -178,6 +182,6 @@ body {
 
 hr {
     border: none;
-    border-top: 1px solid #eee;
+    border-top: 1px solid #45718c;
     margin: 20px 0;
 }
