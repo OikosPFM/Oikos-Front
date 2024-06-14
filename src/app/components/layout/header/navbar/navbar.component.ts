@@ -1,15 +1,25 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
+interface NavigationOption {
+  link: string;
+  title: string;
+}
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   standalone: true,
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
+  options: NavigationOption[] = [
+    { link: '/contacta', title: 'Contáctanos' },
+    { link: '/about', title: 'Acerca de nosotros' },
+  ];
   constructor(private router: Router) {}
 
   isLoggedIn(): boolean {

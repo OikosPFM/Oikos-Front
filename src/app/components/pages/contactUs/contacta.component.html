@@ -1,0 +1,22 @@
+<!--<div>
+  <form>
+    <input
+      type="text"
+      id="userEmail"
+      [(ngModel)]="userEmail"
+      placeholder="Correo electrónico"
+    />
+    <button type="submit" (click)="onSubmit()">Enviar</button>
+  </form> </div>-->
+<!-- <form [formGroup]="emailFormComponent">
+  <div>
+    <label for="message">Mensaje:</label>
+    <textarea id="message" formControlName="message" rows="4"></textarea>
+  </div>
+  <button type="submit">Enviar correo</button>
+</form>
+</div>
+-->
+<h1>Escríbenos y te responderemos en breve!</h1>
+<form (ngSubmit)="sendEmail(emailForm)" #contactForm="ngForm" novalidate></form>
+<div><app-backFooter /></div>

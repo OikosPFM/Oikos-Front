@@ -1,0 +1,11 @@
+footer {
+  width: 100vw;
+  border-top: 1px solid #bfc8d2;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  color: bisque;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
