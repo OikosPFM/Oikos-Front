@@ -98,18 +98,22 @@ export class EntradaForoComponent implements OnInit {
   }
 
   deleteEntrada(id: number): void {
-    // console.log('Deleting entry with id:', id); // Debugging line
-    // this.entradasService.deleteEntradaForo(id).subscribe({
-    //   next: (data: any) => {
-    //     console.log('Evento eliminado con éxito', data);
-    //     this.loadEntradas();
-    //   },
-    //   error: (error: any) => {
-    //     console.error('Error al eliminar el evento', error);
-    //   },
-    // });
-    this.entradasService.deleteEntradaForo(id).subscribe(() => {
-      this.entradaForo = this.entradaForo.filter(this.entradaForo , this.entradaForo.id !== id);
-  });
+    this.entradasService.deleteEntradaForo(id).subscribe(
+      () => {
+          console.log(`Entrada con ID ${id} eliminada correctamente.`);
+          this.loadEntradas();
+      },
+      error => {
+          console.error('Error al eliminar la entrada:', error);
+      }
+  );
+    //  this.entradasService.deleteEntradaForo(id).subscribe(() => {
+    //      this.entradaForo = this.entradaForo.filter(this.entradaForo , this.entradaForo.id !== id);
+    //  });
+  }
+
+  // Ir a mensajes respuestas
+  mensajesRespuestas() {
+    this.router.navigate(['/mensajes']);
   }
 }
