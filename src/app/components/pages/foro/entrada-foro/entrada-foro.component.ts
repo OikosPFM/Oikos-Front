@@ -111,44 +111,21 @@ export class EntradaForoComponent implements OnInit {
       },
     });
   }
-  //   if (!this.entradaForo.ID_entrada) {
-  //     alert('Por favor, selecciona un entrada');
-  //     return;
-  //   }
-  //   if (
-  //     !this.entradaForo.nombre &&
-  //     !this.entradaForo.titulo &&
-  //     !this.entradaForo.texto_comentario
-  //   ) {
-  //     alert('Por favor, selecciona al menos un campo para editar');
-  //     return;
-  //   }
-  //   const updatedEntradaForo: any = {...this.entradaForo };
-  //   for (const key in this.entradasForo) {
-  //     if (this.entradasForo[key]) {
-  //       console.log('key', key);
-  //       console.log('this.entradaForo[key]', this.entradasForo[key]);
-  //       updatedEntradaForo[key] = this.entradasForo[key];
-  //     } else {
-  //       console.log('key', key);
-  //       console.log('this.entradaForo[key]', this.entradasForo[key]);
-  //     }
-  //   }
-  //   console.log('updatedEntradaForo', updatedEntradaForo);
-  //   this.entradasService.updateEntradaForo(updatedEntradaForo).subscribe ({
-  //     next: (data) => {
-  //       console.log('Entry succesfully updated', data);
-  //       alert(`La entrada con id: ${this.entradaForo.ID_entrada} ha sido actualizada.`);
-  //       this.loadEntradas();
-  //     },
-  //     error: (error) => {
-  //       console.error('Error updating entry', error);
-  //     },
-  //   })
-
-    // this.router.navigate(['updateEntradaForo', entradaForo.ID_entrada]);
-
-  }
 
   // Eliminar Entrada
+  deleteEntrada(id: number): void {
+    this.entradasService.deleteEntradaForo(id).subscribe({
+      next: (data: any) => {
+        console.log('Entrada eliminada con éxito', data);
+        this.loadEntradas();
+      },
+      error: (error: any) => {
+        console.error('Error al eliminar el evento', error);
+      },
+    });
+
+    console.log(this.entradaForo);
+  }
+
+}
 
