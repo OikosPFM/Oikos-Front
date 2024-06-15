@@ -36,7 +36,7 @@ export class TareaModalComponent {
     descripcion: '',
     fecha: '',
     duracion: '',
-    usuarioAsignado: null,
+    usuarioAsignado: { idUsuario: '' },
     tareaAcabada: false,
   };
   isEditing: boolean = false;
