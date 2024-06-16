@@ -70,6 +70,7 @@ export class CreateEventModalComponent {
   }
 
   createEventos(eventoForm: NgForm): void {
+    console.log(this.evento);
     if (eventoForm.invalid) {
       alert('Por favor, rellena todos los campos.');
       return;
@@ -80,10 +81,11 @@ export class CreateEventModalComponent {
     this.eventosService.createEventos(this.evento).subscribe({
       next: (data: any) => {
         console.log('Evento created successfully', data);
+        console.log(data);
         alert(
           `El evento es:  ${this.evento.titulo}, fecha: ${this.evento.fecha}, hora: ${this.evento.hora},
           descripcion: ${this.evento.descripcion}, categoria: ${this.evento.categoria},
-          participantes: ${this.evento.participantes}, aforo: ${this.evento.aforo} ha sido creado exitosamente.`
+          participantes: ${this.evento.participantes}, aforo: ${this.evento.aforo} ha sido creado exitosamente. ${this.evento.instalacion.idInstalacion}`
         );
         this.onClose(); // Cerrar el modal después de eliminar el evento
         this.eventoCreado.emit(); // Emitir el evento después de que la eliminación sea exitosa

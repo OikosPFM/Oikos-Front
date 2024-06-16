@@ -59,13 +59,11 @@
           <label for="instalacion">Instalación:</label>
           <select
             id="instalacion"
-            [(ngModel)]="evento.instalacion.idInstalacion"
             name="instalacion"
+            [(ngModel)]="evento.instalacion.idInstalacion"
             required
           >
-            <option value="" disabled selected>
-              Selecciona una instalación
-            </option>
+            <option value="" disabled>Selecciona una instalación</option>
             <option
               *ngFor="let instalacion of instalaciones"
               [value]="instalacion.idInstalacion"

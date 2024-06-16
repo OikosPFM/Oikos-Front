@@ -86,7 +86,13 @@ export class EventModalComponent {
   getEvento(idEvento: any): void {
     this.eventosService.getEventoById(idEvento).subscribe(
       (data) => {
-        this.evento = data;
+        const instalacion = (this.evento.instalacion.idInstalacion =
+          this.obtenerIdInstalacionPorIdEvento(
+            this.instalaciones,
+            this.event._def.publicId
+          ));
+        this.evento = { ...data, instalacion: { instalacionId: instalacion } };
+        console.log('Evento:', this.evento);
         console.log('Evento:', this.evento);
       },
       (error) => {
@@ -101,7 +107,6 @@ export class EventModalComponent {
     this.isEditing = true;
     this.instalacionEditando = { ...event };
     this.getEvento(this.instalacionEditando._def.publicId);
-    this.evento.idEvento = this.instalacionEditando._def.publicId;
 
     console.log(this.instalacionEditando);
     console.log(this.evento);
@@ -109,5 +114,20 @@ export class EventModalComponent {
 
   updateInstalacion(): void {
     console.log('hey');
+  }
+
+  obtenerIdInstalacionPorIdEvento(
+    instalaciones: any[],
+    idEventoBuscado: string
+  ): string {
+    for (const instalacion of instalaciones) {
+      for (const evento of instalacion.eventos) {
+        if (evento.idEvento == idEventoBuscado) {
+          return instalacion.idInstalacion;
+        }
+      }
+    }
+    // Si el evento no se encuentra en ninguna instalación
+    return '';
   }
 }
