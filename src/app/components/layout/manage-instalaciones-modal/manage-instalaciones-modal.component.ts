@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InstalacionesService } from '../../../services/instalaciones/instalaciones.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-manage-instalaciones',
@@ -24,13 +25,23 @@ export class ManageInstalacionesComponent {
     'DOMINGO',
   ];
 
-  constructor(private instalacionesService: InstalacionesService) {}
+  constructor(private instalacionesService: InstalacionesService) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.decoded = jwtDecode(token);
+      // Ahora puedes usar this.decoded de manera segura
+      this.instalacion.finca.idFinca = this.decoded.idFinca;
+    } else {
+      console.error('Token not found in localStorage');
+    }
+  }
 
+  decoded: any | null;
   instalaciones: any[] = [];
   instalacion = {
     //Más adelante habrá que conectar con la finca que se este gestionando
     finca: {
-      idFinca: 1,
+      idFinca: '',
     },
     nombre: '',
     diasAbierto: [] as string[],
@@ -107,18 +118,21 @@ Invitaciones mensuales máximas: ${
     console.log(this.instalaciones);
   }
 
-  deleteInstalacion(id: string): void {
-    this.instalacionesService.deleteEventos(id).subscribe({
-      next: (data: any) => {
-        console.log('Evento eliminado con éxito', data);
-        this.getInstalaciones();
-      },
-      error: (error: any) => {
-        console.error('Error al eliminar el evento', error);
-      },
-    });
+  deleteInstalacion(idInstalacion: string): void {
+    this.instalacionesService
+      .deleteInstalacion(idInstalacion, this.decoded)
+      .subscribe(
+        (data) => {
+          console.log('Instalación eliminada correctamente:', data);
+          this.getInstalaciones();
 
-    console.log(this.instalaciones);
+          // Actualiza la lista de instalaciones o realiza otra acción necesaria
+        },
+        (error) => {
+          console.error('Error al eliminar instalación:', error);
+          // Maneja el error de acuerdo a tus necesidades (mostrar mensaje al usuario, etc.)
+        }
+      );
   }
 
   instalacionEditando: any = null;

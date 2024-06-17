@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private http = inject(HttpClient);
   constructor() {}
+  private isAuthenticated: boolean = false;
 
   registerUsuario(usuarioData: any): Observable<any> {
     return this.http.post<any>('http://localhost:8081/register', usuarioData);
@@ -15,5 +16,17 @@ export class AuthService {
 
   loginUsuario(usuarioData: any): Observable<any> {
     return this.http.post<any>('http://localhost:8081/login', usuarioData);
+    this.isAuthenticated = true;
+  }
+
+  isLoggedIn(): boolean {
+    // Verifica si el token está presente en localStorage
+    return localStorage.getItem('token') !== null;
+  }
+
+  logout(): void {
+    // Remueve el token del localStorage
+    localStorage.removeItem('token');
+    this.isAuthenticated = false;
   }
 }
