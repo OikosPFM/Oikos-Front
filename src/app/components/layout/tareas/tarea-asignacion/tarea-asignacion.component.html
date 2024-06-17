@@ -4,7 +4,11 @@
   <p>Instalación: {{ tarea.instalacion.nombre }}</p>
   <p>Fecha: {{ tarea.fecha }}</p>
   <p>Duración: {{ tarea.duracion }}</p>
-  <p>Usuario: {{ tarea.usuarioAsignado.nombre }}</p>
+  <p>
+    Usuario:
+    {{ tarea.usuarioAsignado ? tarea.usuarioAsignado.nombre : "No asignado" }}
+  </p>
   <p>Acabada: {{ tarea.tareaAcabada }}</p>
-  <button (click)="autoAsignacion(tarea)">Autoasignarse tarea</button>
+  <button (click)="autoAsignacion(usuario, tarea)">Autoasignarse tarea</button>
+  <button>Desasignar tarea</button>
 </div>
