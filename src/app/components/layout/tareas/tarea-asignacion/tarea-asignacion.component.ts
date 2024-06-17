@@ -24,7 +24,20 @@ export class TareaAsignacionComponent {
 
   instalaciones: any[] = [];
   tareas: any[] = [];
-  usuarios: any[] = [];
+  usuario: any;
+
+  // Call the service method and handle the response
+  getUsuarioById(id: number): void {
+    this.usuariosService.getUsuarioById(id).subscribe({
+      next: (usuario) => {
+        this.usuario = usuario; // Assign the fetched data to the usuario variable
+        console.log('Usuario fetched successfully', this.usuario);
+      },
+      error: (error) => {
+        console.error('Error fetching usuario', error);
+      },
+    });
+  }
 
   tarea = {
     idTarea: '',
@@ -40,6 +53,7 @@ export class TareaAsignacionComponent {
   };
   ngOnInit(): void {
     this.getInstalaciones();
+    this.getUsuarioById(2);
     this.getTareas();
     if (this.selectedDate) {
       this.tarea.fecha =
@@ -67,5 +81,22 @@ export class TareaAsignacionComponent {
         console.error('Error al obtener las tareas', error);
       }
     );
+  }
+
+  autoAsignacion(usuario: any, tarea: any): void {
+    const updatedTarea = { ...this.tarea, usuarioAsignado: usuario };
+    this.tareasService.updateTarea(updatedTarea).subscribe({
+      next: (data) => {
+        console.log('Usuario asignado actualizado con éxito', data);
+        this.getTareas();
+
+        alert(
+          `El usuario con ID: ${usuario.IDusuario} ha sido asignado a la tarea con ID: ${tarea.idTarea}`
+        );
+      },
+      error: (error) => {
+        console.error('Error al actualizar el usuario asignado', error);
+      },
+    });
   }
 }
