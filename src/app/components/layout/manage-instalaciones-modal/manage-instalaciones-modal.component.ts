@@ -58,13 +58,25 @@ export class ManageInstalacionesComponent {
   @Output() close = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.getInstalaciones();
+    this.obtenerInstalacionesPorFincaID(this.decoded.idFinca);
   }
   getInstalaciones(): void {
     this.instalacionesService.getAllInstalaciones().subscribe((data) => {
       this.instalaciones = data;
       console.log(this.instalaciones);
     });
+  }
+
+  obtenerInstalacionesPorFincaID(fincaID: number): void {
+    this.instalacionesService.getInstalacionesByFincaID(fincaID).subscribe(
+      (data) => {
+        this.instalaciones = data;
+        console.log('Instalaciones:', this.instalaciones);
+      },
+      (error) => {
+        console.error('Error al obtener instalaciones:', error);
+      }
+    );
   }
 
   onClose() {
@@ -91,11 +103,13 @@ export class ManageInstalacionesComponent {
     // Asigna el ID del organizador al objeto evento, tendremos que hacer un get del usuario
     //this.evento.organizadorId = userId;
 
-    this.instalacionesService.createInstalaciones(this.instalacion).subscribe({
-      next: (data: any) => {
-        console.log('Evento created successfully', data);
-        alert(
-          `La instalación ha sido creada exitosamente. 
+    this.instalacionesService
+      .createInstalaciones(this.instalacion, this.decoded)
+      .subscribe({
+        next: (data: any) => {
+          console.log('Evento created successfully', data);
+          alert(
+            `La instalación ha sido creada exitosamente. 
 Finca: ${this.instalacion.finca.idFinca}, 
 Nombre: ${this.instalacion.nombre}, 
 Días abierto: ${this.instalacion.diasAbierto.join(', ')}, 
@@ -104,16 +118,16 @@ Horario de cierre: ${this.instalacion.horarioCierre},
 Intervalo: ${this.instalacion.intervalo}, 
 Plazas por intervalo: ${this.instalacion.plazasIntervalo}, 
 Invitaciones mensuales máximas: ${
-            this.instalacion.invitacionesMensualesMaximas
-          }.`
-        );
-        instalacionForm.resetForm();
-        this.getInstalaciones();
-      },
-      error: (error: any) => {
-        console.error('Error al crear el evento', error);
-      },
-    });
+              this.instalacion.invitacionesMensualesMaximas
+            }.`
+          );
+          instalacionForm.resetForm();
+          this.getInstalaciones();
+        },
+        error: (error: any) => {
+          console.error('Error al crear el evento', error);
+        },
+      });
 
     console.log(this.instalaciones);
   }
@@ -138,9 +152,24 @@ Invitaciones mensuales máximas: ${
   instalacionEditando: any = null;
 
   startEditing(instalacion: any): void {
-    this.instalacionEditando = { ...instalacion };
-    console.log(this.instalacionEditando);
-    this.isEditing = true;
+    if (instalacion) {
+      // Copiar cada campo uno por uno según sea necesario
+      this.instalacionEditando = {
+        nombre: instalacion.nombre,
+        diasAbierto: [...instalacion.diasAbierto],
+        horarioApertura: instalacion.horarioApertura,
+        horarioCierre: instalacion.horarioCierre,
+        intervalo: instalacion.intervalo,
+        plazasIntervalo: instalacion.plazasIntervalo,
+        invitacionesMensualesMaximas: instalacion.invitacionesMensualesMaximas,
+        idInstalacion: instalacion.idInstalacion,
+      };
+
+      console.log(this.instalacionEditando);
+      this.isEditing = true;
+    } else {
+      console.error('Instalación no válida para editar.');
+    }
   }
 
   updateInstalacion(instalacionForm: NgForm): void {
@@ -150,7 +179,7 @@ Invitaciones mensuales máximas: ${
     }
     // Lógica para actualizar la instalación...
     this.instalacionesService
-      .updateInstalacion(this.instalacionEditando)
+      .updateInstalacion(this.instalacionEditando, this.decoded)
       .subscribe({
         next: (data) => {
           console.log('Instalación actualizada con éxito', data);
