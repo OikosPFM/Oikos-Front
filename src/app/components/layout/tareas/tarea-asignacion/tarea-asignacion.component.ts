@@ -95,7 +95,11 @@ export class TareaAsignacionComponent {
         );
       },
       error: (error) => {
-        console.error('Error al actualizar el usuario asignado', error);
+        console.error(
+          'Error al actualizar el usuario asignado' +
+            `${JSON.stringify(this.tarea)}`,
+          error
+        );
       },
     });
   }
