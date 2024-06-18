@@ -1,40 +1,63 @@
 import { Component, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
 import { NavbarComponent } from '../../layout/header/navbar/navbar.component';
-import { FormsModule } from '@angular/forms';
 import { BackFooterComponent } from '../../layout/footer/generalFooter/backFooter.component';
-import { HeaderLayoutComponent } from '../../layout/header/header.component'; // Import FormsModule
-import { EmailFormComponent } from './email-form/email-form.component';
+import { CommonModule } from '@angular/common';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @Component({
-  selector: 'app-contact',
+  selector: 'app-contacto',
   standalone: true,
+  imports: [FormsModule, BackFooterComponent, NavbarComponent, CommonModule],
   templateUrl: './contacta.component.html',
-  styleUrl: './contacta.component.css',
-  imports: [
-    NavbarComponent,
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    BackFooterComponent,
-    HeaderLayoutComponent,
-    EmailFormComponent,
-  ],
+  styleUrls: ['./contacta.component.css'],
 })
 export class ContactComponent {
-  userEmail: string = ''; // Initialize with empty string;
-  emailFormComponent: any;
+  contact = {
+    email: '',
+    subject: '',
+    message: '',
+  };
 
-  onSubmit() {
-    // Implementa la lógica para enviar el correo electrónico
-    // usando un servicio de correo electrónico
-    console.log('Enviar correo electrónico a:', this.userEmail);
+  statusMessage: string = '';
+  statusClass: string = '';
+
+  constructor() {}
+
+  sendEmail(contactForm: NgForm) {
+    if (!this.contact.email || !this.contact.subject || !this.contact.message) {
+      this.statusMessage = 'Por favor, complete todos los campos';
+      this.statusClass = 'error';
+      return;
+    }
+
+    const emailParams = {
+      from_email: this.contact.email,
+      subject: this.contact.subject,
+      message: this.contact.message,
+    };
+
+    emailjs
+      .send(
+        'service_2panvmv',
+        'template_ksj2jdn',
+        emailParams,
+        'UhyukkugcUewQ8rQv'
+      )
+      .then(
+        (result: EmailJSResponseStatus) => {
+          this.statusMessage = 'Su email ha sido enviado correctamente.';
+          this.statusClass = 'success';
+          console.log(result.text);
+          contactForm.reset();
+        },
+
+        (error) => {
+          this.statusMessage =
+            'Ha habido un error al enviar el email, inténtelo de nuevo.';
+          this.statusClass = 'error';
+          console.error(error.text);
+        }
+      );
   }
 }
-/*@NgModule({
-  declarations: [ContactComponent],
-  imports: [FormsModule], // Add FormsModule to imports array
-  exports: [ContactComponent],
-})
-export class ContactModule {}*/

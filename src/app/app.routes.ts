@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
 import { ContactComponent } from './components/pages/contactUs/contacta.component';
 import { AboutComponent } from './components/pages/aboutUs/about.component';
-import { EmailFormComponent } from './components/pages/contactUs/email-form/email-form.component';
+//import { EmailFormComponent } from './components/pages/contactUs/email-form/email-form.component';
 
 export const routes: Routes = [
   {
@@ -19,14 +19,10 @@ export const routes: Routes = [
     path: 'about',
     component: AboutComponent,
   },
-  {
-    path: 'email',
-    component: EmailFormComponent,
-  },
 ];
 
-@NgModule({
+/*@NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {}*/
