@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { EntradasService } from '../../../../services/entradas/entradas.service';
 
 @Component({
   selector: 'app-entrada-foro',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule,],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterModule],
   templateUrl: './entrada-foro.component.html',
   styleUrl: './entrada-foro.component.css',
   providers: [EntradasService]
@@ -15,7 +16,8 @@ import { EntradasService } from '../../../../services/entradas/entradas.service'
 export class EntradaForoComponent {
 
   constructor(
-    private entradasService: EntradasService
+    private entradasService: EntradasService,
+    private route: ActivatedRoute,
   ) {}
 
   entradaForo = { titulo: '', textoComentario: '', fecha: '', hora: '', idEntradaForo: { idEntradaForo: ''}};
@@ -42,16 +44,4 @@ export class EntradaForoComponent {
     });
   }
 
-  // Get (VER) Entradas
-  getEntradas(): void {
-    this.entradasService.getEntradas().subscribe(
-      (data) => {
-        this.entradaForo = data;
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error al obtener las fincas', error);
-      }
-    );
-  }
 }
