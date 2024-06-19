@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { FincasService } from '../../../../services/fincas/fincas.service';
 import { PropiedadesService } from '../../../../services/propiedades/propiedades.service';
 import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-form',
@@ -31,14 +32,15 @@ import { UsuariosService } from '../../../../services/usuarios/usuarios.service'
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
-  providers: [FincasService, PropiedadesService, UsuariosService],
+  providers: [FincasService, PropiedadesService, UsuariosService, AuthService],
 })
 export class FormComponent {
   constructor(
     private _formBuilder: FormBuilder,
     private fincasService: FincasService,
     private propiedadesService: PropiedadesService,
-    private UsuariosService: UsuariosService
+    private UsuariosService: UsuariosService,
+    private authService: AuthService
   ) {}
   fincaFormGroup = this._formBuilder.group({
     selectedFinca: ['', Validators.required],
@@ -88,39 +90,42 @@ export class FormComponent {
         numeroPiso: this.domicilioFormGroup.value.numeroPiso,
         letra: this.domicilioFormGroup.value.letra,
       };
+      console.log(propiedadData);
+      // Llamar al servicio de propiedades para crear o recuperar la propiedad
+      this.propiedadesService.buscarOCrearPropiedad(propiedadData).subscribe(
+        (propiedad) => {
+          console.log('Propiedad creada/recuperada:', propiedad);
 
-      const usuarioData = {
-        nombre: this.usuarioFormGroup.value.nombre,
-        propiedad: {
-          idPropiedad: '',
-        },
-        primerApellido: this.usuarioFormGroup.value.primerApellido,
-        segundoApellido: this.usuarioFormGroup.value.segundoApellido,
-        dni: this.usuarioFormGroup.value.dni,
-        telefono: this.usuarioFormGroup.value.telefono,
-        email: this.usuarioFormGroup.value.email,
-        contraseña: this.usuarioFormGroup.value.contraseña,
-      };
-      console.log('Propiedad Data:', propiedadData);
-      console.log('Usuario Data:', usuarioData);
-      this.propiedadesService.createPropiedad(propiedadData).subscribe(
-        (response) => {
-          // Manejar la respuesta exitosa del servidor
-          console.log('Propiedad creada exitosamente:', response);
-          usuarioData.propiedad.idPropiedad = response.idPropiedad;
-          this.UsuariosService.createUsuario(usuarioData).subscribe(
+          const usuarioData = {
+            nombre: this.usuarioFormGroup.value.nombre,
+            primerApellido: this.usuarioFormGroup.value.primerApellido,
+            segundoApellido: this.usuarioFormGroup.value.segundoApellido,
+            dni: this.usuarioFormGroup.value.dni,
+            telefono: this.usuarioFormGroup.value.telefono,
+            email: this.usuarioFormGroup.value.email,
+            contraseña: this.usuarioFormGroup.value.contraseña,
+            rol: 'USER',
+            propiedad: {
+              idPropiedad: propiedad.idPropiedad, // Aquí se usa el ID de la propiedad creada/recuperada
+            },
+          };
+          console.log(usuarioData);
+
+          // Llamar al servicio de autenticación para registrar el usuario
+          this.authService.registerUsuario(usuarioData).subscribe(
             (response) => {
-              // Manejar la respuesta exitosa del servidor
-              console.log('Usuario creado exitosamente:', response);
+              console.log('Usuario registrado exitosamente:', response);
+              // Manejar la respuesta del servidor si es necesario
             },
             (error) => {
-              console.error('Error al crear el usuario', error);
+              console.error('Error al registrar el usuario:', error);
+              // Manejar el error si es necesario
             }
           );
-          // Aquí puedes realizar acciones adicionales si es necesario
         },
         (error) => {
-          console.error('Error al obtener las fincas', error);
+          console.error('Error al crear/recuperar la propiedad:', error);
+          // Manejar el error si es necesario
         }
       );
     }

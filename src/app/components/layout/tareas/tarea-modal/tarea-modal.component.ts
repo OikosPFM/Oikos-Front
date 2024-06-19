@@ -25,7 +25,7 @@ export class TareaModalComponent {
 
   instalaciones: any[] = [];
   tareas: any[] = [];
-  editando = false;
+  editando: boolean = false;
 
   tarea = {
     idTarea: '',
@@ -70,27 +70,6 @@ export class TareaModalComponent {
         console.error('Error al obtener las fincas', error);
       }
     );
-  }
-
-  createTarea(tareaForm: NgForm): void {
-    if (tareaForm.invalid) {
-      alert('Por favor, rellena todos los campos.');
-      return;
-    }
-    this.tareasService.createTarea(this.tarea).subscribe({
-      next: (data: any) => {
-        console.log('Tarea created successfully', data);
-        alert(
-          `La tarea con nombre:  ${this.tarea.nombre}, fecha: ${this.tarea.fecha}, duración: ${this.tarea.duracion},
-          descripcion: ${this.tarea.descripcion}, instalacion: ${this.tarea.instalacion},
-          con usuario asignado: ${this.tarea.usuarioAsignado} ha sido creada exitosamente.`
-        );
-        tareaForm.resetForm();
-      },
-      error: (error: any) => {
-        console.error(alert(), tareaForm.resetForm(), error);
-      },
-    });
   }
 
   onClose() {
@@ -139,7 +118,10 @@ export class TareaModalComponent {
         );
       },
       error: (error) => {
-        console.error('Error al actualizar la instalación', error);
+        console.error(
+          `Error al actualizar la tarea ${JSON.stringify(this.tareaEditando)}`,
+          error
+        );
       },
     });
   }

@@ -33,6 +33,7 @@
 
 .navbar li:hover {
   color: black;
+  cursor: pointer;
 }
 
 .btn-nav {

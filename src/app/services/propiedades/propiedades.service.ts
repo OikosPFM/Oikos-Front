@@ -22,4 +22,8 @@ export class PropiedadesService {
     console.log('Eliminando tarea', propiedad);
     return this.http.delete(`${this.apiUrl}`, { body: propiedad });
   }
+
+  buscarOCrearPropiedad(propiedadData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}`, propiedadData);
+  }
 }

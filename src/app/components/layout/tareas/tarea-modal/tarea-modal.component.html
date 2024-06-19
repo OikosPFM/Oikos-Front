@@ -35,13 +35,17 @@
         <select
           id="instalacion"
           name="instalacion"
-          [(ngModel)]="tarea.instalacion.idInstalacion"
+
+          [(ngModel)]="tareaEditando.instalacion.idInstalacion"
+
           required
         >
           <option value="" disabled>Selecciona una instalación</option>
           <option
             *ngFor="let instalacion of instalaciones"
-            [value]="instalacion.idInstalacion"
+
+            [value]="tareaEditando.instalacion.idInstalacion"
+
           >
             {{ instalacion.nombre }}
           </option>
@@ -73,7 +77,7 @@
           type="text"
           id="duracion"
           name="duracion"
-          [(ngModel)]="tareaEditando.intervalo"
+          [(ngModel)]="tareaEditando.duracion"
           required
         />
       </div>
@@ -83,8 +87,7 @@
           type="number"
           id="plazasIntervalo"
           name="plazasIntervalo"
-          [(ngModel)]="tarea.usuarioAsignado"
-          required
+          [(ngModel)]="tareaEditando.usuarioAsignado"
         />
       </div>
       <div>
