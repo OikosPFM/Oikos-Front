@@ -179,14 +179,14 @@ export class FullcalendarComponent {
   }
 
   onEventoEliminado(): void {
-    this.getEventos();
+    this.getEventosByFincaId(this.decoded.idFinca);
   }
 
   onEventoCreado(): void {
-    this.getEventos();
+    this.getEventosByFincaId(this.decoded.idFinca);
   }
 
   onEventoEditado(): void {
-    this.getEventos();
+    this.getEventosByFincaId(this.decoded.idFinca);
   }
 }
