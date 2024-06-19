@@ -1,31 +1,64 @@
-<div class="iniciar">
-    <form>
-        <h1>Iniciar Sesión</h1>
-        <p class="text-danger">{{loginError}}</p>
-        <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-            <div *ngIf="email.invalid"
-                class="text-danger">
-                <div *ngIf="email.errors?.['required']">
-                    El Email es requerido.
-                </div>
-                <div *ngIf="email.errors?.['email']">
-                    El Email debe tener un formato válido.
+<div class="container">
+<img
+class="hero_img fade-in"
+src="../../../../assets/Comunidad.jpg"
+alt="Vecinos en una Comunidad" width="400" height="300"
+/>
+<p class="mt-5 mb-3 text-muted">© 2023–2024</p>
+<form>
+    <p class="text-danger">{{loginError}}</p>
+</form>
+    <div class="iniciar">
+        <form>
+            <!--<section class="vh-100" style="background-color: rgb(222, 235, 233) ;">
+            </section>!-->
+            <div class="">
+            <h1><strong>Iniciar Sesión</strong></h1>
+            <p class="text-danger">{{loginError}}</p>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+            <label class="form-label" for="form3Example3">Email</label>
+            <input type="email" id="form3Example3" class="form-control form-control-lg">
+                <div *ngIf="email.invalid"
+                    class="text-danger">
+                    <div *ngIf="email.errors?.['required']">
+                        El Email es requerido.
+                    </div>
+                    <div *ngIf="email.errors?.['email']">
+                        El Email debe tener un formato válido.
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
-            <div *ngIf="password.invalid"
-                class="text-danger">
-                <div *ngIf="password.errors?.['required']">
-                    El Password es requerido.
+            <div data-mdb-input-init class="form-outline mb-3">
+            <label class="form-label" for="form3Example4">Password</label>
+            <input type="password" id="form3Example4" class="form-control form-control-lg" />
+                <div *ngIf="password.invalid"
+                    class="text-danger">
+                    <div *ngIf="password.errors?.['required']">
+                        El Password es requerido.
+                    </div>
                 </div>
             </div>
-        </div>
-        <button type="submit" (click)="login()" class="btn btn-primary">Continuar</button>
-    </form>
+            <div class="row mb-4">
+                <div class="col-md-6 d-flex justify-content-center">
+                  <!-- Checkbox -->
+                  <div class="form-check mb-0">
+                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" checked />
+                    <label class="form-check-label" for="form2Example3"> Recuérdame </label>
+                  </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                  <!-- Simple link -->
+                  <a href="#!" class="form-floating">Olvidaste la contraseña?</a>
+                </div>
+              </div>
+            <button type="button" (click)="login()" class="btn btn-primary btn-lg btn-block"
+            style="padding-left: 2.5rem; padding-right: 2.5rem;">Continuar</button>
+              <!-- Register buttons -->
+              <div class="text-muted">
+                <p class="small fw-bold mt-2 pt-1 mb-0" for="loginCheck">No eres miembro? <a href="#!"class="link-danger "
+                    >Regístrate</a></p>
+              </div>
+        </form>
 </div>
 
