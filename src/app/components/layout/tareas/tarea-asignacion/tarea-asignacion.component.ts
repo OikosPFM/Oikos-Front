@@ -116,4 +116,28 @@ export class TareaAsignacionComponent {
       },
     });
   }
+
+  desasignarTarea(tarea: any): void {
+    const updatedTarea = {
+      ...tarea,
+      usuarioAsignado: null,
+    };
+    this.tareasService.patchTarea(tarea.idTarea, updatedTarea).subscribe({
+      next: (data) => {
+        console.log('Usuario desasignado con éxito', data);
+        this.getTareas();
+
+        alert(
+          `La tarea con ID: ${tarea.idTarea} ya no está asignada a ningún usuario`
+        );
+      },
+      error: (error) => {
+        console.error(
+          'Error al actualizar el usuario asignado: ' +
+            JSON.stringify(updatedTarea),
+          error
+        );
+      },
+    });
+  }
 }
