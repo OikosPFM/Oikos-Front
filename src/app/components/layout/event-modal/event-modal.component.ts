@@ -4,6 +4,7 @@ import { EventosService } from '../../../services/eventos/eventos.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-event-modal',
@@ -17,13 +18,22 @@ export class EventModalComponent {
   @Input() event: any;
   @Output() close = new EventEmitter<void>();
   @Output() eventoEliminado: EventEmitter<void> = new EventEmitter<void>();
+  @Output() eventoEditado: EventEmitter<any> = new EventEmitter<any>();
 
   isEditing: boolean = false;
 
   constructor(
     private eventosService: EventosService,
     private instalacionesService: InstalacionesService
-  ) {}
+  ) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.decoded = jwtDecode(token);
+    } else {
+      console.error('Token not found in localStorage');
+    }
+  }
+  decoded: any | null;
 
   evento = {
     idEvento: '',
@@ -53,16 +63,18 @@ export class EventModalComponent {
 
   deleteEvent(): void {
     if (this.event && this.event._def.publicId) {
-      this.eventosService.deleteEventos(this.event._def.publicId).subscribe({
-        next: (data: any) => {
-          console.log('Evento eliminado con éxito', data);
-          this.onClose(); // Cerrar el modal después de eliminar el evento
-          this.eventoEliminado.emit(); // Emitir el evento después de que la eliminación sea exitosa
-        },
-        error: (error: any) => {
-          console.error('Error al eliminar el evento', error);
-        },
-      });
+      this.eventosService
+        .deleteEventos(this.event._def.publicId, this.decoded)
+        .subscribe({
+          next: (data: any) => {
+            console.log('Evento eliminado con éxito', data);
+            this.onClose(); // Cerrar el modal después de eliminar el evento
+            this.eventoEliminado.emit(); // Emitir el evento después de que la eliminación sea exitosa
+          },
+          error: (error: any) => {
+            console.error('Error al eliminar el evento', error);
+          },
+        });
     } else {
       console.error('No hay un ID de evento válido para eliminar');
     }
@@ -86,12 +98,20 @@ export class EventModalComponent {
   getEvento(idEvento: any): void {
     this.eventosService.getEventoById(idEvento).subscribe(
       (data) => {
-        const instalacion = (this.evento.instalacion.idInstalacion =
-          this.obtenerIdInstalacionPorIdEvento(
-            this.instalaciones,
-            this.event._def.publicId
-          ));
-        this.evento = { ...data, instalacion: { instalacionId: instalacion } };
+        this.evento = {
+          idEvento: data.idEvento,
+          titulo: data.titulo,
+          fecha: data.fecha,
+          hora: data.hora,
+          descripcion: data.descripcion,
+          categoria: data.categoria,
+          instalacion: {
+            idInstalacion: data.instalacion.idInstalacion,
+          },
+          participantes: data.participantes,
+          aforo: data.aforo,
+        };
+
         console.log('Evento:', this.evento);
         console.log('Evento:', this.evento);
       },
@@ -101,22 +121,39 @@ export class EventModalComponent {
     );
   }
 
-  instalacionEditando: any = null;
+  eventoEditando: any = null;
 
   startEditing(event: any): void {
     this.isEditing = true;
-    this.instalacionEditando = { ...event };
-    this.getEvento(this.instalacionEditando._def.publicId);
-
-    console.log(this.instalacionEditando);
-    console.log(this.evento);
+    this.eventoEditando = { ...event };
+    console.log(this.eventoEditando._def.publicId);
+    this.getEvento(this.eventoEditando._def.publicId);
   }
 
-  updateInstalacion(): void {
-    console.log('hey');
+  updateEvento(eventoForm: NgForm): void {
+    if (eventoForm.invalid) {
+      alert('Por favor, rellena todos los campos.');
+      return;
+    }
+    // Lógica para actualizar el evento...
+    this.eventosService.updateEvento(this.evento, this.decoded).subscribe({
+      next: (data) => {
+        console.log('Evento actualizado con éxito', data);
+        this.isEditing = false;
+        this.onClose(); // Cerrar el modal después de eliminar el evento
+        this.eventoEditado.emit(this.eventoEditando); // Asegúrate de tener definido eventoEditado como EventEmitter en el componente
+
+        alert(
+          `El evento con ID: ${this.eventoEditando._def.publicId} ha sido actualizado`
+        );
+      },
+      error: (error) => {
+        console.error('Error al actualizar el evento', error);
+      },
+    });
   }
 
-  obtenerIdInstalacionPorIdEvento(
+  /*obtenerIdInstalacionPorIdEvento(
     instalaciones: any[],
     idEventoBuscado: string
   ): string {
@@ -129,5 +166,5 @@ export class EventModalComponent {
     }
     // Si el evento no se encuentra en ninguna instalación
     return '';
-  }
+  }*/
 }

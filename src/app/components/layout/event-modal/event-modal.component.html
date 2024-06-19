@@ -12,13 +12,15 @@
         <p><strong>Categoria:</strong> {{ event?.extendedProps.category }}</p>
 
         <p><strong>Aforo:</strong> {{ event?.extendedProps.capacity }}</p>
-        <p>
-          <strong>Organizador:</strong> {{ event?.extendedProps.organizer }}
-        </p>
         <button (click)="deleteEvent()">Eliminar Evento</button>
         <button (click)="startEditing(event)">Editar Evento</button>
       </div>
-      <form *ngIf="isEditing" (ngSubmit)="updateInstalacion()" novalidate>
+      <form
+        *ngIf="isEditing"
+        (ngSubmit)="updateEvento(eventoForm)"
+        #eventoForm="ngForm"
+        novalidate
+      >
         <h1>Editando evento</h1>
         <div>
           <label for="titulo">Titulo:</label>
@@ -104,7 +106,8 @@
             name="aforo"
           />
         </div>
-        <button type="submit">Crear Evento</button>
+        <button type="submit">Actualizar</button>
+        <button type="button">Cancelar</button>
       </form>
     </div>
   </div>
