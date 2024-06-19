@@ -1,58 +1,29 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-
-// export class EntradasService {
-//   private apiUrl = 'http://localhost:8081/api/v1/entradasForo';
-
-//   private http = inject(HttpClient);
-//   constructor() {}
-
-//   getEntradasForo(): Observable<any> {
-//     return this.http.get(this.apiUrl);
-//   }
-//   createEntradaForo(entradaForo: any): Observable<any> {
-//     return this.http.post(this.apiUrl, entradaForo);
-//   }
-//   updateEntradaForo(entradaForo: any): Observable<any> {
-//     return this.http.put(`${this.apiUrl}`, entradaForo);
-//   }
-//   deleteEntradaForo(entradaForo: any): Observable<any> {
-//     console.log('Eliminando entrada', entradaForo);
-//     return this.http.delete(`${this.apiUrl}`, { body: entradaForo });
-//   }
-// }
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable, inject } from '@angular/core';
-// import { Observable } from 'rxjs';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
 export class EntradasService {
+
   private apiUrl = 'http://localhost:8081/api/v1/entradasForo';
-  private http = inject(HttpClient);
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getEntradasForo(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  getEntradas(): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.get(`${this.apiUrl}`, { headers: headers });
   }
 
-  createEntradaForo(entradaForo: any): Observable<any> {
-    return this.http.post(this.apiUrl, entradaForo);
+  getEntradaById(idEvento: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${idEvento}`);
   }
 
-  updateEntradaForo( entradaForo: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}`, entradaForo);
-  }
-
-  deleteEntradaForo(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  createEntradas(evento: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(this.apiUrl, evento, { headers });
   }
 }
-
