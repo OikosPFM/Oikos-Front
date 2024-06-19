@@ -53,7 +53,7 @@ export class TareaAsignacionComponent {
   };
   ngOnInit(): void {
     this.getInstalaciones();
-    this.getUsuarioById(2);
+    this.getUsuarioById(5);
     this.getTareas();
     if (this.selectedDate) {
       this.tarea.fecha =
@@ -84,20 +84,33 @@ export class TareaAsignacionComponent {
   }
 
   autoAsignacion(usuario: any, tarea: any): void {
-    const updatedTarea = { ...this.tarea, usuarioAsignado: usuario };
-    this.tareasService.updateTarea(updatedTarea).subscribe({
+    const updatedTarea = {
+      ...tarea,
+      usuarioAsignado: {
+        idUsuario: usuario.idUsuario,
+        dni: usuario.dni,
+        nombre: usuario.nombre,
+        primerApellido: usuario.primerApellido,
+        segundoApellido: usuario.segundoApellido,
+        email: usuario.email,
+        contraseña: usuario.contraseña,
+        telefono: usuario.telefono,
+        roles: usuario.roles,
+      },
+    };
+    this.tareasService.patchTarea(tarea.idTarea, updatedTarea).subscribe({
       next: (data) => {
         console.log('Usuario asignado actualizado con éxito', data);
         this.getTareas();
 
         alert(
-          `El usuario con ID: ${usuario.IDusuario} ha sido asignado a la tarea con ID: ${tarea.idTarea}`
+          `El usuario con ID: ${usuario.idUsuario} ha sido asignado a la tarea con ID: ${tarea.idTarea}`
         );
       },
       error: (error) => {
         console.error(
-          'Error al actualizar el usuario asignado' +
-            `${JSON.stringify(this.tarea)}`,
+          'Error al actualizar el usuario asignado: ' +
+            JSON.stringify(updatedTarea),
           error
         );
       },

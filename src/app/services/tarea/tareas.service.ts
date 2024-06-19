@@ -19,6 +19,9 @@ export class TareasService {
   updateTarea(tarea: any): Observable<any> {
     return this.http.put(`${this.apiUrl}`, tarea);
   }
+  patchTarea(id: string, updates: Partial<any>): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}`, updates);
+  }
   deleteTarea(id: string): Observable<any> {
     console.log('Eliminando tarea con', id);
     return this.http.delete(`${this.apiUrl}/${id}`);
