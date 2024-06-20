@@ -35,13 +35,17 @@
         <select
           id="instalacion"
           name="instalacion"
+
           [(ngModel)]="tareaEditando.instalacion.idInstalacion"
+
           required
         >
           <option value="" disabled>Selecciona una instalación</option>
           <option
             *ngFor="let instalacion of instalaciones"
+
             [value]="tareaEditando.instalacion.idInstalacion"
+
           >
             {{ instalacion.nombre }}
           </option>

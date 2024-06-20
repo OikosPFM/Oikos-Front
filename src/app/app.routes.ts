@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/pages/dashboard/dashboard.compo
 import { LoginComponent } from './components/pages/login/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { TareaModalComponent } from './components/layout/tareas/tarea-modal/tarea-modal.component';
+import { TareaAsignacionComponent } from './components/layout/tareas/tarea-asignacion/tarea-asignacion.component';
 
 
 export const routes: Routes = [
@@ -24,5 +25,9 @@ export const routes: Routes = [
   {
     path: 'manage-tarea',
     component: TareaModalComponent,
+  },
+  {
+    path: 'asignacion-tarea',
+    component: TareaAsignacionComponent,
   },
 ];
