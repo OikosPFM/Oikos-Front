@@ -39,7 +39,9 @@
         {{ usuario.propiedad.numeroPiso }}, letra {{ usuario.propiedad.letra }}
       </p>
 
-      <button>Eliminar usuario</button>
+      <button (click)="eliminarUsuario(usuario.idUsuario)">
+        Eliminar usuario
+      </button>
     </div>
   </section>
 </div>

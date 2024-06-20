@@ -19,6 +19,7 @@ export class EventModalComponent {
   @Output() close = new EventEmitter<void>();
   @Output() eventoEliminado: EventEmitter<void> = new EventEmitter<void>();
   @Output() eventoEditado: EventEmitter<any> = new EventEmitter<any>();
+  @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
 
   isEditing: boolean = false;
 
