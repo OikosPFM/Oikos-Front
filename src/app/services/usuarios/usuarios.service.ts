@@ -13,6 +13,7 @@ export class UsuariosService {
     return this.http.get(this.apiUrl);
   }
 
+
   getUsuariosByFinca(mytoken: any): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -41,6 +42,11 @@ export class UsuariosService {
           return throwError(error);
         })
       );
+  }
+
+
+  getUsuarioById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
   createUsuario(usuario: any): Observable<any> {
