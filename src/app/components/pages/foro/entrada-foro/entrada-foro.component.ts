@@ -21,7 +21,8 @@ export class EntradaForoComponent {
   ) {}
 
   entradaForo = { titulo: '', textoComentario: '', fecha: '', hora: '', idEntradaForo: { idEntradaForo: ''}};
-
+  entradasForo: any[] = [];
+  
   // Crear Entradas
   createEntrada(entryForm: NgForm): void {
     console.log(this.entradaForo);
@@ -46,5 +47,22 @@ export class EntradaForoComponent {
         console.error('Error al crear la entrada', error);
       },
     });
+  }
+
+  // Cargar (VER) Entradas
+  getEntradas(): void {
+    this.entradasService.getEntradasForo().subscribe({
+      next: (data: any) => {
+        this.entradasForo = data.sort((a: any, b: any) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+        //  this.entradasForo = data;
+        console.log('Entradas: ', this.entradasForo);
+      },
+      error: (error: any) => {
+        console.error('There was an error: ', error);
+      },
+    });
+  }
+  onRefreshClick(): void {
+    this.getEntradas();
   }
 }
