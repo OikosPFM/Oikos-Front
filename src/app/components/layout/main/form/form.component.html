@@ -1,0 +1,138 @@
+<section class="register-container">
+  <div class="register-form">
+    <h2>Formulario de registro</h2>
+    <mat-vertical-stepper [linear]="false" #stepper>
+      <mat-step>
+        <form [formGroup]="fincaFormGroup">
+          <ng-template matStepLabel>Selecciona tu finca</ng-template>
+          <mat-radio-group
+            formControlName="selectedFinca"
+            aria-label="Select an option"
+          >
+            <div *ngIf="fincas.length > 0; else noFincas">
+              <div *ngFor="let finca of fincas">
+                <mat-radio-button [value]="finca.idFinca">
+                  <p><strong>Calle:</strong> {{ finca.calle }}</p>
+                  <p><strong>Número:</strong> {{ finca.numero }}</p>
+                  <p><strong>Localidad:</strong> {{ finca.localidad }}</p>
+                  <p><strong>Provincia:</strong> {{ finca.provincia }}</p>
+                  <p>
+                    <strong>Código Postal:</strong> {{ finca.codigoPostal }}
+                  </p></mat-radio-button
+                >
+              </div>
+            </div>
+            <div>
+              <ng-template #noFincas>
+                <p>No se encontraron fincas.</p>
+              </ng-template>
+            </div>
+          </mat-radio-group>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="domicilioFormGroup">
+        <form [formGroup]="domicilioFormGroup">
+          <ng-template matStepLabel
+            >Completa con los datos de tu domicilio</ng-template
+          >
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Portal"
+              formControlName="portal"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Piso"
+              formControlName="numeroPiso"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Letra"
+              formControlName="letra"
+              required
+            />
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperNext>Continuar</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="usuarioFormGroup">
+        <form [formGroup]="usuarioFormGroup">
+          <ng-template matStepLabel
+            >Completa con tus datos personales</ng-template
+          >
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Nombre"
+              formControlName="nombre"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Primer Apellido"
+              formControlName="primerApellido"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Segundo Apellido"
+              formControlName="segundoApellido"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="DNI" formControlName="dni" required />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Teléfono"
+              formControlName="telefono"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="email"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Contraseña"
+              formControlName="contraseña"
+              required
+            />
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Regresar</button>
+            <button mat-button matStepperNext>Continuar</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Finalizar registro</ng-template>
+        <div>
+          <button mat-button (click)="onSubmit()">Registrar</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </div>
+</section>
