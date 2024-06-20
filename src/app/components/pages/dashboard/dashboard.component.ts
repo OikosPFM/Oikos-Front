@@ -5,46 +5,34 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from '../../../services/auth/loginRequest';
 import { User } from '../../../services/auth/user';
 
+import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-modal/manage-instalaciones-modal.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [FullcalendarComponent, CreateEventModalComponent, CommonModule],
+  imports: [
+    FullcalendarComponent,
+    CreateEventModalComponent,
+    ManageInstalacionesComponent,
+    CommonModule,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
-export class DashboardComponent implements OnInit , OnDestroy  {
+export class DashboardComponent {
   showCreateEventModal: boolean = false;
+  showManageInstalacionesModal: boolean = false;
 
   openCreateEventModal() {
     this.showCreateEventModal = true;
   }
 
+  openManageInstalacionesModal() {
+    this.showManageInstalacionesModal = true;
+  }
+
   closeModal() {
     this.showCreateEventModal = false;
+    this.showManageInstalacionesModal = false;
   }
-  userLoginOn:boolean=false;
-  userData?:User;
-  constructor(private loginService:LoginService) { }
-
-  ngOnDestroy(): void {
-    this.loginService.currentUserData.unsubscribe();
-    this.loginService.currentUserLoginOn.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.loginService.currentUserLoginOn.subscribe({
-      next:(userLoginOn) => {
-        this.userLoginOn=userLoginOn;
-      }
-    });
-
-    this.loginService.currentUserData.subscribe({
-      next:(userData)=>{
-        this.userData=userData;
-      }
-    })
-
-  }
-
 }
