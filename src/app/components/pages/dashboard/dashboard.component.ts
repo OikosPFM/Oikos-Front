@@ -3,6 +3,7 @@ import { FullcalendarComponent } from '../../layout/main/fullcalendar/fullcalend
 import { CreateEventModalComponent } from '../../layout/create-event-modal/create-event-modal.component';
 import { CommonModule } from '@angular/common';
 import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-modal/manage-instalaciones-modal.component';
+import { RouterModule, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-
     CreateEventModalComponent,
     ManageInstalacionesComponent,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
