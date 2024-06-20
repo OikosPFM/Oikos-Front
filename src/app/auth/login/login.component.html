@@ -1,64 +1,42 @@
-<div class="container">
-<img
-class="hero_img fade-in"
-src="../../../../assets/Comunidad.jpg"
-alt="Vecinos en una Comunidad" width="400" height="300"
-/>
-<p class="mt-5 mb-3 text-muted">© 2023–2024</p>
-<form>
-    <p class="text-danger">{{loginError}}</p>
-</form>
-    <div class="iniciar">
-        <form>
-            <!--<section class="vh-100" style="background-color: rgb(222, 235, 233) ;">
-            </section>!-->
-            <div class="">
-            <h1><strong>Iniciar Sesión</strong></h1>
-            <p class="text-danger">{{loginError}}</p>
-            </div>
-            <div data-mdb-input-init class="form-outline mb-4">
-            <label class="form-label" for="form3Example3">Email</label>
-            <input type="email" id="form3Example3" class="form-control form-control-lg">
-                <div *ngIf="email.invalid"
-                    class="text-danger">
-                    <div *ngIf="email.errors?.['required']">
-                        El Email es requerido.
-                    </div>
-                    <div *ngIf="email.errors?.['email']">
-                        El Email debe tener un formato válido.
-                    </div>
-                </div>
-            </div>
-            <div data-mdb-input-init class="form-outline mb-3">
-            <label class="form-label" for="form3Example4">Password</label>
-            <input type="password" id="form3Example4" class="form-control form-control-lg" />
-                <div *ngIf="password.invalid"
-                    class="text-danger">
-                    <div *ngIf="password.errors?.['required']">
-                        El Password es requerido.
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col-md-6 d-flex justify-content-center">
-                  <!-- Checkbox -->
-                  <div class="form-check mb-0">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" checked />
-                    <label class="form-check-label" for="form2Example3"> Recuérdame </label>
-                  </div>
-                </div>
-                <div class="col-md-6 d-flex justify-content-center">
-                  <!-- Simple link -->
-                  <a href="#!" class="form-floating">Olvidaste la contraseña?</a>
-                </div>
-              </div>
-            <button type="button" (click)="login()" class="btn btn-primary btn-lg btn-block"
-            style="padding-left: 2.5rem; padding-right: 2.5rem;">Continuar</button>
-              <!-- Register buttons -->
-              <div class="text-muted">
-                <p class="small fw-bold mt-2 pt-1 mb-0" for="loginCheck">No eres miembro? <a href="#!"class="link-danger "
-                    >Regístrate</a></p>
-              </div>
-        </form>
-</div>
+<section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card recuadro dark-blue-oikos-color" style="border-radius: 1rem;">
+            <div class="card-body p-5 text-center">
 
+              <div class="mb-md-5 mt-md-4 pb-5">
+
+                <h2 class="fw-bold mb-2 text-uppercase">Iniciar Sesión</h2>
+                <p class="mb-5">Por favor, introduce tu usuario y contraseña:</p>
+
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                  <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typeEmailX">Email</label>
+                </div>
+
+                <div data-mdb-input-init class="form-outline form-white mb-4">
+                  <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typePasswordX">Password</label>
+                </div>
+
+                <p class="small mb-5 pb-lg-2"><a class="" href="#!">¿Olvidaste la contraseña?</a></p>
+
+                <button data-mdb-button-init data-mdb-ripple-init
+                    class="btn btn-outline-light btn-lg px-5 dark-blue-oikos-button"
+                    type="submit">Iniciar Sesión
+                </button>
+
+              </div>
+
+              <div>
+                <p class="mb-0">¿No eres miembro? <a href="#!" class="fw-bold">Regístrate</a>
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

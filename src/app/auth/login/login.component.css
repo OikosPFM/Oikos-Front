@@ -1,8 +1,9 @@
 .iniciar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     font-family: "Ubuntu", sans-serif;
     font-weight: 600;
+    margin-left: 20%;
 }
 
 form {
@@ -25,23 +26,34 @@ form {
     margin: 3rem 4rem;
     margin-top: 5rem;
     border-radius: 8px;
-  }
+}
 
-  .hero_img {
+.hero_img {
     width: 30vw;
     transition: transform 0.3s ease-in-out; /* Set up a smooth transition for the hover effect */
-  }
-  .hero_img:hover {
-    transform: scale(1.05); /* Increase the image size by 5% on hover */
-  }
+}
 
-  .container {
-    align-items: start;
-    justify-content: center;
-    background-color: rgb(222, 235, 233);
-    color: rgb(67, 110, 142);
+.form-container {
     padding: 20px;
-    padding-top: 20px;
-    border-radius: 10px;
+    border-radius: 0 15px 15px 0;
+    background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+}
+
+.hero_img:hover {
+    transform: scale(1.05); /* Increase the image size by 5% on hover */
+}
+
+.recuadro {
+    --bs-bg-opacity: 1;
+    background-color: rgb(222, 235, 233);
+}
+
+.dark-blue-oikos-color{
+    color: rgb(67, 110, 142);
+}
+
+.dark-blue-oikos-button{
+    color: rgb(67, 110, 142);
+    --bs-btn-border-color: rgb(67, 110, 142);
+}

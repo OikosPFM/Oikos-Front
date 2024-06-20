@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent implements OnInit {
   loginError:string="";
   loginForm=this.formBuilder.group({
-    email:['vicky@gmail.com',[Validators.required,Validators.email]],
+    email:[' ',[Validators.required,Validators.email]],
     password: ['',Validators.required],
   })
   constructor(private formBuilder:FormBuilder, private router:Router, private loginService: LoginService) { }
