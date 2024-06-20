@@ -1,0 +1,45 @@
+<main><p>manage-registros works!</p></main>
+<div class="registros-container">
+  <section>
+    <h1>Usuarios pendientes de aprobación</h1>
+    <div *ngFor="let usuario of usuariosInactivos">
+      <h2>
+        {{ usuario.nombre }} {{ usuario.primerApellido }}
+        {{ usuario.segundoApellido }}
+      </h2>
+      <p>Email: {{ usuario.email }}</p>
+      <p>DNI: {{ usuario.dni }}</p>
+      <p>Teléfono: {{ usuario.telefono }}</p>
+      <p>
+        Propiedad: Portal {{ usuario.propiedad.portal }}, número
+        {{ usuario.propiedad.numeroPiso }}, letra {{ usuario.propiedad.letra }}
+      </p>
+
+      <button (click)="cambiarEstadoUsuario(usuario.idUsuario)">
+        Aprobar registro
+      </button>
+      <button (click)="eliminarUsuario(usuario.idUsuario)">
+        Rechazar registro
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <h1>Usuarios activos</h1>
+    <div *ngFor="let usuario of usuariosActivos">
+      <h2>
+        {{ usuario.nombre }} {{ usuario.primerApellido }}
+        {{ usuario.segundoApellido }}
+      </h2>
+      <p>Email: {{ usuario.email }}</p>
+      <p>DNI: {{ usuario.dni }}</p>
+      <p>Teléfono: {{ usuario.telefono }}</p>
+      <p>
+        Propiedad: Portal {{ usuario.propiedad.portal }}, número
+        {{ usuario.propiedad.numeroPiso }}, letra {{ usuario.propiedad.letra }}
+      </p>
+
+      <button>Eliminar usuario</button>
+    </div>
+  </section>
+</div>
