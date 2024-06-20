@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro - Entradas</title>
+</head>
+<body>
+    <div class="home-div-container">
+        <main class="home-main">
+            <!-- Crear Entradas -->
+            <h1>Crear Entrada</h1>
+            <div class="entry-form">
+                <form (ngSubmit)="createEntrada(entryForm)" #entryForm="ngForm" novalidate>
+                    <div>
+                        <label for="titulo">Título:</label>
+                        <input type="text" id="titulo" [(ngModel)]="entradaForo.titulo" class="text-input" name="titulo" required>
+                    </div>
+                    <div>
+                        <label for="textoComentario">Asunto:</label>
+                        <textarea id="textoComentario" [(ngModel)]="entradaForo.textoComentario" name="textoComentario" class="text-input" rows="4" cols="50"></textarea>
+                    </div>
+                    <!-- <input type="file" (change)="fileEvent($event)" />
+                    <button (click)="subirArchivo($event)">Adjuntar archivo</button> -->
+                    <button type="submit" class="btn btn-primary">Crear Entrada</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
