@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css',
   providers: [AuthService],
 })
-export class LoginComponent {
+export class LoginComponentS {
   email: string = '';
   password: string = '';
   errorMessage: string = '';

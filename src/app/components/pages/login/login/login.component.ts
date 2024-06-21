@@ -1,58 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from '../../../../services/auth/loginRequest';
-import { LoginRequest } from '../../../../services/auth/loginService';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../services/auth/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrl: './login.component.css',
+  providers: [AuthService],
 })
-export class LoginComponent implements OnInit {
-  loginError:string="";
-  loginForm=this.formBuilder.group({
-    email:[' ',[Validators.required,Validators.email]],
-    password: ['',Validators.required],
-  })
-  constructor(private formBuilder:FormBuilder, private router:Router, private loginService: LoginService) { }
+export class LoginComponent {
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  ngOnInit(): void {
-  }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  get email(){
-    return this.loginForm.controls.email;
-  }
-
-  get password()
-  {
-    return this.loginForm.controls.password;
-  }
-
-  login(){
-    if(this.loginForm.valid){
-      this.loginError="";
-      this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
-        next: (userData) => {
-          console.log(userData);
-        },
-        error: (errorData) => {
-          console.error(errorData);
-          this.loginError=errorData;
-        },
-        complete: () => {
-          console.info("Login completo");
-          this.router.navigateByUrl('/inicio');
-          this.loginForm.reset();
+  login() {
+    const usuarioData = {
+      email: this.email,
+      contraseña: this.password,
+    };
+    console.log(usuarioData);
+    this.authService.loginUsuario(usuarioData).subscribe(
+      (data) => {
+        console.log('Login successful', data);
+        localStorage.setItem('token', data.token);
+        this.router.navigate(['/dashboard']);
+      },
+      (error) => {
+        console.error('Login failed', error);
+        if (error.status === 401) {
+          this.errorMessage = 'Email y/o contraseña incorrectos';
+        } else if (error.status === 500) {
+          this.errorMessage =
+            'Tu cuenta todavía no ha sido activada. El administrador de tu finca tiene que aprobar el registro';
+        } else if (error.status === 404) {
+          this.errorMessage = 'User not found.';
+        } else {
+          this.errorMessage =
+            'An unexpected error occurred. Please try again later.';
         }
-      })
-
-    }
-    else{
-      this.loginForm.markAllAsTouched();
-      alert("Error al ingresar los datos.");
-    }
+      }
+    );
   }
 
+  navigateToForm(event: Event) {
+    event.preventDefault();
+    this.router.navigate(['/'], { fragment: 'register-form' });
+  }
 }
