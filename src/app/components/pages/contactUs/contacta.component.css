@@ -1,0 +1,50 @@
+.example-input-wrapper {
+  margin-bottom: 16px;
+}
+
+.labels {
+  margin-right: 4px;
+  border-radius: 4px;
+  padding-top: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+.consulta-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #9bbcb6;
+  font-family: "Outfit";
+  font-size: 20px;
+  color: rgb(67, 110, 142);
+  height: auto;
+  padding: 2rem; /* Agrega padding para una mejor apariencia */
+  border-radius: 10px;
+}
+
+.button {
+  justify-content: center;
+  border-radius: 4px;
+  background-color: white;
+  font-family: "Outfit";
+  font-size: 20px;
+  color: rgb(67, 110, 142);
+  margin-top: 16px;
+}
+
+.consulta-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(222, 235, 233);
+  height: 70vh;
+  width: 70vw; /* Ajusta el ancho según sea necesario */
+  padding: 3rem;
+  border-radius: 20px;
+}

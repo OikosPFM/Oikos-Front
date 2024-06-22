@@ -13,12 +13,26 @@
       </li>
       <li>
         <button class="btn-nav">
+          <a (click)="logout()">Cerrar sesión</a>
+        </button>
+      </li>
+      <li>
+        <!--<button class="cta">
           <span>Contáctanos</span>
           <svg width="15px" height="10px" viewBox="0 0 13 10">
             <path d="M1,5 L11,5"></path>
             <polyline points="8 1 12 5 8 9"></polyline>
           </svg>
-        </button>
+        </button>-->
+        <a routerLink="contacta">
+          <button class="cta">
+            <span>Contáctanos</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          </button>
+        </a>
       </li>
     </ul>
   </nav>
