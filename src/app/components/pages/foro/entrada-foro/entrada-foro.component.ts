@@ -68,4 +68,19 @@ export class EntradaForoComponent {
   onRefreshClick(): void {
     this.getEntradas();
   }
+
+  // Eliminar Entradas
+    deleteEntrada(id: number): void {
+      this.entradasService.deleteEntradaForo(id).subscribe({
+        next: (data: any) => {
+          console.log('Entrada eliminada con éxito', data);
+          this.getEntradas();
+        },
+        error: (error: any) => {
+          console.error('Error al eliminar la entrada', error);
+        },
+      });
+  
+      console.log(this.entradaForo);
+    }
 }

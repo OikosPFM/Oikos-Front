@@ -20,4 +20,8 @@ export class EntradasService {
   getEntradasForo(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  deleteEntradaForo(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

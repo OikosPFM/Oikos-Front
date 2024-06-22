@@ -26,32 +26,32 @@
                 </form>
             </div>
 
-           <!-- Ver entradas -->
-           <br>
-           <h1>Ver Entradas</h1>
-           <div class="entry-container">
+            <!-- Ver entradas -->
+            <br>
+            <h1>Ver Entradas</h1>
+            <div class="entry-container">
                <div *ngFor="let entradaForo of entradasForo | paginate: { itemsPerPage: 5, currentPage: page }" class="entry-card">
-                   <a [href]="'/entrada-foro/' + entradaForo.idEntrada">
-                       <div class="entry-card">
-                       <p><b>Título:</b>{{ entradaForo.titulo }}</p>
-                       </div>
-                       <div class="entry-info">
-                           <p><b>Mensaje:</b>{{ entradaForo.textoComentario }}</p>
-                       </div>
-                       <hr>
-                       <div class="entry-footer">
-                           <small><b>ID:</b>{{ entradaForo.idEntrada }}</small>
-                           <br>
-                           <small>Created: {{ entradaForo.fecha | date : "medium" }} {{ entradaForo.hora }} </small>
-                       </div>
-                   </a>
-                   <br>
-                   <!-- <button type="submit" class="btn btn-info">Responder</button> -->
-                   <!-- *ngIf="entradaForo.authorId === currentUserId"
-                   *ngIf="entradaForo.authorId === currentUserId" -->
-                   <button type="button" class="btn btn-info" [routerLink]="['/respuesta', entradaForo.idEntrada]">Responder</button>
-                   <!-- <button ng-show="edit[user.id]" ng-click="editEntrada(entradaForo)" (click)="updateEntrada(entradaForo)" class="btn btn-info" style="margin-left: 10px">Editar</button>
-                   <button (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button> -->
+                    <a [href]="'/entrada-foro/' + entradaForo.idEntrada">
+                        <div class="entry-card">
+                        <p><b>Título:</b>{{ entradaForo.titulo }}</p>
+                        </div>
+                        <div class="entry-info">
+                            <p><b>Mensaje:</b>{{ entradaForo.textoComentario }}</p>
+                        </div>
+                        <hr>
+                        <div class="entry-footer">
+                            <small><b>ID:</b>{{ entradaForo.idEntrada }}</small>
+                            <br>
+                            <small>Created: {{ entradaForo.fecha | date : "medium" }} {{ entradaForo.hora }} </small>
+                        </div>
+                    </a>
+                    <br>
+                    <!-- <button type="submit" class="btn btn-info">Responder</button> -->
+                    <!-- *ngIf="entradaForo.authorId === currentUserId"
+                    *ngIf="entradaForo.authorId === currentUserId" -->
+                    <button type="button" class="btn btn-info" [routerLink]="['/respuesta', entradaForo.idEntrada]">Responder</button>
+                    <!-- <button ng-show="edit[user.id]" ng-click="editEntrada(entradaForo)" (click)="updateEntrada(entradaForo)" class="btn btn-info" style="margin-left: 10px">Editar</button> -->
+                    <button (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
                </div>
                <br>
            </div>
