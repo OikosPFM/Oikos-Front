@@ -7,6 +7,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { InstalacionesService } from '../../../services/instalaciones/instalaciones.service';
 import { EventosService } from '../../../services/eventos/eventos.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-create-event-modal',
@@ -26,7 +27,18 @@ export class CreateEventModalComponent {
     private eventosService: EventosService,
     private instalacionesService: InstalacionesService,
     private datePipe: DatePipe
-  ) {}
+  ) {
+    {
+      const token = localStorage.getItem('token');
+      if (token) {
+        this.decoded = jwtDecode(token);
+        this.evento.finca.idFinca = this.decoded.idFinca;
+      } else {
+        console.error('Token not found in localStorage');
+      }
+    }
+  }
+  decoded: any | null;
 
   evento = {
     titulo: '',
@@ -39,9 +51,9 @@ export class CreateEventModalComponent {
     },
     participantes: '',
     aforo: '',
-    /*organizador: {
-      idUsuario: '',
-    },*/
+    finca: {
+      idFinca: '',
+    },
   };
 
   ngOnInit(): void {
@@ -78,7 +90,7 @@ export class CreateEventModalComponent {
     // Asigna el ID del organizador al objeto evento, tendremos que hacer un get del usuario
     //this.evento.organizadorId = userId;
 
-    this.eventosService.createEventos(this.evento).subscribe({
+    this.eventosService.createEventos(this.evento, this.decoded).subscribe({
       next: (data: any) => {
         console.log('Evento created successfully', data);
         console.log(data);

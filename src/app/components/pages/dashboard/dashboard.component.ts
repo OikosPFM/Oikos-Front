@@ -1,8 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FullcalendarComponent } from '../../layout/main/fullcalendar/fullcalendar.component';
 import { CreateEventModalComponent } from '../../layout/create-event-modal/create-event-modal.component';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../../services/auth/loginRequest';
+import { User } from '../../../services/auth/user';
+
 import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-modal/manage-instalaciones-modal.component';
+import { RouterModule, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +16,7 @@ import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-
     CreateEventModalComponent,
     ManageInstalacionesComponent,
     CommonModule,
+    RouterModule,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',

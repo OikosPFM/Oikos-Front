@@ -1,0 +1,59 @@
+.iniciar {
+    display: flex;
+    justify-content: flex-start;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 600;
+    margin-left: 20%;
+}
+
+form {
+    margin: 20px;
+    position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+}
+.form-control {
+    width: 100%;
+}
+
+.hero_container {
+    display: flex;
+    gap: 5rem;
+    height: 70vh;
+    justify-content: center;
+    align-items: start;
+    margin: 3rem 4rem;
+    margin-top: 5rem;
+    border-radius: 8px;
+}
+
+.hero_img {
+    width: 30vw;
+    transition: transform 0.3s ease-in-out; /* Set up a smooth transition for the hover effect */
+}
+
+.form-container {
+    padding: 20px;
+    border-radius: 0 15px 15px 0;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero_img:hover {
+    transform: scale(1.05); /* Increase the image size by 5% on hover */
+}
+
+.recuadro {
+    --bs-bg-opacity: 1;
+    background-color: rgb(222, 235, 233);
+}
+
+.dark-blue-oikos-color{
+    color: rgb(67, 110, 142);
+}
+
+.dark-blue-oikos-button{
+    color: rgb(67, 110, 142);
+    --bs-btn-border-color: rgb(67, 110, 142);
+}
