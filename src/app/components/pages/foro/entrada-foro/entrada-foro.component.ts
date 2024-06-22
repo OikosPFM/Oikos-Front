@@ -3,12 +3,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { EntradasService } from '../../../../services/entradas/entradas.service';
 
 @Component({
   selector: 'app-entrada-foro',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, RouterModule],
+  imports: [FormsModule, CommonModule, HttpClientModule, RouterModule, NgxPaginationModule],
   templateUrl: './entrada-foro.component.html',
   styleUrl: './entrada-foro.component.css',
   providers: [EntradasService]
@@ -22,6 +23,7 @@ export class EntradaForoComponent {
 
   entradaForo = { titulo: '', textoComentario: '', fecha: '', hora: '', idEntradaForo: { idEntradaForo: ''}};
   entradasForo: any[] = [];
+  public page!: number;
   
   // Crear Entradas
   createEntrada(entryForm: NgForm): void {

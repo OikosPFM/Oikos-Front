@@ -30,7 +30,7 @@
            <br>
            <h1>Ver Entradas</h1>
            <div class="entry-container">
-               <div *ngFor="let entradaForo of entradasForo" class="entry-card">
+               <div *ngFor="let entradaForo of entradasForo | paginate: { itemsPerPage: 5, currentPage: page }" class="entry-card">
                    <a [href]="'/entrada-foro/' + entradaForo.idEntrada">
                        <div class="entry-card">
                        <p><b>Título:</b>{{ entradaForo.titulo }}</p>
@@ -57,6 +57,13 @@
            </div>
            <div><button (click)="onRefreshClick()" class="btn btn-primary">Actualizar y ver Entradas</button></div>
            <br>
+
+           <!-- Paginación -->
+            <pagination-controls
+                (pageChange)="page = $event"
+                previousLabel="Anterior"
+                nextLabel="Siguiente">
+            </pagination-controls>
         </main>
     </div>
 </body>
