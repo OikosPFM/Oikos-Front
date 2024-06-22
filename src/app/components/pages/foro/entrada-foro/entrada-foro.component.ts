@@ -42,6 +42,7 @@ export class EntradaForoComponent {
         alert(
           `La entrada: ${this.entradaForo.titulo} y comentario ${this.entradaForo.textoComentario} han sido creadas exitosamente.`
         );
+        this.onRefreshClick();
       },
       error: (error: any) => {
         console.error('Error al crear la entrada', error);
