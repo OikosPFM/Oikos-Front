@@ -4,11 +4,13 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from '../../../../calendar/calendar.component';
 
 @Component({
   selector: 'app-tarea-modal',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, DatePipe],
+  imports: [FormsModule, CommonModule, HttpClientModule, DatePipe, FullCalendarModule, CalendarComponent],
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
   styleUrl: './tarea-modal.component.css',
