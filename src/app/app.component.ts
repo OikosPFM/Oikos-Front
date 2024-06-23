@@ -5,11 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { CalendarComponent } from './calendar/calendar.component';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, HttpClientModule, CommonModule, MatIconModule,CalendarComponent],
+  imports: [RouterOutlet, NavbarComponent, HttpClientModule, CommonModule, MatIconModule, CalendarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

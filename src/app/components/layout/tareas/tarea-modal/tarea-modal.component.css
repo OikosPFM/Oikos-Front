@@ -22,3 +22,17 @@ form {
   color: rgb(67, 110, 142);
   margin: 2rem;
 }
+
+.recuadro {
+  --bs-bg-opacity: 1;
+  background-color: rgb(222, 235, 233);
+}
+
+.dark-blue-oikos-color{
+  color: rgb(67, 110, 142);
+}
+
+.dark-blue-oikos-button{
+  color: rgb(67, 110, 142);
+  --bs-btn-border-color: rgb(67, 110, 142);
+}
