@@ -46,19 +46,20 @@
                         </div>
                     </a>
                     <br>
-                    <!-- <button type="submit" class="btn btn-info">Responder</button> -->
                     <!-- *ngIf="entradaForo.authorId === currentUserId"
                     *ngIf="entradaForo.authorId === currentUserId" -->
                     <button type="button" class="btn btn-info" [routerLink]="['/respuesta', entradaForo.idEntrada]">Responder</button>
+                    <!-- <button (click)="goToMensaje()">Ir a Mensaje</button> -->
+                    <button (click)="goToMensaje(entradaForo.idEntrada)" class="btn btn-secondary">Ir a Mensaje</button>
                     <!-- <button ng-show="edit[user.id]" ng-click="editEntrada(entradaForo)" (click)="updateEntrada(entradaForo)" class="btn btn-info" style="margin-left: 10px">Editar</button> -->
                     <button (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
-               </div>
-               <br>
-           </div>
-           <div><button (click)="onRefreshClick()" class="btn btn-primary">Actualizar y ver Entradas</button></div>
-           <br>
+                </div>
+                <br>
+            </div>
+            <div><button (click)="onRefreshClick()" class="btn btn-primary">Actualizar y ver Entradas</button></div>
+            <br>
 
-           <!-- Paginación -->
+            <!-- Paginación -->
             <pagination-controls
                 (pageChange)="page = $event"
                 previousLabel="Anterior"

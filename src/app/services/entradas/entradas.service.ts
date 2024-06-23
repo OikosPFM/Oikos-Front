@@ -24,4 +24,8 @@ export class EntradasService {
   deleteEntradaForo(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  responderEntrada(respuesta: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/respuestas`, respuesta);
+  }
 }

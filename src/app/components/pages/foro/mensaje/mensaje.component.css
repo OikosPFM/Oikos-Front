@@ -1,6 +1,6 @@
 /* Body */
 body {
-    background-color: lightblue;
+    background-color: #a5c2be;
 }
 
 /* Home y Ver */
@@ -25,7 +25,7 @@ body {
 }
 
 /* Formulario de Creación de Entradas */
-.entry-form {
+.response-form {
     background-color: #e9f2f1;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -33,18 +33,18 @@ body {
     padding-right: 5px;
     margin-bottom: 20px;
     text-align: left;
-    max-width: 1086px;
+    max-width: 800px;
     width: 100%;
     box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
 }
 
-.entry-form label {
+.response-form label {
     color: #45718c;
 }
 
-.entry-form .text-input {
+.response-form .text-input {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
@@ -54,7 +54,7 @@ body {
     font-size: 16px;
 }
 
-.entry-form .btn {
+.response-form .btn {
     background-color: #45718c;
     color: #e9f2e9;
     border: none;
@@ -64,29 +64,40 @@ body {
     text-decoration: none;
 }
 
-.entry-form .btn:hover {
+.response-form .btn:hover {
     background-color: #a5c2be;
     color: #45718c;
     text-decoration: none;
 }
 
+/* Ver Entrada Seleccionada */
+.message-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+}
+
 /* Creación Entradas */
-.entry-details {
+.response-details {
     background-color: lightblue;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
+    margin-top: 20px;
     text-align: left;
+    width: 64%;
 }
 
-.entry-details h2 {
+.response-details h2 {
     font-size: 24px;
     color: #45718c;
     margin-bottom: 10px;
 }
 
-.entry-details p {
+.response-details p {
     font-size: 16px;
     color: #45718c;
     margin-bottom: 10px;
@@ -110,19 +121,16 @@ body {
 }
 
 /* Ver Entradas Creadas */
-.entry-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    width: 99%;
-    max-width: 1200px;
+.responses-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     margin: auto;
     text-decoration: none !important;
-
 }
 
-.entry-card {
+.response-card {
     color: #45718c;
     background-color: #e9f2f1;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -132,29 +140,29 @@ body {
     text-align: left;
     transition: transform 0.3s ease;
     box-sizing: border-box;
-    text-decoration: none !important;
-    width: 100%;
+    width: 90%;
+    max-width: 800px;
 }
 
-.entry-card:hover {
+.response-card:hover {
     transform: scale(1.05);
 }
 
-.entry-card h2 {
+.response-card h2 {
     font-size: 20px;
     color: #45718c;
     margin-bottom: 5px;
     text-decoration: none;
 }
 
-.entry-card h4 {
+.response-card h4 {
     font-size: 16px;
     color: #45718c;
     margin-bottom: 10px;
     text-decoration: none;
 }
 
-.entry-info p {
+.response-info p {
     font-size: 14px;
     color: #45718c;
     margin-bottom: 5px;
@@ -177,20 +185,20 @@ hr {
     align-items: center;
     width: 50vw;
 }
+
 .app-sidebar button {
     padding: 1rem 2rem;
     border-radius: 20px;
     font-weight: 600;
-    &:hover {
-      background-color: rgb(186, 121, 121);
-    }
+}
+
+.app-sidebar button:hover {
+    background-color: rgb(186, 121, 121);
     width: 400px;
 }
 
-
------------------------
 /* Footer */
-.entry-footer small {
+.response-footer small {
     font-size: 12px;
     color: #45718c;
 }

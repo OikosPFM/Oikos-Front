@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EntradasService } from '../../../../services/entradas/entradas.service';
 
@@ -19,6 +19,7 @@ export class EntradaForoComponent {
   constructor(
     private entradasService: EntradasService,
     private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   entradaForo = { titulo: '', textoComentario: '', fecha: '', hora: '', idEntradaForo: { idEntradaForo: ''}};
@@ -70,7 +71,7 @@ export class EntradaForoComponent {
   }
 
   // Eliminar Entradas
-    deleteEntrada(id: number): void {
+  deleteEntrada(id: number): void {
       this.entradasService.deleteEntradaForo(id).subscribe({
         next: (data: any) => {
           console.log('Entrada eliminada con éxito', data);
@@ -82,5 +83,11 @@ export class EntradaForoComponent {
       });
   
       console.log(this.entradaForo);
-    }
+  }
+
+  // Redirigir a Mensaje con la entrada seleccionada
+  goToMensaje(id: number) {
+    this.router.navigate(['/mensaje', id]);
+  }
+  
 }
