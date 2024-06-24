@@ -11,3 +11,17 @@
   color: rgb(67, 110, 142);
   --bs-btn-border-color: rgb(67, 110, 142);
 }
+
+h2 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.error-message {
+  min-height: 15px; /* Ajusta el valor según sea necesario */
+  padding-bottom: 2rem;
+  color: var(--naranja-oikos);
+}
+
+input[type="password"] {
+  -webkit-text-security: disc;
+}

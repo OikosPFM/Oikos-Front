@@ -6,7 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ManageRegistrosComponent } from './components/pages/manage-registros/manage-registros.component';
 import { TareaModalComponent } from './components/layout/tareas/tarea-modal/tarea-modal.component';
 import { TareaAsignacionComponent } from './components/layout/tareas/tarea-asignacion/tarea-asignacion.component';
-import { LoginComponentS } from './components/pages/login/login_sergio/login.component';
+import { ManageInstalacionesComponent } from './components/pages/manage-instalaciones/manage-instalaciones.component';
 
 export const routes: Routes = [
   {
@@ -18,7 +18,6 @@ export const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuard],
   },
-
   {
     path: 'login',
     component: LoginComponent,
@@ -33,5 +32,9 @@ export const routes: Routes = [
   {
     path: 'asignacion-tarea',
     component: TareaAsignacionComponent,
+  },
+  {
+    path: 'manage-instalaciones',
+    component: ManageInstalacionesComponent,
   },
 ];

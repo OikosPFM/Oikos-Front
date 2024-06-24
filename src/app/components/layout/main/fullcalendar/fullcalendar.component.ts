@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { EventosService } from '../../../../services/eventos/eventos.service';
 import { HttpClientModule } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
+import esLocale from '@fullcalendar/core/locales/es'; // Importa el idioma que necesitas
 
 @Component({
   selector: 'app-fullcalendar',
@@ -131,7 +132,9 @@ export class FullcalendarComponent {
     },
     initialView: 'dayGridMonth',
     displayEventTime: false,
+    showNonCurrentDates: false,
     initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    locale: esLocale, // Configura el idioma aquí
     weekends: true,
     editable: true,
     selectable: true,
