@@ -5,6 +5,11 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
+interface NavigationOption {
+  link: string;
+  title: string;
+}
+
 @Component({
   selector: 'app-navbar',
   imports: [CommonModule, HttpClientModule, RouterModule],
@@ -14,7 +19,13 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [AuthService],
 })
 export class NavbarComponent {
+
   constructor(private authService: AuthService, private router: Router) {}
+  
+  options: NavigationOption[] = [
+    { link: '/contacta', title: 'Contáctanos' },
+    { link: '/about', title: 'Acerca de nosotros' },
+  ];
 
   isLoggedIn(): boolean {
     // Verifica si hay un token en el almacenamiento local

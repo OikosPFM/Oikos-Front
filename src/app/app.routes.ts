@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
+import { ContactComponent } from './components/pages/contactUs/contacta.component';
+import { AboutComponent } from './components/pages/aboutUs/about.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { LoginComponent } from './components/pages/login/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
@@ -14,6 +18,14 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
+    path: 'contacta',
+    component: ContactComponent,
+  },
+  {
+    path: 'about',
+    component: AboutComponent
+  },
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [AuthGuard],
@@ -23,8 +35,10 @@ export const routes: Routes = [
     component: LoginComponent,
   },
 
-  { path: 'manage_registros', component: ManageRegistrosComponent },
-
+  {
+    path: 'manage_registros',
+    component: ManageRegistrosComponent
+  },
   {
     path: 'manage-tarea',
     component: TareaModalComponent,
@@ -38,3 +52,9 @@ export const routes: Routes = [
     component: ManageInstalacionesComponent,
   },
 ];
+
+/*@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}*/
