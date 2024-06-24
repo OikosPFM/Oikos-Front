@@ -1,0 +1,19 @@
+<main class="dashboard-main">
+  <app-fullcalendar />
+  <div class="app-sidebar">
+    <!--<button>Asignación de tareas</button>-->
+    <button>Acceder al foro</button>
+    <button (click)="openCreateEventModal()">Crear evento</button>
+    <button (click)="openManageInstalacionesModal()">
+      Administrar instalaciones
+    </button>
+  </div>
+</main>
+<app-create-event-modal
+  *ngIf="showCreateEventModal"
+  (close)="closeModal()"
+></app-create-event-modal>
+<app-manage-instalaciones
+  *ngIf="showManageInstalacionesModal"
+  (close)="closeModal()"
+></app-manage-instalaciones>

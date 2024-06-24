@@ -2,19 +2,19 @@
   <h1 class="logo"></h1>
   <nav class="navbar">
     <ul>
-      <!-- <li *ngIf="!isLoggedIn()"> -->
-      <li>
-        <a href="login">Iniciar sesión</a>
+      <li *ngIf="!isLoggedIn()">
+        <a (click)="login()">Iniciar sesión</a>
+      </li>
+      <li *ngIf="isLoggedIn()">
+        <a (click)="logout()">Cerrar sesión</a>
       </li>
       <li>
         <a routerLink="about">Acerca de nosotros</a>
       </li>
-      <!-- <li *ngIf="isLoggedIn()"> -->
       <li>
-        <a (click)="logout()">Cerrar sesión</a>
-      </li>
-      <li>
-        <!--<button class="cta">
+
+        <button class="btn-nav">
+
           <span>Contáctanos</span>
           <svg width="15px" height="10px" viewBox="0 0 13 10">
             <path d="M1,5 L11,5"></path>

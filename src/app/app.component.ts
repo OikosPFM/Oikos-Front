@@ -5,10 +5,12 @@ import { FooterLayoutComponent } from './components/layout/footer/homeFooter/foo
 import { HeaderLayoutComponent } from './components/layout/header/header.component';
 import { ContactComponent } from './components/pages/contactUs/contacta.component';
 import { AboutComponent } from './components/pages/aboutUs/about.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+
   imports: [
     RouterOutlet,
     NavbarComponent,
@@ -16,6 +18,7 @@ import { AboutComponent } from './components/pages/aboutUs/about.component';
     HeaderLayoutComponent,
     ContactComponent,
     AboutComponent,
+    HttpClientModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
