@@ -16,6 +16,8 @@ import { INITIAL_EVENTS, createEventId } from './../../../../utils/event-utils';
 import { CommonModule } from '@angular/common';
 import { EventosService } from '../../../../services/eventos/eventos.service';
 import { HttpClientModule } from '@angular/common/http';
+import { jwtDecode } from 'jwt-decode';
+import esLocale from '@fullcalendar/core/locales/es'; // Importa el idioma que necesitas
 
 @Component({
   selector: 'app-fullcalendar',
@@ -37,14 +39,21 @@ export class FullcalendarComponent {
   constructor(
     private changeDetector: ChangeDetectorRef,
     private eventosService: EventosService
-  ) {}
+  ) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.decoded = jwtDecode(token);
+    } else {
+      console.error('Token not found in localStorage');
+    }
+  }
 
   ngOnInit(): void {
-    this.getEventos();
+    this.getEventosByFincaId(this.decoded.idFinca);
   }
   eventos: any[] = [];
   procesados: any[] = [];
-
+  decoded: any | null;
   getEventos(): void {
     this.eventosService.getEventos().subscribe(
       (data) => {
@@ -78,6 +87,38 @@ export class FullcalendarComponent {
   }
   //      eventSources: [{ events: this.procesados, color: 'pink' }],
 
+  getEventosByFincaId(fincaId: number): void {
+    this.eventosService.getEventosByFincaId(fincaId).subscribe(
+      (data) => {
+        this.eventos = data;
+        const eventosProcesadas = data.map((evento: any) => ({
+          id: evento.idEvento,
+          title: evento.titulo,
+          start: `${evento.fecha}T${evento.hora}`,
+          description: evento.descripcion,
+          category: evento.categoria,
+          dates: evento.fecha,
+          time: evento.hora,
+          capacity: evento.aforo,
+          organizer: `${evento.organizador?.nombre} ${evento.organizador?.primerApellido} ${evento.organizador?.segundoApellido}`,
+          color: 'pink',
+        }));
+        this.procesados = eventosProcesadas;
+        console.log(this.eventos);
+        console.log(this.procesados);
+
+        // Actualizar las opciones del calendario con los eventos procesados
+        this.calendarOptions.update((options) => ({
+          ...options,
+          eventSources: [{ events: this.procesados }],
+        }));
+      },
+      (error) => {
+        console.error('Error al obtener los eventos por ID de finca', error);
+      }
+    );
+  }
+
   selectedEvent: any = null;
   currentEvents = signal<EventApi[]>([]);
   calendarVisible = signal(true);
@@ -91,7 +132,9 @@ export class FullcalendarComponent {
     },
     initialView: 'dayGridMonth',
     displayEventTime: false,
+    showNonCurrentDates: false,
     initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    locale: esLocale, // Configura el idioma aquí
     weekends: true,
     editable: true,
     selectable: true,
@@ -139,10 +182,14 @@ export class FullcalendarComponent {
   }
 
   onEventoEliminado(): void {
-    this.getEventos();
+    this.getEventosByFincaId(this.decoded.idFinca);
   }
 
   onEventoCreado(): void {
-    this.getEventos();
+    this.getEventosByFincaId(this.decoded.idFinca);
+  }
+
+  onEventoEditado(): void {
+    this.getEventosByFincaId(this.decoded.idFinca);
   }
 }

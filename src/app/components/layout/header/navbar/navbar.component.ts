@@ -32,6 +32,14 @@ export class NavbarComponent {
     return !!localStorage.getItem('token');
   }
 
+  isLoginPage(): boolean {
+    return this.router.url === '/login';
+  }
+
+  isHomePage(): boolean {
+    return this.router.url === '/' || this.router.url === '/#register-form';
+  }
+
   login(): void {
     this.router.navigate(['/login']);
   }

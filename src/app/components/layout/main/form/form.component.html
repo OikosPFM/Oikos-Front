@@ -3,8 +3,19 @@
     <h2>Formulario de registro</h2>
     <mat-vertical-stepper [linear]="false" #stepper>
       <mat-step>
-        <form [formGroup]="fincaFormGroup">
-          <ng-template matStepLabel>Selecciona tu finca</ng-template>
+        <form [formGroup]="fincaFormGroup" mdc-form-field>
+          <ng-template matStepLabel
+            >Selecciona tu finca
+            <span
+              *ngIf="
+                fincaFormGroup.get('selectedFinca')?.invalid &&
+                fincaFormGroup.get('selectedFinca')?.touched
+              "
+              class="error-message"
+            >
+              *
+            </span></ng-template
+          >
           <mat-radio-group
             formControlName="selectedFinca"
             aria-label="Select an option"
@@ -12,12 +23,12 @@
             <div *ngIf="fincas.length > 0; else noFincas">
               <div *ngFor="let finca of fincas">
                 <mat-radio-button [value]="finca.idFinca">
-                  <p><strong>Calle:</strong> {{ finca.calle }}</p>
-                  <p><strong>Número:</strong> {{ finca.numero }}</p>
-                  <p><strong>Localidad:</strong> {{ finca.localidad }}</p>
-                  <p><strong>Provincia:</strong> {{ finca.provincia }}</p>
                   <p>
-                    <strong>Código Postal:</strong> {{ finca.codigoPostal }}
+                    <strong>
+                      {{ finca.calle }}, {{ finca.numero }}.
+                      {{ finca.localidad }} ({{ finca.provincia }}) CP:
+                      {{ finca.codigoPostal }}</strong
+                    >
                   </p></mat-radio-button
                 >
               </div>
@@ -33,7 +44,16 @@
       <mat-step [stepControl]="domicilioFormGroup">
         <form [formGroup]="domicilioFormGroup">
           <ng-template matStepLabel
-            >Completa con los datos de tu domicilio</ng-template
+            >Completa con los datos de tu domicilio
+            <span
+              *ngIf="
+                domicilioFieldsEmpty(domicilioFormGroup) &&
+                domicilioFormGroup.touched
+              "
+              class="error-message"
+            >
+              *
+            </span></ng-template
           >
           <mat-form-field>
             <input
@@ -67,8 +87,16 @@
       <mat-step [stepControl]="usuarioFormGroup">
         <form [formGroup]="usuarioFormGroup">
           <ng-template matStepLabel
-            >Completa con tus datos personales</ng-template
-          >
+            >Completa con tus datos personales
+            <span
+              *ngIf="
+                usuarioFieldsEmpty(usuarioFormGroup) && usuarioFormGroup.touched
+              "
+              class="error-message"
+            >
+              *
+            </span>
+          </ng-template>
           <mat-form-field>
             <input
               matInput
@@ -131,6 +159,36 @@
         <ng-template matStepLabel>Finalizar registro</ng-template>
         <div>
           <button mat-button (click)="onSubmit()">Registrar</button>
+        </div>
+        <div
+          *ngIf="
+            fincaFormGroup.get('selectedFinca')?.invalid &&
+            fincaFormGroup.get('selectedFinca')?.touched
+          "
+          class="error-message"
+        >
+          Es obligatorio seleccionar una finca.
+        </div>
+        <div
+          *ngIf="
+            domicilioFieldsEmpty(domicilioFormGroup) &&
+            domicilioFormGroup.touched
+          "
+          class="error-message"
+        >
+          Es obligatorio completar al menos un campo de domicilio.
+        </div>
+        <div
+          *ngIf="
+            usuarioFieldsEmpty(usuarioFormGroup) && usuarioFormGroup.touched
+          "
+          class="error-message"
+        >
+          Es obligatorio completar todos los campos de usuario.
+        </div>
+        <div *ngIf="formularioEnviado">
+          Registro completado, espera a que el administrador apruebe el registro
+          para acceder.
         </div>
       </mat-step>
     </mat-vertical-stepper>

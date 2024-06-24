@@ -60,6 +60,7 @@ export class FormComponent {
     contraseña: ['', Validators.required],
   });
   fincas: any[] = [];
+  formularioEnviado: boolean = false;
 
   ngOnInit(): void {
     this.getFincas();
@@ -79,7 +80,7 @@ export class FormComponent {
   onSubmit(): void {
     if (
       this.fincaFormGroup.valid &&
-      this.domicilioFormGroup.valid &&
+      !this.domicilioFieldsEmpty(this.domicilioFormGroup) &&
       this.usuarioFormGroup.valid
     ) {
       const propiedadData = {
@@ -116,6 +117,7 @@ export class FormComponent {
             (response) => {
               console.log('Usuario registrado exitosamente:', response);
               // Manejar la respuesta del servidor si es necesario
+              this.formularioEnviado = true;
             },
             (error) => {
               console.error('Error al registrar el usuario:', error);
@@ -128,6 +130,43 @@ export class FormComponent {
           // Manejar el error si es necesario
         }
       );
+    } else {
+      this.markAllAsTouched();
     }
+  }
+
+  markAllAsTouched() {
+    this.fincaFormGroup.markAllAsTouched();
+    this.domicilioFormGroup.markAllAsTouched();
+    this.usuarioFormGroup.markAllAsTouched();
+  }
+
+  domicilioFieldsEmpty(group: FormGroup): boolean {
+    const portal = group.get('portal')?.value;
+    const numeroPiso = group.get('numeroPiso')?.value;
+    const letra = group.get('letra')?.value;
+
+    return !portal && !numeroPiso && !letra;
+  }
+
+  usuarioFieldsEmpty(group: FormGroup): boolean {
+    const nombre = group.get('nombre')?.value;
+    const primerApellido = group.get('primerApellido')?.value;
+    const segundoApellido = group.get('segundoApellido')?.value;
+    const dni = group.get('dni')?.value;
+    const telefono = group.get('telefono')?.value;
+    const email = group.get('email')?.value;
+    const contraseña = group.get('contraseña')?.value;
+
+    // Check if all user fields are filled using logical AND (&&)
+    return !(
+      nombre &&
+      primerApellido &&
+      segundoApellido &&
+      dni &&
+      telefono &&
+      email &&
+      contraseña
+    );
   }
 }

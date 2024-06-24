@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimpleFormComponent } from './simple-form.component';
+import { ManageRegistrosComponent } from './manage-registros.component';
 
-describe('SimpleFormComponent', () => {
-  let component: SimpleFormComponent;
-  let fixture: ComponentFixture<SimpleFormComponent>;
+describe('ManageRegistrosComponent', () => {
+  let component: ManageRegistrosComponent;
+  let fixture: ComponentFixture<ManageRegistrosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SimpleFormComponent]
+      imports: [ManageRegistrosComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SimpleFormComponent);
+    fixture = TestBed.createComponent(ManageRegistrosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,11 +6,12 @@ import { HeaderLayoutComponent } from './components/layout/header/header.compone
 import { ContactComponent } from './components/pages/contactUs/contacta.component';
 import { AboutComponent } from './components/pages/aboutUs/about.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-
   imports: [
     RouterOutlet,
     NavbarComponent,
@@ -18,8 +19,11 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderLayoutComponent,
     ContactComponent,
     AboutComponent,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    CommonModule
   ],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

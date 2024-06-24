@@ -1,13 +1,22 @@
-<main class="dashboard-main">
-  <app-fullcalendar />
-  <div class="app-sidebar">
-    <!--<button>Asignación de tareas</button>-->
-    <button>Acceder al foro</button>
-    <button (click)="openCreateEventModal()">Crear evento</button>
-    <button (click)="openManageInstalacionesModal()">
-      Administrar instalaciones
-    </button>
-  </div>
+<main class="dashboard-main fade-in">
+  <section class="dashboard-saludo">
+    <h2>¡Bienvenidx, {{ infoUsuario?.nombre }}!</h2>
+    <h3>{{ textoSeleccionado }}</h3>
+  </section>
+  <section class="dashboard-options">
+    <app-fullcalendar />
+    <div class="dashboard-sidebar">
+      <button>Acceder al foro</button>
+      <button (click)="openCreateEventModal()">Crear evento</button>
+      <button (click)="openManageInstalacionesModal()">
+        Administrar instalaciones
+      </button>
+      <button>Administrar tareas</button>
+      <button routerLink="/manage_registros">
+        Revisar registros de usuario
+      </button>
+    </div>
+  </section>
 </main>
 <app-create-event-modal
   *ngIf="showCreateEventModal"
