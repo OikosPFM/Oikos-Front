@@ -13,15 +13,26 @@
   flex-wrap: wrap;
 }
 
+.instalaciones_title {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--azul-oscuros-oikos);
+  word-spacing: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 0.7rem;
+}
+
 .instalaciones_card {
   display: flex;
   flex-direction: column;
   background-color: var(--azul-oscuros-oikos);
   color: var(--verde-claro-oikos);
   padding: 2rem;
+  margin: 1rem 0;
   border-radius: 30px;
   border: var(--verde-claro-oikos) solid 2px;
-  width: 45%;
 }
 
 .instalaciones_card div {
@@ -30,14 +41,13 @@
 
 .instalaciones_card button {
   padding: 0.5rem 1rem;
-  margin: 2rem 0.5rem 0 0.5rem;
+  margin: 0.5rem;
   border-radius: 10px;
   color: var(--azul-oscuros-oikos);
   border: 2px solid var(--azul-oscuros-oikos) !important;
   outline: none; /* Elimina el borde de enfoque del navegador */
   font-weight: 600;
   transition: 0.3s ease-in-out; /* Transición de 0.5 segundos */
-
   &:hover {
     background-color: rgb(73, 150, 174);
     color: var(--verde-claro-oikos);
@@ -60,6 +70,7 @@
 }
 
 .create-button {
+  align-self: center;
   padding: 1rem 2rem;
   border-radius: 20px;
   color: var(--azul-oscuros-oikos);
@@ -74,4 +85,12 @@
     color: var(--verde-claro-oikos);
   }
   width: 400px;
+}
+
+.cards_container {
+  justify-content: center;
+  padding: 2rem 0;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }

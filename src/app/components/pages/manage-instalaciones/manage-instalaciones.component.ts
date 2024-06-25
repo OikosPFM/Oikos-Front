@@ -84,6 +84,18 @@ export class ManageInstalacionesComponent {
       (data) => {
         this.instalaciones = data;
         console.log('Instalaciones:', this.instalaciones);
+
+        // Format horarioApertura and horarioCierre
+        this.instalaciones.forEach((instalacion) => {
+          if (instalacion.horarioApertura && instalacion.horarioCierre) {
+            instalacion.horarioApertura = this.formatTime(
+              instalacion.horarioApertura
+            );
+            instalacion.horarioCierre = this.formatTime(
+              instalacion.horarioCierre
+            );
+          }
+        });
       },
       (error) => {
         console.error('Error al obtener instalaciones:', error);
@@ -224,5 +236,11 @@ Invitaciones mensuales máximas: ${
 
   openEditInstalacionModal() {
     this.showEditInstalacionModal = true;
+  }
+
+  formatTime(horario: Array<number>): string {
+    const horas = horario[0].toString().padStart(2, '0');
+    const minutos = horario[1].toString().padStart(2, '0');
+    return horas + ':' + minutos;
   }
 }

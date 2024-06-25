@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'dashboard',
@@ -36,8 +36,8 @@ export const routes: Routes = [
   },
 
   {
-    path: 'manage_registros',
-    component: ManageRegistrosComponent
+    path: 'manage-registros',
+    component: ManageRegistrosComponent,
   },
   {
     path: 'manage-tarea',

@@ -5,30 +5,37 @@
       <img src="./../../../../assets/icons/back.svg" /></h2
   ></a>
   <div class="instalaciones_container">
-    <div class="instalaciones_card" *ngFor="let instalacion of instalaciones">
-      <h2 *ngIf="!editando">
-        {{ instalacion.nombre }}
-        <img src="./../../../../assets/icons/facility.svg" />
-      </h2>
-      <p>Días Abierto: {{ instalacion.diasAbierto.join(", ") }}</p>
-      <p>Horario de Apertura: {{ instalacion.horarioApertura }}</p>
-      <p>Horario de Cierre: {{ instalacion.horarioCierre }}</p>
-      <p>Intervalo: {{ instalacion.intervalo }}</p>
-      <p>Plazas por Intervalo: {{ instalacion.plazasIntervalo }}</p>
-      <p>
-        Invitaciones Mensuales Máximas:
-        {{ instalacion.invitacionesMensualesMaximas }}
-      </p>
-      <div>
-        <button (click)="deleteInstalacion(instalacion.idInstalacion)">
-          Eliminar instalación
-        </button>
-        <button (click)="openEditInstalacionModal()">Editar instalación</button>
+    <h2 class="instalaciones_title">Instalaciones:</h2>
+    <button class="create-button" (click)="openCreateInstalacionModal()">
+      Crear instalación
+    </button>
+    <div class="cards_container">
+      <div class="instalaciones_card" *ngFor="let instalacion of instalaciones">
+        <h2 *ngIf="!editando">
+          {{ instalacion.nombre }}
+          <img src="./../../../../assets/icons/facility.svg" />
+        </h2>
+        <p>Días Abierto: {{ instalacion.diasAbierto.join(", ") }}</p>
+        <p>Horario de Apertura: {{ instalacion.horarioApertura }}</p>
+        <p>Horario de Cierre: {{ instalacion.horarioCierre }}</p>
+        <!--<p>Intervalo: {{ instalacion.intervalo }}</p>
+        <p>Plazas por Intervalo: {{ instalacion.plazasIntervalo }}</p>
+        <p>
+          Invitaciones Mensuales Máximas:
+          {{ instalacion.invitacionesMensualesMaximas }}
+        </p>-->
+        <div class="button-container">
+          <button
+            (click)="startEditing(instalacion); openEditInstalacionModal()"
+          >
+            Editar
+          </button>
+          <button (click)="deleteInstalacion(instalacion.idInstalacion)">
+            Eliminar
+          </button>
+        </div>
       </div>
     </div>
-    <button class="create-button" (click)="openCreateInstalacionModal()">
-      Crear instalacion
-    </button>
   </div>
 </main>
 
@@ -40,4 +47,5 @@
 <app-edit-instalacion
   *ngIf="showEditInstalacionModal"
   (close)="closeModal()"
+  [instalacionEditando]="instalacionEditando"
 ></app-edit-instalacion>

@@ -14,6 +14,9 @@ import { jwtDecode } from 'jwt-decode';
   providers: [InstalacionesService],
 })
 export class EditInstalacionComponent {
+  @Output() close = new EventEmitter<void>();
+  @Input() instalacionEditando: any;
+
   editando = false;
   diasSemana = [
     'LUNES',
@@ -54,8 +57,6 @@ export class EditInstalacionComponent {
   };
 
   isEditing: boolean = false;
-
-  @Output() close = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.obtenerInstalacionesPorFincaID(this.decoded.idFinca);
@@ -148,8 +149,6 @@ Invitaciones mensuales máximas: ${
         }
       );
   }
-
-  instalacionEditando: any = null;
 
   startEditing(instalacion: any): void {
     if (instalacion) {
