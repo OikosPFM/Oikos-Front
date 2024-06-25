@@ -1,47 +1,63 @@
-<main><p>manage-registros works!</p></main>
-<div class="registros-container">
-  <section>
-    <h1>Usuarios pendientes de aprobación</h1>
-    <div *ngFor="let usuario of usuariosInactivos">
-      <h2>
-        {{ usuario.nombre }} {{ usuario.primerApellido }}
-        {{ usuario.segundoApellido }}
-      </h2>
-      <p>Email: {{ usuario.email }}</p>
-      <p>DNI: {{ usuario.dni }}</p>
-      <p>Teléfono: {{ usuario.telefono }}</p>
-      <p>
-        Propiedad: Portal {{ usuario.propiedad.portal }}, número
-        {{ usuario.propiedad.numeroPiso }}, letra {{ usuario.propiedad.letra }}
-      </p>
+<main class="registros-main fade-in">
+  <a routerLink="/dashboard">
+    <h2 class="regresar">
+      Regresar al menú principal
+      <img src="./../../../../assets/icons/back.svg" /></h2
+  ></a>
+  <div class="registros-container">
+    <section class="usuarios">
+      <h2>Usuarios pendientes de aprobación:</h2>
+      <div class="usuarios_container">
+        <div *ngFor="let usuario of usuariosInactivos" class="usuarios_card">
+          <h3>
+            {{ usuario.nombre }} {{ usuario.primerApellido }}
+            {{ usuario.segundoApellido }}
+            <img src="./../../../../assets/icons/waiting.svg" />
+          </h3>
+          <p>Email: {{ usuario.email }}</p>
+          <p>DNI: {{ usuario.dni }}</p>
+          <p>Teléfono: {{ usuario.telefono }}</p>
+          <p>
+            Propiedad: Portal {{ usuario.propiedad.portal }}, número
+            {{ usuario.propiedad.numeroPiso }}, letra
+            {{ usuario.propiedad.letra }}
+          </p>
+          <div>
+            <button (click)="cambiarEstadoUsuario(usuario.idUsuario)">
+              Aprobar registro
+            </button>
+            <button (click)="eliminarUsuario(usuario.idUsuario)">
+              Rechazar registro
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr class="separator" />
 
-      <button (click)="cambiarEstadoUsuario(usuario.idUsuario)">
-        Aprobar registro
-      </button>
-      <button (click)="eliminarUsuario(usuario.idUsuario)">
-        Rechazar registro
-      </button>
-    </div>
-  </section>
+    <section class="usuarios">
+      <h2>Usuarios activos:</h2>
+      <div class="usuarios_container">
+        <div *ngFor="let usuario of usuariosActivos" class="usuarios_card">
+          <h3>
+            {{ usuario.nombre }} {{ usuario.primerApellido }}
+            {{ usuario.segundoApellido }}
+            <img src="./../../../../assets/icons/checked.svg" />
+          </h3>
+          <p>Email: {{ usuario.email }}</p>
+          <p>DNI: {{ usuario.dni }}</p>
+          <p>Teléfono: {{ usuario.telefono }}</p>
+          <p>
+            Propiedad: Portal {{ usuario.propiedad.portal }}, número
+            {{ usuario.propiedad.numeroPiso }}, letra
+            {{ usuario.propiedad.letra }}
+          </p>
 
-  <section>
-    <h1>Usuarios activos</h1>
-    <div *ngFor="let usuario of usuariosActivos">
-      <h2>
-        {{ usuario.nombre }} {{ usuario.primerApellido }}
-        {{ usuario.segundoApellido }}
-      </h2>
-      <p>Email: {{ usuario.email }}</p>
-      <p>DNI: {{ usuario.dni }}</p>
-      <p>Teléfono: {{ usuario.telefono }}</p>
-      <p>
-        Propiedad: Portal {{ usuario.propiedad.portal }}, número
-        {{ usuario.propiedad.numeroPiso }}, letra {{ usuario.propiedad.letra }}
-      </p>
-
-      <button (click)="eliminarUsuario(usuario.idUsuario)">
-        Eliminar usuario
-      </button>
-    </div>
-  </section>
-</div>
+          <button (click)="eliminarUsuario(usuario.idUsuario)">
+            Eliminar usuario
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

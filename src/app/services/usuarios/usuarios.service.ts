@@ -13,7 +13,6 @@ export class UsuariosService {
     return this.http.get(this.apiUrl);
   }
 
-
   getUsuariosByFinca(mytoken: any): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -44,6 +43,33 @@ export class UsuariosService {
       );
   }
 
+  getUsuarioByIdauth(id: number, mytoken: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+
+    // Decodifica el token para obtener el rol del usuario
+    const decodedToken: any = mytoken;
+    const userRole = decodedToken?.rol;
+
+    if (userRole !== 'ADMIN') {
+      console.error('Usuario no autorizado para crear instalaciones.');
+      return throwError('Usuario no autorizado para crear instalaciones.');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get(`${this.apiUrl}/${id}`, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error al crear instalación:', error);
+        return throwError(error);
+      })
+    );
+  }
 
   getUsuarioById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${id}`);

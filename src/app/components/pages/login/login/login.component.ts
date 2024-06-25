@@ -1,8 +1,8 @@
-import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
-import { AuthService } from '../../../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../services/auth/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -34,10 +34,10 @@ export class LoginComponent {
       (error) => {
         console.error('Login failed', error);
         if (error.status === 401) {
-          this.errorMessage = 'Invalid email or password.';
+          this.errorMessage = 'Email y/o contraseña incorrectos';
         } else if (error.status === 500) {
           this.errorMessage =
-            'Your account is not activated. Please check your email for the activation link.';
+            'Tu cuenta todavía no ha sido activada. El administrador de tu finca tiene que aprobar el registro';
         } else if (error.status === 404) {
           this.errorMessage = 'User not found.';
         } else {
@@ -46,5 +46,10 @@ export class LoginComponent {
         }
       }
     );
+  }
+
+  navigateToForm(event: Event) {
+    event.preventDefault();
+    this.router.navigate(['/'], { fragment: 'register-form' });
   }
 }

@@ -3,11 +3,12 @@ import { UsuariosService } from '../../../services/usuarios/usuarios.service';
 import { HttpClientModule } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-manage-registros',
   standalone: true,
-  imports: [HttpClientModule, CommonModule],
+  imports: [HttpClientModule, CommonModule, RouterModule],
   templateUrl: './manage-registros.component.html',
   styleUrl: './manage-registros.component.css',
   providers: [UsuariosService],

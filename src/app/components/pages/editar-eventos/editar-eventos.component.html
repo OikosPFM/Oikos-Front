@@ -1,105 +1,98 @@
 <div class="home-div-container">
-    <app-layout-header />
-    <main>
-      <h1>Actualizar evento</h1>
-      <h2>Actualiza tu evento</h2>
-      <form (ngSubmit)="updateEventos()">
-        <div>
-          <label for="id_evento">Id_evento:</label>
-          <input
-            type="number"
-            id="id_evento"
-            [(ngModel)]="evento.id_evento"
-            name="id_evento"
-            required
-          />
+  <main>
+    <h1>Actualizar evento</h1>
+    <h2>Actualiza tu evento</h2>
+    <form (ngSubmit)="updateEventos()">
+      <div>
+        <label for="id_evento">Id_evento:</label>
+        <input
+          type="number"
+          id="id_evento"
+          [(ngModel)]="evento.id_evento"
+          name="id_evento"
+          required
+        />
+      </div>
+      <div>
+        <label for="titulo">Titulo:</label>
+        <input
+          type="text"
+          id="titulo"
+          [(ngModel)]="evento.titulo"
+          name="titulo"
+          required
+        />
+      </div>
+      <div>
+        <label for="fecha">Fecha:</label>
+        <input
+          type="number"
+          id="fecha"
+          [(ngModel)]="evento.fecha"
+          name="fecha"
+          required
+        />
+      </div>
+      <div>
+        <label for="hora">Hora:</label>
+        <input type="number" id="hora" [(ngModel)]="evento.hora" name="hora" />
+      </div>
+      <div>
+        <label for="description">Description:</label>
+        <input
+          type="text"
+          id="description"
+          [(ngModel)]="evento.description"
+          name="description"
+        />
+      </div>
+      <div>
+        <label for="categoria">Categoria:</label>
+        <input
+          type="text"
+          id="categoria"
+          [(ngModel)]="evento.categoria"
+          name="categoria"
+        />
+      </div>
+      <div>
+        <label for="participantes">Participantes:</label>
+        <input
+          type="number"
+          id="participantes"
+          [(ngModel)]="evento.participantes"
+          name="participantes"
+        />
+      </div>
+      <div>
+        <label for="aforo">aforo:</label>
+        <input
+          type="number"
+          id="aforo"
+          [(ngModel)]="evento.aforo"
+          name="aforo"
+        />
+      </div>
+      <button type="submit">Actualizar Evento</button>
+    </form>
+    <h2>Estos son tus Eventos</h2>
+    <div class="event-container">
+      <div *ngFor="let evento of eventos" class="evento-card">
+        <div class="evento-header">
+          <h2>{{ evento.titulo }}</h2>
+          <h4>{{ evento.fecha }}</h4>
         </div>
-        <div>
-          <label for="titulo">Titulo:</label>
-          <input
-            type="text"
-            id="titulo"
-            [(ngModel)]="evento.titulo"
-            name="titulo"
-            required
-          />
+        <div class="evento-info">
+          <p><b>Hora:</b> {{ evento.hora }}</p>
+          <p><b>Description:</b> {{ evento.descrpcion }}</p>
+          <p><b>Categoria:</b> {{ evento.categoria }}</p>
+          <p><b>Participantes:</b> {{ evento.participantes }}</p>
+          <p><b>Aforo:</b> {{ evento.aforo }}</p>
         </div>
-        <div>
-          <label for="fecha">Fecha:</label>
-          <input
-            type="number"
-            id="fecha"
-            [(ngModel)]="evento.fecha"
-            name="fecha"
-            required
-          />
-        </div>
-        <div>
-          <label for="hora">Hora:</label>
-          <input
-            type="number"
-            id="hora"
-            [(ngModel)]="evento.hora"
-            name="hora"
-          />
-        </div>
-        <div>
-          <label for="description">Description:</label>
-          <input
-            type="text"
-            id="description"
-            [(ngModel)]="evento.description"
-            name="description"
-          />
-        </div>
-        <div>
-          <label for="categoria">Categoria:</label>
-          <input
-            type="text"
-            id="categoria"
-            [(ngModel)]="evento.categoria"
-            name="categoria"
-          />
-        </div>
-        <div>
-          <label for="participantes">Participantes:</label>
-          <input
-            type="number"
-            id="participantes"
-            [(ngModel)]="evento.participantes"
-            name="participantes"
-          />
-        </div>
-        <div>
-          <label for="aforo">aforo:</label>
-          <input
-            type="number"
-            id="aforo"
-            [(ngModel)]="evento.aforo"
-            name="aforo"
-          />
-        </div>
-        <button type="submit">Actualizar Evento</button>
-      </form>
-      <h2>Estos son tus Eventos</h2>
-      <div class="event-container">
-        <div *ngFor="let evento of eventos" class="evento-card">
-          <div class="evento-header">
-            <h2>{{ evento.titulo }}</h2>
-            <h4>{{ evento.fecha }}</h4>
-          </div>
-          <div class="evento-info">
-            <p><b>Hora:</b> {{ evento.hora }}</p>
-            <p><b>Description:</b> {{ evento.descrpcion }}</p>
-            <p><b>Categoria:</b> {{ evento.categoria }}</p>
-            <p><b>Participantes:</b> {{ evento.participantes }}</p>
-            <p><b>Aforo:</b> {{ evento.aforo }}</p>
-          </div>
-          <div class="evento-footer">
-            <small>Created: {{ evento.created_at | date : "medium" }}</small>
-          </div>
+        <div class="evento-footer">
+          <small>Created: {{ evento.created_at | date : "medium" }}</small>
         </div>
       </div>
-    </main>
-    <app-layout-footer />
-  </div>
+    </div>
+  </main>
+</div>
