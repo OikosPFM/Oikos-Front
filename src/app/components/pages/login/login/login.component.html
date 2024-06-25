@@ -1,42 +1,69 @@
-<section class="vh-100">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card recuadro dark-blue-oikos-color" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
+<section class="vh-100 fade-in">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center align-items-center h-70">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div
+          class="card recuadro dark-blue-oikos-color"
+          style="border-radius: 1rem"
+        >
+          <div class="card-body p-5 text-center">
+            <div class="mb-md-2 mt-md-3">
+              <h2 class="fw-bold mb-2 text-uppercase">Iniciar Sesión</h2>
+              <p class="mb-3">Por favor, introduce tu email y contraseña</p>
 
-              <div class="mb-md-5 mt-md-4 pb-5">
-
-                <h2 class="fw-bold mb-2 text-uppercase">Iniciar Sesión</h2>
-                <p class="mb-5">Por favor, introduce tu usuario y contraseña:</p>
-
+              <form (ngSubmit)="login()">
                 <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typeEmailX">Email</label>
+                  <label class="form-label" for="email">Email:</label>
+                  <input
+                    type="email"
+                    type="email"
+                    id="email"
+                    [(ngModel)]="email"
+                    name="email"
+                    required
+                    class="form-control form-control-lg"
+                  />
                 </div>
-
                 <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                  <label class="form-label" for="typePasswordX">Password</label>
+                  <label class="form-label" for="password">Contraseña:</label>
+                  <input
+                    type="password"
+                    id="password"
+                    [(ngModel)]="password"
+                    name="password"
+                    required
+                    class="form-control form-control-lg"
+                  />
                 </div>
+                <div class="error-message">
+                  {{ errorMessage || " " }}
+                </div>
+                <!--<p class="small mb-5 pb-lg-2">
+                  <a class="" href="#!">¿Olvidaste la contraseña?</a>
+                </p>-->
 
-                <p class="small mb-5 pb-lg-2"><a class="" href="#!">¿Olvidaste la contraseña?</a></p>
-
-                <button data-mdb-button-init data-mdb-ripple-init
-                    class="btn btn-outline-light btn-lg px-5 dark-blue-oikos-button"
-                    type="submit">Iniciar Sesión
+                <button
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-outline-light btn-lg px-5 dark-blue-oikos-button"
+                  type="submit"
+                >
+                  Iniciar Sesión
                 </button>
-
-              </div>
+              </form>
 
               <div>
-                <p class="mb-0">¿No eres miembro? <a href="#!" class="fw-bold">Regístrate</a>
+                <p class="mb-0">
+                  ¿No eres miembro?
+                  <a href="#!" (click)="navigateToForm($event)" class="fw-bold"
+                    >Regístrate</a
+                  >
                 </p>
               </div>
-
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>

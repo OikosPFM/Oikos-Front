@@ -34,20 +34,17 @@ body {
   min-height: 100vh;
   flex-direction: column;
 
-  background-color: var(--naranja-oikos);
+  background-color: #9bbcb6;
 
   width: 100vw;
 }
 
-body > * {
-  margin: 0 3rem;
-}
 .fade-in {
   opacity: 0; /* make things invisible upon start */
   animation: fadeIn ease-in 1;
   animation-fill-mode: forwards;
-  animation-duration: 1.4s;
-  animation-delay: 1.4s;
+  animation-duration: 0.5s;
+  animation-delay: 0.3s;
 }
 @keyframes fadeIn {
   from {
@@ -64,14 +61,37 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Outfit, sans-serif;
 }
 
-html,
-body {
-  height: 100%;
+/* styles.css o global.css */
+.fc {
+  font-family: Outfit, sans-serif;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.fc-daygrid-event {
+  overflow: hidden !important; /* Oculta el contenido desbordado */
+}
+.fc .fc-daygrid-day-frame {
+  overflow: visible !important;
+}
+
+.fc-daygrid-event:hover {
+  overflow: visible !important;
+  white-space: inherit;
+}
+
+.fc-daygrid-day-events:hover {
+  right: auto !important;
+}
+
+td.fc-other-month {
+  visibility: hidden !important;
+}
+
+.fc-daygrid-more-link {
+  background-color: var(--verde-oikos) !important;
+}
+
+.mat-step-icon.invalid-step {
+  background-color: red !important;
 }

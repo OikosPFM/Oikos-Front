@@ -1,0 +1,10 @@
+.title {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 20px;
+  color: rgb(67, 110, 142);
+}
