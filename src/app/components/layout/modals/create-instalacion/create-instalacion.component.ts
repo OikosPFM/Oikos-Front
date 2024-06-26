@@ -14,16 +14,8 @@ import { jwtDecode } from 'jwt-decode';
   providers: [InstalacionesService],
 })
 export class CreateInstalacionComponent {
-  editando = false;
-  diasSemana = [
-    'LUNES',
-    'MARTES',
-    'MIERCOLES',
-    'JUEVES',
-    'VIERNES',
-    'SABADO',
-    'DOMINGO',
-  ];
+  @Output() instalacionCreada: EventEmitter<void> = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
 
   constructor(private instalacionesService: InstalacionesService) {
     const token = localStorage.getItem('token');
@@ -37,6 +29,7 @@ export class CreateInstalacionComponent {
   }
 
   decoded: any | null;
+  isEditing: boolean = false;
   instalaciones: any[] = [];
   instalacion = {
     //Más adelante habrá que conectar con la finca que se este gestionando
@@ -52,48 +45,15 @@ export class CreateInstalacionComponent {
     invitacionesMensualesMaximas: '',
     idInstalacion: '',
   };
-
-  isEditing: boolean = false;
-
-  @Output() close = new EventEmitter<void>();
-
-  ngOnInit(): void {
-    this.obtenerInstalacionesPorFincaID(this.decoded.idFinca);
-  }
-  getInstalaciones(): void {
-    this.instalacionesService.getAllInstalaciones().subscribe((data) => {
-      this.instalaciones = data;
-      console.log(this.instalaciones);
-    });
-  }
-
-  obtenerInstalacionesPorFincaID(fincaID: number): void {
-    this.instalacionesService.getInstalacionesByFincaID(fincaID).subscribe(
-      (data) => {
-        this.instalaciones = data;
-        console.log('Instalaciones:', this.instalaciones);
-      },
-      (error) => {
-        console.error('Error al obtener instalaciones:', error);
-      }
-    );
-  }
-
-  onClose() {
-    this.close.emit();
-  }
-
-  onDiasAbiertoChange(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    if (checkbox.checked) {
-      this.instalacion.diasAbierto.push(checkbox.value);
-    } else {
-      const index = this.instalacion.diasAbierto.indexOf(checkbox.value);
-      if (index > -1) {
-        this.instalacion.diasAbierto.splice(index, 1);
-      }
-    }
-  }
+  diasSemana = [
+    'LUNES',
+    'MARTES',
+    'MIERCOLES',
+    'JUEVES',
+    'VIERNES',
+    'SABADO',
+    'DOMINGO',
+  ];
 
   createInstalacion(instalacionForm: NgForm): void {
     if (instalacionForm.invalid) {
@@ -122,7 +82,8 @@ Invitaciones mensuales máximas: ${
             }.`
           );
           instalacionForm.resetForm();
-          this.getInstalaciones();
+          this.onClose();
+          this.instalacionCreada.emit(); // Emitir el evento después de que la eliminación sea exitosa
         },
         error: (error: any) => {
           console.error('Error al crear el evento', error);
@@ -132,5 +93,19 @@ Invitaciones mensuales máximas: ${
     console.log(this.instalaciones);
   }
 
-  instalacionEditando: any = null;
+  onClose() {
+    this.close.emit();
+  }
+
+  onDiasAbiertoChange(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
+    if (checkbox.checked) {
+      this.instalacion.diasAbierto.push(checkbox.value);
+    } else {
+      const index = this.instalacion.diasAbierto.indexOf(checkbox.value);
+      if (index > -1) {
+        this.instalacion.diasAbierto.splice(index, 1);
+      }
+    }
+  }
 }

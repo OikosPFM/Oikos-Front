@@ -54,3 +54,8 @@
   }
   width: 400px;
 }
+
+.dashboard-sidebar img {
+  width: 30px;
+  margin-bottom: 0.5rem;
+}

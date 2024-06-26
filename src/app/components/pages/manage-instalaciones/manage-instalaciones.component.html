@@ -11,19 +11,28 @@
     </button>
     <div class="cards_container">
       <div class="instalaciones_card" *ngFor="let instalacion of instalaciones">
-        <h2 *ngIf="!editando">
-          {{ instalacion.nombre }}
-          <img src="./../../../../assets/icons/facility.svg" />
-        </h2>
-        <p>Días Abierto: {{ instalacion.diasAbierto.join(", ") }}</p>
-        <p>Horario de Apertura: {{ instalacion.horarioApertura }}</p>
-        <p>Horario de Cierre: {{ instalacion.horarioCierre }}</p>
-        <!--<p>Intervalo: {{ instalacion.intervalo }}</p>
+        <div>
+          <h2>
+            {{ instalacion.nombre }}
+            <img src="./../../../../assets/icons/facility.svg" />
+          </h2>
+          <p>
+            Días Abierto:
+            {{
+              isTodosLosDias(instalacion.diasAbierto)
+                ? "TODOS LOS DIAS"
+                : instalacion.diasAbierto.join(", ")
+            }}
+          </p>
+          <p>Horario de Apertura: {{ instalacion.horarioApertura }}</p>
+          <p>Horario de Cierre: {{ instalacion.horarioCierre }}</p>
+          <!--<p>Intervalo: {{ instalacion.intervalo }}</p>
         <p>Plazas por Intervalo: {{ instalacion.plazasIntervalo }}</p>
         <p>
           Invitaciones Mensuales Máximas:
           {{ instalacion.invitacionesMensualesMaximas }}
         </p>-->
+        </div>
         <div class="button-container">
           <button
             (click)="startEditing(instalacion); openEditInstalacionModal()"
@@ -42,10 +51,12 @@
 <app-create-instalacion
   *ngIf="showCreateInstalacionModal"
   (close)="closeModal()"
+  (instalacionCreada)="onInstalacionCreada()"
 ></app-create-instalacion>
 
 <app-edit-instalacion
   *ngIf="showEditInstalacionModal"
   (close)="closeModal()"
+  (instalacionEditada)="onInstalacionEditada()"
   [instalacionEditando]="instalacionEditando"
 ></app-edit-instalacion>

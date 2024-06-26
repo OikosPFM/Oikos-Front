@@ -24,18 +24,7 @@ import { EditInstalacionComponent } from '../../layout/modals/edit-instalacion/e
   ],
 })
 export class ManageInstalacionesComponent {
-  editando = false;
-  diasSemana = [
-    'LUNES',
-    'MARTES',
-    'MIERCOLES',
-    'JUEVES',
-    'VIERNES',
-    'SABADO',
-    'DOMINGO',
-  ];
-  showCreateInstalacionModal: boolean = false;
-  showEditInstalacionModal: boolean = false;
+  @Output() close = new EventEmitter<void>();
 
   constructor(private instalacionesService: InstalacionesService) {
     const token = localStorage.getItem('token');
@@ -47,8 +36,16 @@ export class ManageInstalacionesComponent {
       console.error('Token not found in localStorage');
     }
   }
+  ngOnInit(): void {
+    this.obtenerInstalacionesPorFincaID(this.decoded.idFinca);
+  }
 
   decoded: any | null;
+  isEditing: boolean = false;
+  instalacionEditando: any = null;
+  showCreateInstalacionModal: boolean = false;
+  showEditInstalacionModal: boolean = false;
+
   instalaciones: any[] = [];
   instalacion = {
     //Más adelante habrá que conectar con la finca que se este gestionando
@@ -64,14 +61,16 @@ export class ManageInstalacionesComponent {
     invitacionesMensualesMaximas: '',
     idInstalacion: '',
   };
+  diasSemana = [
+    'LUNES',
+    'MARTES',
+    'MIERCOLES',
+    'JUEVES',
+    'VIERNES',
+    'SABADO',
+    'DOMINGO',
+  ];
 
-  isEditing: boolean = false;
-
-  @Output() close = new EventEmitter<void>();
-
-  ngOnInit(): void {
-    this.obtenerInstalacionesPorFincaID(this.decoded.idFinca);
-  }
   getInstalaciones(): void {
     this.instalacionesService.getAllInstalaciones().subscribe((data) => {
       this.instalaciones = data;
@@ -85,7 +84,7 @@ export class ManageInstalacionesComponent {
         this.instalaciones = data;
         console.log('Instalaciones:', this.instalaciones);
 
-        // Format horarioApertura and horarioCierre
+        // Formateo horario
         this.instalaciones.forEach((instalacion) => {
           if (instalacion.horarioApertura && instalacion.horarioCierre) {
             instalacion.horarioApertura = this.formatTime(
@@ -94,6 +93,11 @@ export class ManageInstalacionesComponent {
             instalacion.horarioCierre = this.formatTime(
               instalacion.horarioCierre
             );
+          }
+          if (instalacion.diasAbierto) {
+            instalacion.diasAbierto.sort((a: any, b: any) => {
+              return this.diasSemana.indexOf(a) - this.diasSemana.indexOf(b);
+            });
           }
         });
       },
@@ -119,43 +123,6 @@ export class ManageInstalacionesComponent {
     }
   }
 
-  createInstalacion(instalacionForm: NgForm): void {
-    if (instalacionForm.invalid) {
-      alert('Por favor, rellena todos los campos.');
-      return;
-    }
-    // Asigna el ID del organizador al objeto evento, tendremos que hacer un get del usuario
-    //this.evento.organizadorId = userId;
-
-    this.instalacionesService
-      .createInstalaciones(this.instalacion, this.decoded)
-      .subscribe({
-        next: (data: any) => {
-          console.log('Evento created successfully', data);
-          alert(
-            `La instalación ha sido creada exitosamente. 
-Finca: ${this.instalacion.finca.idFinca}, 
-Nombre: ${this.instalacion.nombre}, 
-Días abierto: ${this.instalacion.diasAbierto.join(', ')}, 
-Horario de apertura: ${this.instalacion.horarioApertura}, 
-Horario de cierre: ${this.instalacion.horarioCierre}, 
-Intervalo: ${this.instalacion.intervalo}, 
-Plazas por intervalo: ${this.instalacion.plazasIntervalo}, 
-Invitaciones mensuales máximas: ${
-              this.instalacion.invitacionesMensualesMaximas
-            }.`
-          );
-          instalacionForm.resetForm();
-          this.getInstalaciones();
-        },
-        error: (error: any) => {
-          console.error('Error al crear el evento', error);
-        },
-      });
-
-    console.log(this.instalaciones);
-  }
-
   deleteInstalacion(idInstalacion: string): void {
     this.instalacionesService
       .deleteInstalacion(idInstalacion, this.decoded)
@@ -173,8 +140,7 @@ Invitaciones mensuales máximas: ${
       );
   }
 
-  instalacionEditando: any = null;
-
+  //Que al pulsar editar la información de esa instalación se envie al modal
   startEditing(instalacion: any): void {
     if (instalacion) {
       // Copiar cada campo uno por uno según sea necesario
@@ -188,48 +154,13 @@ Invitaciones mensuales máximas: ${
         invitacionesMensualesMaximas: instalacion.invitacionesMensualesMaximas,
         idInstalacion: instalacion.idInstalacion,
       };
-
-      console.log(this.instalacionEditando);
       this.isEditing = true;
     } else {
       console.error('Instalación no válida para editar.');
     }
   }
 
-  updateInstalacion(instalacionForm: NgForm): void {
-    if (instalacionForm.invalid) {
-      alert('Por favor, rellena todos los campos.');
-      return;
-    }
-    // Lógica para actualizar la instalación...
-    this.instalacionesService
-      .updateInstalacion(this.instalacionEditando, this.decoded)
-      .subscribe({
-        next: (data) => {
-          console.log('Instalación actualizada con éxito', data);
-          this.getInstalaciones();
-          this.isEditing = false;
-
-          alert(
-            `La instalación con ID: ${this.instalacion.idInstalacion} ha sido actualizada`
-          );
-        },
-        error: (error) => {
-          console.error('Error al actualizar la instalación', error);
-        },
-      });
-  }
-
-  cancelEditing(): void {
-    this.instalacionEditando = null;
-    this.isEditing = false;
-  }
-
-  closeModal() {
-    this.showCreateInstalacionModal = false;
-    this.showEditInstalacionModal = false;
-  }
-
+  //Apertura y cierre de modales
   openCreateInstalacionModal() {
     this.showCreateInstalacionModal = true;
   }
@@ -238,9 +169,30 @@ Invitaciones mensuales máximas: ${
     this.showEditInstalacionModal = true;
   }
 
+  closeModal() {
+    this.showCreateInstalacionModal = false;
+    this.showEditInstalacionModal = false;
+  }
+
+  onInstalacionEditada() {
+    this.obtenerInstalacionesPorFincaID(this.decoded.idFinca);
+  }
+  onInstalacionCreada() {
+    this.obtenerInstalacionesPorFincaID(this.decoded.idFinca);
+  }
+
+  //Formateo fecha
   formatTime(horario: Array<number>): string {
     const horas = horario[0].toString().padStart(2, '0');
     const minutos = horario[1].toString().padStart(2, '0');
     return horas + ':' + minutos;
+  }
+
+  //Comprobación para que si esta abierto todos los días sustituya por el texto TODOS LOS DIAS
+  isTodosLosDias(diasAbierto: string[]): boolean {
+    return (
+      diasAbierto.length === this.diasSemana.length &&
+      diasAbierto.every((dia) => this.diasSemana.includes(dia))
+    );
   }
 }
