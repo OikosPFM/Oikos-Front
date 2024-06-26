@@ -1,9 +1,12 @@
 <section class="navbar-container fade-in">
-  <img src="../../../../../assets/logo.png" class="logo" />
+  <a routerLink=""><img src="../../../../../assets/logo.png" class="logo" /></a>
   <nav class="navbar">
     <ul>
-      <li *ngIf="!isLoggedIn() && !isHomePage()">
-        <a routerLink="">Home</a>
+      <li *ngIf="!isHomePage()">
+        <a routerLink=""><img src="../../../../../assets/icons/home.svg" /></a>
+      </li>
+      <li *ngIf="isLoggedIn() && !isDashboardPage()">
+        <a routerLink="dashboard">Menú</a>
       </li>
       <li *ngIf="!isLoggedIn() && !isLoginPage()">
         <a (click)="login()">Iniciar sesión</a>

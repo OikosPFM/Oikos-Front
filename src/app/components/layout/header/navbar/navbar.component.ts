@@ -19,9 +19,8 @@ interface NavigationOption {
   providers: [AuthService],
 })
 export class NavbarComponent {
-
   constructor(private authService: AuthService, private router: Router) {}
-  
+
   options: NavigationOption[] = [
     { link: '/contacta', title: 'Contáctanos' },
     { link: '/about', title: 'Acerca de nosotros' },
@@ -38,6 +37,10 @@ export class NavbarComponent {
 
   isHomePage(): boolean {
     return this.router.url === '/' || this.router.url === '/#register-form';
+  }
+
+  isDashboardPage() {
+    return this.router.url === '/dashboard';
   }
 
   login(): void {

@@ -54,7 +54,7 @@ export class UsuariosService {
     const decodedToken: any = mytoken;
     const userRole = decodedToken?.rol;
 
-    if (userRole !== 'ADMIN') {
+    if (userRole !== 'ADMIN' && userRole !== 'USER') {
       console.error('Usuario no autorizado para crear instalaciones.');
       return throwError('Usuario no autorizado para crear instalaciones.');
     }

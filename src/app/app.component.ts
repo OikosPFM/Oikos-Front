@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/layout/header/navbar/navbar.component';
-import { FooterLayoutComponent } from './components/layout/footer/homeFooter/footer.component';
-import { HeaderLayoutComponent } from './components/layout/header/header.component';
+import { FooterLayoutComponent } from './components/layout/footer/footer.component';
 import { ContactComponent } from './components/pages/contactUs/contacta.component';
 import { AboutComponent } from './components/pages/aboutUs/about.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,19 +17,14 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
     RouterOutlet,
     NavbarComponent,
     FooterLayoutComponent,
-    HeaderLayoutComponent,
     ContactComponent,
     AboutComponent,
     HttpClientModule,
     MatIconModule,
-    CommonModule
-  , CalendarComponent],
+    CommonModule,
+  ],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-
-export class AppComponent {
-  title = 'Oikos';
-}
-
+export class AppComponent {}
