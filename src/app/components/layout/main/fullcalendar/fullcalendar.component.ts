@@ -52,12 +52,29 @@ export class FullcalendarComponent {
 
   ngOnInit(): void {
     this.getEventosByFincaId(this.decoded.idFinca);
+    this.getTareas();
   }
   eventos: any[] = [];
-
+  tareas: any[] = [];
   procesados: any[] = [];
   decoded: any | null;
+  getTareas(): void {
+    this.tareasService.getTareas().subscribe(
+      (data) => {
+        this.tareas = data;
+        console.log(data);
+        this.calendarOptions.update((options) => ({
+          ...options,
+          tareaSources: [{ tareas: this.procesados }],
+        }));
+      },
+      (error) => {
+        console.error('Error al obtener las tareas', error);
+      }
+    );
+  }
 
+  // Actualizar las opciones del calendario con los eventos procesados
   //      eventSources: [{ events: this.procesados, color: 'pink' }],
 
   getEventosByFincaId(fincaId: number): void {
