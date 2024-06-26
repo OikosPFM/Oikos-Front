@@ -15,6 +15,7 @@ import { CreateEventModalComponent } from '../../create-event-modal/create-event
 import { INITIAL_EVENTS, createEventId } from './../../../../utils/event-utils';
 import { CommonModule } from '@angular/common';
 import { EventosService } from '../../../../services/eventos/eventos.service';
+import { TareasService } from '../../../../services/tarea/tareas.service';
 import { HttpClientModule } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import esLocale from '@fullcalendar/core/locales/es'; // Importa el idioma que necesitas
@@ -38,7 +39,8 @@ export class FullcalendarComponent {
   selectedDate: Date | undefined;
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private eventosService: EventosService
+    private eventosService: EventosService,
+    private tareasService: TareasService
   ) {
     const token = localStorage.getItem('token');
     if (token) {
@@ -52,6 +54,7 @@ export class FullcalendarComponent {
     this.getEventosByFincaId(this.decoded.idFinca);
   }
   eventos: any[] = [];
+
   procesados: any[] = [];
   decoded: any | null;
   getEventos(): void {
