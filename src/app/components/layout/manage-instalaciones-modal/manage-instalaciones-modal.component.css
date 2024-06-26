@@ -16,7 +16,7 @@
   padding: 20px;
   border: 1px solid #888;
   width: 90%;
-  height: 80%;
+  height: auto;
   border-radius: 10px;
   background-color: rgb(222, 235, 233);
 }

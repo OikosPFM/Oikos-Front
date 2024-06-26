@@ -11,9 +11,6 @@
       <li *ngIf="isLoggedIn()">
         <a (click)="logout()">Cerrar sesión</a>
       </li>
-      <li *ngIf="!isLoggedIn()">
-        <a (click)="tareas()">Tareas</a>
-      </li>
       <li>
         <a routerLink="about">Acerca de nosotros</a>
       </li>
