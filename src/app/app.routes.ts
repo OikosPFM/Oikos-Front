@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'dashboard',
@@ -37,7 +37,7 @@ export const routes: Routes = [
 
   {
     path: 'manage_registros',
-    component: ManageRegistrosComponent
+    component: ManageRegistrosComponent,
   },
   {
     path: 'manage-tarea',
@@ -53,8 +53,8 @@ export const routes: Routes = [
   },
 ];
 
-/*@NgModule({
+@NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}*/
+export class AppRoutingModule {}
