@@ -4,6 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-tarea-modal',
@@ -21,8 +22,16 @@ export class TareaModalComponent {
     private tareasService: TareasService,
     private instalacionesService: InstalacionesService,
     private datePipe: DatePipe
-  ) {}
+  ) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.decoded = jwtDecode(token);
+    } else {
+      console.error('Token not found in localStorage');
+    }
+  }
 
+  decoded: any | null;
   instalaciones: any[] = [];
   tareas: any[] = [];
   editando: boolean = false;
@@ -77,7 +86,7 @@ export class TareaModalComponent {
   }
 
   deleteTarea(id: string): void {
-    this.tareasService.deleteTarea(id).subscribe({
+    this.tareasService.deleteTarea(id, this.decoded).subscribe({
       next: (data: any) => {
         console.log('Tarea eliminada con éxito', data);
         this.getTareas();
@@ -107,7 +116,7 @@ export class TareaModalComponent {
       return;
     }
     // Lógica para actualizar la instalación...
-    this.tareasService.updateTarea(this.tareaEditando).subscribe({
+    this.tareasService.updateTarea(this.tareaEditando, this.decoded).subscribe({
       next: (data) => {
         console.log('Tarea actualizada con éxito', data);
         this.getTareas();
