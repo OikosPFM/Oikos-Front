@@ -22,6 +22,7 @@
             </div>
             <div>
               <label>Días Abierto:</label>
+
               <div *ngFor="let dia of diasSemana">
                 <input
                   type="checkbox"
@@ -53,7 +54,7 @@
                 required
               />
             </div>
-            <div>
+            <!--<div>
               <label for="intervalo">Intervalo:</label>
               <input
                 type="time"
@@ -84,7 +85,7 @@
                 [(ngModel)]="instalacion.invitacionesMensualesMaximas"
                 required
               />
-            </div>
+            </div>-->
             <button type="submit">Enviar</button>
           </form>
         </div>

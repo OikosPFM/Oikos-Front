@@ -1,3 +1,4 @@
+import { InstalacionesComponent } from './components/pages/instalaciones/instalaciones.component';
 import { Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -23,7 +24,7 @@ export const routes: Routes = [
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'dashboard',
@@ -36,8 +37,9 @@ export const routes: Routes = [
   },
 
   {
-    path: 'manage_registros',
-    component: ManageRegistrosComponent
+    path: 'manage-registros',
+    component: ManageRegistrosComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'manage-tarea',
@@ -50,6 +52,12 @@ export const routes: Routes = [
   {
     path: 'manage-instalaciones',
     component: ManageInstalacionesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'instalaciones',
+    component: InstalacionesComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

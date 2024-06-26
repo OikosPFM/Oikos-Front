@@ -60,7 +60,6 @@ export class FormComponent {
     contraseña: ['', Validators.required],
   });
   fincas: any[] = [];
-  formularioEnviado: boolean = false;
 
   ngOnInit(): void {
     this.getFincas();
@@ -117,7 +116,9 @@ export class FormComponent {
             (response) => {
               console.log('Usuario registrado exitosamente:', response);
               // Manejar la respuesta del servidor si es necesario
-              this.formularioEnviado = true;
+              alert(
+                `Registro completado, espera a que el administrador apruebe el registro para acceder.`
+              );
             },
             (error) => {
               console.error('Error al registrar el usuario:', error);
