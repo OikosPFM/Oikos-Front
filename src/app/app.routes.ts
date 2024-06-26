@@ -35,7 +35,6 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-
   {
     path: 'manage-registros',
     component: ManageRegistrosComponent,
@@ -61,8 +60,8 @@ export const routes: Routes = [
   },
 ];
 
-/*@NgModule({
+@NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}*/
+export class AppRoutingModule {}
