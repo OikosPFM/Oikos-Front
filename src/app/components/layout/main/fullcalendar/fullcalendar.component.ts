@@ -57,37 +57,7 @@ export class FullcalendarComponent {
 
   procesados: any[] = [];
   decoded: any | null;
-  getEventos(): void {
-    this.eventosService.getEventos().subscribe(
-      (data) => {
-        this.eventos = data;
-        const eventosProcesadas = data.map((evento: any) => ({
-          id: evento.idEvento,
-          title: evento.titulo,
-          start: `${evento.fecha}T${evento.hora}`,
-          description: evento.descripcion,
-          category: evento.categoria,
-          dates: evento.fecha,
-          time: evento.hora,
-          capacity: evento.aforo,
-          organizer: `${evento.organizador?.nombre} ${evento.organizador?.primerApellido} ${evento.organizador?.segundoApellido}`,
-          color: 'pink',
-        }));
-        this.procesados = eventosProcesadas;
-        console.log(this.eventos);
-        console.log(this.procesados);
 
-        // Actualizar las opciones del calendario con los eventos procesados
-        this.calendarOptions.update((options) => ({
-          ...options,
-          eventSources: [{ events: this.procesados }],
-        }));
-      },
-      (error) => {
-        console.error('Error al obtener los eventos', error);
-      }
-    );
-  }
   //      eventSources: [{ events: this.procesados, color: 'pink' }],
 
   getEventosByFincaId(fincaId: number): void {
