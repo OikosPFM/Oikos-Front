@@ -43,3 +43,31 @@ form {
   text-decoration: none;
   cursor: pointer;
 }
+
+.dashboard-sidebar {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  background-color: var(--verde-claro-oikos);
+  border-radius: 30px;
+  margin: 2rem;
+}
+.dashboard-sidebar button {
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  color: var(--azul-oscuros-oikos);
+  border: 2px solid var(--azul-oscuros-oikos) !important;
+  outline: none; /* Elimina el borde de enfoque del navegador */
+
+  font-weight: 600;
+  transition: 0.3s ease-in-out; /* Transición de 0.5 segundos */
+
+  &:hover {
+    background-color: rgb(73, 150, 174);
+    color: var(--verde-claro-oikos);
+  }
+  width: 400px;
+}
