@@ -1,6 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
-/* src/styles.css */
-/*@import "~bootstrap/dist/css/bootstrap.min.css";*/
 
 * {
   margin: 0;
@@ -23,28 +21,22 @@ a {
   color: inherit;
 }
 
-:root {
-  --naranja-oikos: rgb(226, 133, 105);
-  --verde-oikos: rgb(155, 188, 182);
-  --verde-claro-oikos: rgb(222, 235, 233);
-  --azul-oscuros-oikos: rgb(67, 110, 142);
-}
-
 body {
   min-height: 100vh;
   flex-direction: column;
-
-  background-color: #9bbcb6;
-
+  background-color: rgb(226, 133, 105);
   width: 100vw;
 }
 
+body > * {
+  margin: 0 3rem;
+}
 .fade-in {
   opacity: 0; /* make things invisible upon start */
   animation: fadeIn ease-in 1;
   animation-fill-mode: forwards;
-  animation-duration: 0.5s;
-  animation-delay: 0.3s;
+  animation-duration: 1.4s;
+  animation-delay: 1.4s;
 }
 @keyframes fadeIn {
   from {
@@ -61,37 +53,8 @@ body {
 }
 body {
   margin: 0;
-  font-family: Outfit, sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-/* styles.css o global.css */
-.fc {
-  font-family: Outfit, sans-serif;
-}
-.fc-daygrid-event {
-  overflow: hidden !important; /* Oculta el contenido desbordado */
-}
-.fc .fc-daygrid-day-frame {
-  overflow: visible !important;
-}
-
-.fc-daygrid-event:hover {
-  overflow: visible !important;
-  white-space: inherit;
-}
-
-.fc-daygrid-day-events:hover {
-  right: auto !important;
-}
-
-td.fc-other-month {
-  visibility: hidden !important;
-}
-
-.fc-daygrid-more-link {
-  background-color: var(--verde-oikos) !important;
-}
-
-.mat-step-icon.invalid-step {
-  background-color: red !important;
-}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
