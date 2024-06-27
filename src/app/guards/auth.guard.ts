@@ -19,4 +19,9 @@ export class AuthGuard implements CanActivate {
       return false;
     }
   }
+
+  getUserId(): number | null {
+    return 123;
+  }
 }
+

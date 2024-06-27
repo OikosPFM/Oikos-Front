@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro - Entradas</title>
+</head>
+<body>
+    <div class="home-div-container">
+        <main class="home-main">
+            <!-- Crear Entradas -->
+            <h1>Crear Entrada</h1>
+            <div class="entry-form">
+                <form (ngSubmit)="createEntrada(entryForm)" #entryForm="ngForm" novalidate>
+                    <div>
+                        <label for="titulo">Título:</label>
+                        <input type="text" id="titulo" [(ngModel)]="entradaForo.titulo" class="text-input" name="titulo" required>
+                    </div>
+                    <div>
+                        <label for="textoComentario">Asunto:</label>
+                        <textarea id="textoComentario" [(ngModel)]="entradaForo.textoComentario" name="textoComentario" class="text-input" rows="4" cols="50"></textarea>
+                    </div>
+                    <!-- <input type="file" (change)="fileEvent($event)" />
+                    <button (click)="subirArchivo($event)">Adjuntar archivo</button> -->
+                    <button type="submit" class="btn btn-primary">Crear Entrada</button>
+                </form>
+            </div>
+
+            <!-- Ver entradas -->
+            <br>
+            <h1>Ver Entradas</h1>
+            <div class="entry-container">
+               <div *ngFor="let entradaForo of entradasForo | paginate: { itemsPerPage: 5, currentPage: page }" class="entry-card">
+                <!-- <h2 *ngIf="!editando">{{ entradaEditando.nombre }}</h2>     -->
+                <a [href]="'/entrada-foro/' + entradaForo.idEntrada">
+                        <div class="entry-card">
+                        <p><b>Título:</b>{{ entradaForo.titulo }}</p>
+                        </div>
+                        <div class="entry-info">
+                            <p><b>Mensaje:</b>{{ entradaForo.textoComentario }}</p>
+                        </div>
+                        <hr>
+                        <div class="entry-footer">
+                            <small><b>ID:</b>{{ entradaForo.idEntrada }}</small>
+                            <br>
+                            <small>Created: {{ entradaForo.fecha | date : "medium" }} {{ entradaForo.hora }} </small>
+                        </div>
+                    </a>
+                    <br>
+                    <button type="button" class="btn btn-info" [routerLink]="['/respuesta', entradaForo.idEntrada]">Responder</button>
+                    <!-- <button *ngIf="isLoggedIn" (click)="goToMensaje(entradaForo.idEntrada)" class="btn btn-secondary">Ir a Mensaje</button> -->
+                    <button *ngIf="entradaForo.authorId === currentUserId" (click)="openEditEntradaModal()">Editar</button>
+                    <button *ngIf="entradaForo.authorId === currentUserId" (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
+                </div>
+                <br>
+            </div>
+            <div><button (click)="onRefreshClick()" class="btn btn-primary">Actualizar y ver Entradas</button></div>
+            <br>
+
+            <!-- Paginación -->
+            <pagination-controls
+                (pageChange)="page = $event"
+                previousLabel="Anterior"
+                nextLabel="Siguiente">
+            </pagination-controls>
+            
+        </main>
+    </div>
+</body>
+</html>

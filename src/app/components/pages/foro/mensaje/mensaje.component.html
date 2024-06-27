@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje - Detalles</title>
+</head>
+<body>
+    <div class="message-container">
+        <main class="message-main">
+            <!-- Mostrar Entrada Seleccionada -->
+            <h1>Responder a la Entrada</h1>
+            <div class="response-details">
+                <h2><b>Título:</b> {{ entradaSeleccionada.titulo }}</h2>
+                <p><b>Mensaje:</b> {{ entradaSeleccionada.textoComentario }}</p>
+                <small>Creado: {{ entradaSeleccionada.fecha | date : "medium" }} {{ entradaSeleccionada.hora }}</small>
+            </div>
+
+            <!-- Crear Respuesta -->
+            <div class="response-form">
+                <form (ngSubmit)="createMensaje(responseForm)" #responseForm="ngForm" novalidate>
+                    <div>
+                        <label for="cuerpo">Respuesta:</label>
+                        <textarea id="cuerpo" [(ngModel)]="mensaje.cuerpo" name="cuerpo" class="text-input" rows="4" cols="50" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Respuesta</button>
+                </form>
+            </div>
+
+            <!-- Ver Respuestas -->
+            <br>
+            <div class="responses-container">
+                <div *ngFor="let mensaje of mensajes" class="response-card">
+                    <div class="response-info">
+                        <p><b>Autor:</b> {{ mensaje.autor }}</p>
+                        <p><b>Mensaje:</b> {{ mensaje.cuerpo }}</p>
+                    </div>
+                    <div class="response-footer">
+                        <small><b>ID:</b> {{ mensaje.ID_mensaje }}</small>
+                        <br>
+                        <small>Creado: {{ mensaje.fecha | date : "medium" }} {{ mensaje.hora }}</small>
+                    </div>
+                    <hr>
+                    <!-- <div><button (click)="onRefreshClick()" class="btn btn-primary">Actualizar y ver Entradas</button></div> -->
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

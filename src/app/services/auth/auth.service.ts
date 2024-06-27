@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -29,4 +30,14 @@ export class AuthService {
     localStorage.removeItem('token');
     this.isAuthenticated = false;
   }
+  
+  getUserId(): number | null {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      return decoded?.id ?? null;
+    }
+    return null;
+  }
 }
+
