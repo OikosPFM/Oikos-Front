@@ -52,28 +52,55 @@ export class FullcalendarComponent {
 
   ngOnInit(): void {
     this.getEventosByFincaId(this.decoded.idFinca);
-    this.getTareas();
+    this.getFilteredTareas();
   }
   eventos: any[] = [];
   tareas: any[] = [];
+  tareasProcesadas: any[] = [];
   procesados: any[] = [];
   decoded: any | null;
-  getTareas(): void {
+  getFilteredTareas(): void {
     this.tareasService.getTareas().subscribe(
       (data) => {
         this.tareas = data;
         console.log(data);
+        this.filterTareasByFincaID();
+        this.filterTareasByUsuarioID();
+        const gestionadas = this.tareas.map((tarea: any) => ({
+          id: tarea.idTarea,
+          facilites: tarea.instalacion.idInstalacion,
+          title: tarea.nombre,
+          description: tarea.descripcion,
+          start: this.formatDateArray(tarea.fecha),
+          duration: tarea.duracion,
+          organizer: `${tarea.usuarioAsignado?.nombre} ${tarea.usuarioAsignado?.primerApellido} ${tarea.usuarioAsignado?.segundoApellido}`,
+          color: 'green',
+        }));
+        this.tareasProcesadas = gestionadas;
+        console.log('tareas procesadas', this.tareasProcesadas);
         this.calendarOptions.update((options) => ({
           ...options,
-          tareaSources: [{ tareas: this.procesados }],
+          eventSources: [{ events: this.tareasProcesadas }],
         }));
+        console.log();
+        console.log('Filtered Tareas', this.tareas);
       },
       (error) => {
         console.error('Error al obtener las tareas', error);
       }
     );
   }
-
+  filterTareasByFincaID(): void {
+    this.tareas = this.tareas.filter(
+      (tarea) => tarea.instalacion.finca.idFinca == this.decoded.idFinca
+    );
+    console.log('filtrado por finca');
+  }
+  filterTareasByUsuarioID(): void {
+    this.tareas = this.tareas.filter(
+      (tarea) => tarea.usuarioAsignado.idUsuario == this.decoded.idUsuario
+    );
+  }
   // Actualizar las opciones del calendario con los eventos procesados
   //      eventSources: [{ events: this.procesados, color: 'pink' }],
 
@@ -181,5 +208,22 @@ export class FullcalendarComponent {
 
   onEventoEditado(): void {
     this.getEventosByFincaId(this.decoded.idFinca);
+  }
+  formatDateArray(dateArray: [number, number, number]): string {
+    // Destructure the array into year, month, and day
+    const [year, month, day] = dateArray;
+
+    // Create a Date object from the array. Note: months are zero-based in JavaScript Date.
+    const date = new Date(year, month - 1, day, 12, 0); // Set hours to 12 and minutes to 0
+
+    // Extract parts of the date
+    const formattedYear = date.getFullYear();
+    const formattedMonth = String(date.getMonth() + 1).padStart(2, '0'); // Add 1 because months are zero-based
+    const formattedDay = String(date.getDate()).padStart(2, '0');
+    const formattedHours = String(date.getHours()).padStart(2, '0');
+    const formattedMinutes = String(date.getMinutes()).padStart(2, '0');
+
+    // Format the date string
+    return `${formattedYear}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`;
   }
 }
