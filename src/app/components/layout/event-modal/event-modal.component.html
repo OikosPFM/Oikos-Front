@@ -25,7 +25,7 @@
           novalidate>
         <div class="form-group recuadro" style="border-radius: 1rem">
             <h1>Editando evento</h1>
-            <div>
+            <div style="margin: 3%;">
               <label for="titulo">Título: </label>
               <input
                 type="text"
@@ -35,7 +35,7 @@
                 required
               />
             </div>
-            <div>
+            <div style="margin: 3%;">
               <label for="fecha">Fecha: </label>
               <input
                 type="date"
@@ -45,11 +45,11 @@
                 required
               />
             </div>
-            <div>
+            <div style="margin: 3%;">
               <label for="hora">Hora: </label>
               <input type="time" id="hora" [(ngModel)]="evento.hora" name="hora" />
             </div>
-            <div>
+            <div style="margin: 1%;">
               <label for="description">Descripción: </label>
               <input
                 type="text"
@@ -58,7 +58,7 @@
                 name="description"
               />
             </div>
-            <div>
+            <div style="margin: 3%;">
               <label for="categoria">Categoría: </label>
               <select
                 id="categoria"
@@ -72,7 +72,7 @@
                 <option value="Otros">Otros</option>
               </select>
             </div>
-            <div>
+            <div style="margin: 3%;">
               <label for="instalacion">Instalación: </label>
               <select
                 id="instalacion"
@@ -91,7 +91,7 @@
                 </option>
               </select>
             </div>
-            <div>
+            <div style="margin: 3%;">
               <label for="participantes">Participantes: </label>
               <input
                 type="number"
@@ -100,7 +100,7 @@
                 name="participantes"
               />
             </div>
-            <div>
+            <div style="margin: 3%;">
               <label for="aforo">Aforo: </label>
               <input
                 type="number"
@@ -109,10 +109,11 @@
                 name="aforo"
               />
             </div>
+            <div style="margin: 3%;">
             <button type="submit" class="form-group
             color_button_crear textocentrado">Actualizar</button>
             <button type="button" class="form-group
-            color_button_crear textocentrado">Cancelar</button>
+            color_button_crear textocentrado">Cancelar</button></div>
           </div>
           </form>
         </div>

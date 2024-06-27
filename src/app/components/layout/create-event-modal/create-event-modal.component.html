@@ -80,6 +80,7 @@
           <label for="participantes">Participantes: </label>
           <input
             type="number"
+            min="0"
             id="participantes"
             [(ngModel)]="evento.participantes"
             name="participantes"
@@ -89,6 +90,7 @@
           <label for="aforo">Aforo: </label>
           <input
             type="number"
+            min="0"
             id="aforo"
             [(ngModel)]="evento.aforo"
             name="aforo"
