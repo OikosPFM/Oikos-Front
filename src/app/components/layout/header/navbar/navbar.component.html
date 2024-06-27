@@ -1,26 +1,32 @@
 <section class="navbar-container fade-in">
-  <h1 class="logo"></h1>
+  <a routerLink=""><img src="../../../../../assets/logo.png" class="logo" /></a>
   <nav class="navbar">
     <ul>
-      <!-- <li *ngIf="!isLoggedIn()"> -->
-      <li>
-        <a href="login">Iniciar sesión</a>
+      <li *ngIf="!isHomePage()">
+        <a routerLink=""><img src="../../../../../assets/icons/home.svg" /></a>
       </li>
-      <!-- <li *ngIf="isLoggedIn()"> -->
-      <li>
+      <li *ngIf="isLoggedIn() && !isDashboardPage()">
+        <a routerLink="dashboard">Menú</a>
+      </li>
+      <li *ngIf="!isLoggedIn() && !isLoginPage()">
+        <a (click)="login()">Iniciar sesión</a>
+      </li>
+      <li *ngIf="isLoggedIn()">
         <a (click)="logout()">Cerrar sesión</a>
       </li>
       <li>
         <a routerLink="about">Acerca de nosotros</a>
       </li>
       <li>
-        <button class="btn-nav">
-          <span>Contáctanos</span>
-          <svg width="15px" height="10px" viewBox="0 0 13 10">
-            <path d="M1,5 L11,5"></path>
-            <polyline points="8 1 12 5 8 9"></polyline>
-          </svg>
-        </button>
+        <a routerLink="contacta">
+          <button class="btn-nav">
+            <span>Contáctanos</span>
+            <svg width="15px" height="10px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5"></path>
+              <polyline points="8 1 12 5 8 9"></polyline>
+            </svg>
+          </button>
+        </a>
       </li>
     </ul>
   </nav>

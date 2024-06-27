@@ -1,0 +1,27 @@
+<main class="instalaciones_main fade-in">
+  <a routerLink="/dashboard">
+    <h2 class="regresar">
+      Regresar al menu principal
+      <img src="./../../../../assets/icons/back.svg" /></h2
+  ></a>
+  <div class="instalaciones_container">
+    <h2 class="instalaciones_title">Instalaciones:</h2>
+
+    <div class="cards_container">
+      <div class="instalaciones_card" *ngFor="let instalacion of instalaciones">
+        <div>
+          <h2>
+            {{ instalacion.nombre }}
+            <img src="./../../../../assets/icons/facility.svg" />
+          </h2>
+          <p>
+            Días Abierto:
+            {{ instalacion.diasAbierto.join(", ") }}
+          </p>
+          <p>Horario de Apertura: {{ instalacion.horarioApertura }}</p>
+          <p>Horario de Cierre: {{ instalacion.horarioCierre }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

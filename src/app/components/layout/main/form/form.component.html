@@ -3,8 +3,19 @@
     <h2>Formulario de registro</h2>
     <mat-vertical-stepper [linear]="false" #stepper>
       <mat-step>
-        <form [formGroup]="fincaFormGroup">
-          <ng-template matStepLabel>Selecciona tu finca</ng-template>
+        <form [formGroup]="fincaFormGroup" mdc-form-field>
+          <ng-template matStepLabel
+            >Selecciona tu finca
+            <span
+              *ngIf="
+                fincaFormGroup.get('selectedFinca')?.invalid &&
+                fincaFormGroup.get('selectedFinca')?.touched
+              "
+              class="error-message"
+            >
+              *
+            </span></ng-template
+          >
           <mat-radio-group
             formControlName="selectedFinca"
             aria-label="Select an option"
@@ -12,12 +23,12 @@
             <div *ngIf="fincas.length > 0; else noFincas">
               <div *ngFor="let finca of fincas">
                 <mat-radio-button [value]="finca.idFinca">
-                  <p><strong>Calle:</strong> {{ finca.calle }}</p>
-                  <p><strong>Número:</strong> {{ finca.numero }}</p>
-                  <p><strong>Localidad:</strong> {{ finca.localidad }}</p>
-                  <p><strong>Provincia:</strong> {{ finca.provincia }}</p>
                   <p>
-                    <strong>Código Postal:</strong> {{ finca.codigoPostal }}
+                    <strong>
+                      {{ finca.calle }}, {{ finca.numero }}.
+                      {{ finca.localidad }} ({{ finca.provincia }}) CP:
+                      {{ finca.codigoPostal }}</strong
+                    >
                   </p></mat-radio-button
                 >
               </div>
@@ -33,7 +44,16 @@
       <mat-step [stepControl]="domicilioFormGroup">
         <form [formGroup]="domicilioFormGroup">
           <ng-template matStepLabel
-            >Completa con los datos de tu domicilio</ng-template
+            >Completa con los datos de tu domicilio
+            <span
+              *ngIf="
+                domicilioFieldsEmpty(domicilioFormGroup) &&
+                domicilioFormGroup.touched
+              "
+              class="error-message"
+            >
+              *
+            </span></ng-template
           >
           <mat-form-field>
             <input
@@ -67,8 +87,21 @@
       <mat-step [stepControl]="usuarioFormGroup">
         <form [formGroup]="usuarioFormGroup">
           <ng-template matStepLabel
-            >Completa con tus datos personales</ng-template
-          >
+            >Completa con tus datos personales
+            <span
+              *ngIf="
+                (usuarioFieldsEmpty(usuarioFormGroup) &&
+                  usuarioFormGroup.touched) ||
+                (usuarioFormGroup.get('dni')?.hasError('pattern') &&
+                  usuarioFormGroup.get('dni')?.touched) ||
+                (usuarioFormGroup.get('email')?.hasError('email') &&
+                  usuarioFormGroup.get('email')?.touched)
+              "
+              class="error-message"
+            >
+              *
+            </span>
+          </ng-template>
           <mat-form-field>
             <input
               matInput
@@ -95,6 +128,17 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="DNI" formControlName="dni" required />
+            <div
+              *ngIf="
+                usuarioFormGroup.get('dni')?.hasError('pattern') &&
+                usuarioFormGroup.get('dni')?.touched
+              "
+            >
+              <small class="text-danger"
+                >El DNI debe tener 8 dígitos numéricos seguidos de una letra
+                mayúscula.</small
+              >
+            </div>
           </mat-form-field>
           <mat-form-field>
             <input
@@ -111,6 +155,16 @@
               formControlName="email"
               required
             />
+            <div
+              *ngIf="
+                usuarioFormGroup.get('email')?.hasError('email') &&
+                usuarioFormGroup.get('email')?.touched
+              "
+            >
+              <small class="text-danger"
+                >El formato del correo electrónico no es válido.</small
+              >
+            </div>
           </mat-form-field>
           <mat-form-field>
             <input
@@ -131,6 +185,53 @@
         <ng-template matStepLabel>Finalizar registro</ng-template>
         <div>
           <button mat-button (click)="onSubmit()">Registrar</button>
+        </div>
+        <div
+          *ngIf="
+            fincaFormGroup.get('selectedFinca')?.invalid &&
+            fincaFormGroup.get('selectedFinca')?.touched
+          "
+          class="error-message"
+        >
+          Es obligatorio seleccionar una finca.
+        </div>
+        <div
+          *ngIf="
+            domicilioFieldsEmpty(domicilioFormGroup) &&
+            domicilioFormGroup.touched
+          "
+          class="error-message"
+        >
+          Es obligatorio completar al menos un campo de domicilio.
+        </div>
+        <div
+          *ngIf="
+            usuarioFieldsEmpty(usuarioFormGroup) && usuarioFormGroup.touched
+          "
+          class="error-message"
+        >
+          Es obligatorio completar todos los campos de usuario.
+        </div>
+        <div
+          *ngIf="
+            usuarioFormGroup.get('dni')?.hasError('pattern') &&
+            usuarioFormGroup.get('dni')?.touched
+          "
+          class="error-message"
+        >
+          El DNI debe tener 8 dígitos numéricos seguidos de una letra mayúscula.
+        </div>
+        <div
+          *ngIf="
+            usuarioFormGroup.get('email')?.hasError('email') &&
+            usuarioFormGroup.get('email')?.touched
+          "
+          class="error-message"
+        >
+          El formato del correo electrónico no es válido.
+        </div>
+        <div *ngFor="let errorMessage of errorMessages">
+          <div class="error-message">{{ errorMessages }}</div>
         </div>
       </mat-step>
     </mat-vertical-stepper>

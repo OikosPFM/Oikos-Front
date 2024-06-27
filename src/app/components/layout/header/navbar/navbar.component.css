@@ -6,9 +6,11 @@
 }
 
 .logo {
-  margin: 1rem 3rem;
+  margin: 1rem 1rem;
   padding: 1rem 2rem;
-  color: rgb(67, 110, 142);
+  width: 200px;
+  height: auto;
+  object-fit: contain;
 }
 
 .navbar {
@@ -25,6 +27,7 @@
   gap: 3rem;
   justify-content: right;
   align-items: center;
+  margin-bottom: 0;
 }
 
 .navbar li {
@@ -33,6 +36,7 @@
 
 .navbar li:hover {
   color: black;
+  cursor: pointer;
 }
 
 .btn-nav {
@@ -84,6 +88,7 @@
 
 .btn-nav:before {
   background: #b1dae7;
+  height: 100%;
 }
 .btn-nav:hover span {
   color: rgb(222, 235, 233);
@@ -100,6 +105,15 @@
 
 .btn-nav:active {
   transform: scale(0.95);
+}
+
+.navbar img {
+  width: 30px;
+  margin-bottom: 0.5rem;
+}
+
+.navbar img:hover {
+  filter: brightness(0) saturate(100%);
 }
 
 @media (max-width: 800px) {

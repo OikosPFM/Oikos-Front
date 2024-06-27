@@ -1,25 +1,60 @@
-body {
-  background-color: greenyellow;
+.dashboard-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 3rem;
+}
+.dashboard-saludo {
+  display: flex;
+  gap: 1rem;
+  color: var(--verde-claro-oikos);
+  align-items: baseline;
 }
 
-.dashboard-main {
+.dashboard-saludo h2 {
+  text-decoration: underline;
+  text-underline-offset: 0.7rem; /* Ajusta este valor según tus necesidades */
+  font-weight: 700;
+  word-spacing: 0.6rem;
+}
+
+.dashboard-saludo h3 {
+  font-size: 20px;
+}
+
+.dashboard-options {
   display: flex;
 }
 
-.app-sidebar {
+.dashboard-sidebar {
   display: flex;
   gap: 1rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 50vw;
+  background-color: var(--verde-claro-oikos);
+  border-radius: 30px;
+  margin: 2rem;
 }
-.app-sidebar button {
+.dashboard-sidebar button {
   padding: 1rem 2rem;
   border-radius: 20px;
+  color: var(--azul-oscuros-oikos);
+  border: 2px solid var(--azul-oscuros-oikos) !important;
+  outline: none; /* Elimina el borde de enfoque del navegador */
+
   font-weight: 600;
+  transition: 0.3s ease-in-out; /* Transición de 0.5 segundos */
+
   &:hover {
-    background-color: rgb(186, 121, 121);
+    background-color: rgb(73, 150, 174);
+    color: var(--verde-claro-oikos);
   }
   width: 400px;
+}
+
+.dashboard-sidebar img {
+  width: 30px;
+  margin-bottom: 0.5rem;
 }

@@ -22,10 +22,13 @@
 }
 .modal-info {
   display: flex;
-  flex-direction: column;
   gap: 1rem;
   color: rgb(67, 110, 142);
   margin: 2rem;
+}
+
+.event-info {
+  width: 50%;
 }
 
 .close {

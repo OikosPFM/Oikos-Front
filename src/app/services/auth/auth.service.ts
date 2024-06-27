@@ -30,7 +30,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.isAuthenticated = false;
   }
-
+  
   getUserId(): number | null {
     const token = localStorage.getItem('token');
     if (token) {
@@ -40,3 +40,4 @@ export class AuthService {
     return null;
   }
 }
+
