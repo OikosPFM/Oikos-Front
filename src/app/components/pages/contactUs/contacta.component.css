@@ -26,7 +26,7 @@ form {
 .min-size-textarea {
   min-width: 500px;
   min-height: 150px;
-  resize: none; /* Para evitar que el textarea se pueda redimensionar */
+  resize: none;
   margin-bottom: 10px;
 }
 
@@ -45,10 +45,11 @@ form {
 }
 
 .button {
-  background-color: rgb(73, 150, 174);
-  border-radius: 20px;
+  font-family: "Outfit";
+  border-color: rgb(67, 110, 142);
+  background-color: #9bbcb6;
   color: rgb(67, 110, 142);
-  border: 2px rgb(67, 110, 142) !important;
+  border-radius: 20px;
   outline: none;
   font-weight: 600;
   transition: 0.3s ease-in-out;
@@ -58,7 +59,21 @@ form {
     background-color: aliceblue;
     color: rgb(222, 235, 233);
   }
-  width: 100px;
+  width: 200px;
+}
+
+.recuadro {
+  --bs-bg-opacity: 1;
+  background-color: rgb(222, 235, 233);
+}
+
+.dark-blue-oikos-color {
+  color: rgb(67, 110, 142);
+}
+
+.dark-blue-oikos-button {
+  color: rgb(67, 110, 142);
+  --bs-btn-border-color: rgb(67, 110, 142);
 }
 
 .status-message {

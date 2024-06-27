@@ -50,7 +50,9 @@
     </div>
     <div class="button">
       <button
-        class="dashboard-sidebar button"
+        data-mdb-button-init
+        data-mdb-ripple-init
+        class="btn btn-outline-light btn-lg px-5 dark-blue-oikos-button"
         type="submit"
         [disabled]="contactForm.invalid"
       >
@@ -62,3 +64,12 @@
     {{ statusMessage }}
   </div>
 </div>
+
+<!--                <button
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-outline-light btn-lg px-5 dark-blue-oikos-button"
+                  type="submit"
+                >
+                  Iniciar Sesión
+                </button>-->
