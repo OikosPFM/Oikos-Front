@@ -112,4 +112,29 @@ export class TareasService {
         })
       );
   }
+  getTareasByFincaIdAndUsuarioId(
+    fincaId: number,
+    usuarioId: number
+  ): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+
+      const url = `${this.apiUrl}/finca/${fincaId}/usuario/${usuarioId}`; // Endpoint para obtener tareas por finca ID y usuario ID
+      return this.http.get<any[]>(url, { headers }).pipe(
+        catchError((error) => {
+          console.error(
+            'Error al obtener tareas por finca ID y usuario ID:',
+            error
+          );
+          return throwError(error);
+        })
+      );
+    } else {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+  }
 }
