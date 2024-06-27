@@ -59,6 +59,10 @@ export class FullcalendarComponent {
   tareasProcesadas: any[] = [];
   procesados: any[] = [];
   decoded: any | null;
+  eventosTareasJuntos: any[] = [];
+  combineEvents(): void {
+    this.eventosTareasJuntos = [...this.procesados, ...this.tareasProcesadas];
+  }
   getFilteredTareas(): void {
     this.tareasService.getTareas().subscribe(
       (data) => {
@@ -78,9 +82,10 @@ export class FullcalendarComponent {
         }));
         this.tareasProcesadas = gestionadas;
         console.log('tareas procesadas', this.tareasProcesadas);
+        this.combineEvents();
         this.calendarOptions.update((options) => ({
           ...options,
-          eventSources: [{ events: this.tareasProcesadas }],
+          eventSources: [{ events: this.eventosTareasJuntos }],
         }));
         console.log();
         console.log('Filtered Tareas', this.tareas);
@@ -125,10 +130,13 @@ export class FullcalendarComponent {
         console.log(this.procesados);
 
         // Actualizar las opciones del calendario con los eventos procesados
+        this.combineEvents();
         this.calendarOptions.update((options) => ({
           ...options,
-          eventSources: [{ events: this.procesados }],
+          eventSources: [{ events: this.eventosTareasJuntos }],
         }));
+        console.log();
+        console.log('Filtered Tareas', this.tareas);
       },
       (error) => {
         console.error('Error al obtener los eventos por ID de finca', error);
