@@ -31,7 +31,8 @@
             <h1>Ver Entradas</h1>
             <div class="entry-container">
                <div *ngFor="let entradaForo of entradasForo | paginate: { itemsPerPage: 5, currentPage: page }" class="entry-card">
-                    <a [href]="'/entrada-foro/' + entradaForo.idEntrada">
+                <!-- <h2 *ngIf="!editando">{{ entradaEditando.nombre }}</h2>     -->
+                <a [href]="'/entrada-foro/' + entradaForo.idEntrada">
                         <div class="entry-card">
                         <p><b>Título:</b>{{ entradaForo.titulo }}</p>
                         </div>
@@ -46,13 +47,10 @@
                         </div>
                     </a>
                     <br>
-                    <!-- *ngIf="entradaForo.authorId === currentUserId"
-                    *ngIf="entradaForo.authorId === currentUserId" -->
                     <button type="button" class="btn btn-info" [routerLink]="['/respuesta', entradaForo.idEntrada]">Responder</button>
-                    <!-- <button (click)="goToMensaje()">Ir a Mensaje</button> -->
-                    <button (click)="goToMensaje(entradaForo.idEntrada)" class="btn btn-secondary">Ir a Mensaje</button>
-                    <!-- <button ng-show="edit[user.id]" ng-click="editEntrada(entradaForo)" (click)="updateEntrada(entradaForo)" class="btn btn-info" style="margin-left: 10px">Editar</button> -->
-                    <button (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
+                    <!-- <button *ngIf="isLoggedIn" (click)="goToMensaje(entradaForo.idEntrada)" class="btn btn-secondary">Ir a Mensaje</button> -->
+                    <button *ngIf="entradaForo.authorId === currentUserId" (click)="openEditEntradaModal()">Editar</button>
+                    <button *ngIf="entradaForo.authorId === currentUserId" (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
                 </div>
                 <br>
             </div>
@@ -65,6 +63,7 @@
                 previousLabel="Anterior"
                 nextLabel="Siguiente">
             </pagination-controls>
+            
         </main>
     </div>
 </body>
