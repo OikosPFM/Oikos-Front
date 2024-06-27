@@ -1,21 +1,7 @@
-.example-input-wrapper {
-  margin-bottom: 16px;
-}
-
-label {
-  margin-right: 4px;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  margin: 2rem;
-}
-
 .register-container {
   display: flex;
   justify-content: center;
-  background-color: #9bbcb6;
+  background-color: #7aa59d;
   font-family: "Outfit";
   font-size: 20px;
   color: rgb(67, 110, 142);
@@ -24,9 +10,48 @@ form {
 
 .register-form {
   background-color: rgb(222, 235, 233);
-  height: 100vh;
+  height: auto;
   width: 50vw;
   padding: 3rem;
   border-radius: 20px;
   margin: 7rem 0;
+}
+
+.register-form h2 {
+  font-weight: 700;
+}
+
+.register-form p {
+  margin-bottom: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+mat-vertical-stepper {
+  background-color: var(--verde-claro-oikos);
+  font-weight: bolder;
+}
+
+mat-radio-group > div > div {
+  padding-bottom: 1rem;
+  color: var(--azul-oscuros-oikos);
+}
+
+mat-radio-group > div > div:last-of-type {
+  padding-bottom: 0;
+}
+
+.error-message {
+  color: var(--naranja-oikos);
+  font-size: 1rem;
+  font-weight: 500;
+  padding-top: 1rem;
+}
+
+.error-text {
+  color: var(--naranja-oikos); /* Color rojo para indicar un error */
 }

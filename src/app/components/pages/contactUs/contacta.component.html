@@ -1,0 +1,64 @@
+<div class="consulta-container">
+  <form
+    class="consulta-form"
+    (ngSubmit)="sendEmail(contactForm)"
+    #contactForm="ngForm"
+    novalidate
+  >
+    <h3>Complete los campos para enviarnos su consulta vía email</h3>
+    <div class="example-input-wrapper"></div>
+    <label for="email">Introduzca aquí su Email:</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      [(ngModel)]="contact.email"
+      required
+      #email="ngModel"
+    />
+    <div *ngIf="email.invalid && email.touched" class="error">
+      <span class="asterisk">*</span>
+      Su email es requerido y debe ser válido para poder realizar su consulta.
+    </div>
+    <div class="example-input-wrapper"></div>
+    <label for="subject">Asunto de su consulta:</label>
+    <input
+      type="text"
+      id="subject"
+      name="subject"
+      [(ngModel)]="contact.subject"
+      required
+      #subject="ngModel"
+    />
+    <div *ngIf="subject.invalid && subject.touched" class="error">
+      <span class="asterisk">*</span>
+      Este campo es requerido para enviar su consulta.
+    </div>
+    <div class="example-input-wrapper"></div>
+    <label for="message">Escriba aquí su consulta:</label>
+    <textarea
+      id="message"
+      name="message"
+      [(ngModel)]="contact.message"
+      required
+      #message="ngModel"
+      class="min-size-textarea"
+    ></textarea>
+    <div *ngIf="message.invalid && message.touched" class="error">
+      <span class="asterisk">*</span>
+      Este campo es requerido para enviar su consulta.
+    </div>
+    <div class="button">
+      <button
+        class="dashboard-sidebar button"
+        type="submit"
+        [disabled]="contactForm.invalid"
+      >
+        Enviar
+      </button>
+    </div>
+  </form>
+  <div *ngIf="statusMessage" class="status-message" [class]="statusClass">
+    {{ statusMessage }}
+  </div>
+</div>
