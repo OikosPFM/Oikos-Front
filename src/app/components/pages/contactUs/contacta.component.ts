@@ -1,14 +1,13 @@
 import { Component, NgModule } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NavbarComponent } from '../../layout/header/navbar/navbar.component';
-import { BackFooterComponent } from '../../layout/footer/generalFooter/backFooter.component';
 import { CommonModule } from '@angular/common';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 
 @Component({
   selector: 'app-contacto',
   standalone: true,
-  imports: [FormsModule, BackFooterComponent, NavbarComponent, CommonModule],
+  imports: [FormsModule, NavbarComponent, CommonModule],
   templateUrl: './contacta.component.html',
   styleUrls: ['./contacta.component.css'],
 })

@@ -3,7 +3,6 @@ import { FullcalendarComponent } from '../../layout/main/fullcalendar/fullcalend
 import { CreateEventModalComponent } from '../../layout/create-event-modal/create-event-modal.component';
 import { CommonModule } from '@angular/common';
 
-import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-modal/manage-instalaciones-modal.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios/usuarios.service';
 import { jwtDecode } from 'jwt-decode';
@@ -14,7 +13,6 @@ import { jwtDecode } from 'jwt-decode';
   imports: [
     FullcalendarComponent,
     CreateEventModalComponent,
-    ManageInstalacionesComponent,
     CommonModule,
     RouterModule,
   ],
@@ -35,12 +33,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getUsuarioInfo();
     this.seleccionarTextoAleatorio();
+    this.getUsuariosByFinca();
   }
 
   decoded: any | null;
   showCreateEventModal: boolean = false;
   showManageInstalacionesModal: boolean = false;
   infoUsuario: any;
+  usuariosInactivos: any[] = [];
   textos: string[] = [
     'Más vale el vecino cercano, que el pariente lejano.',
     'Puerta abierta, vecino que entra.',
@@ -75,5 +75,14 @@ export class DashboardComponent implements OnInit {
   closeModal() {
     this.showCreateEventModal = false;
     this.showManageInstalacionesModal = false;
+  }
+
+  getUsuariosByFinca(): void {
+    this.usuariosService.getUsuariosByFinca(this.decoded).subscribe((data) => {
+      this.usuariosInactivos = data.filter(
+        (usuario: any) => usuario.estado === false
+      );
+      console.log(this.usuariosInactivos);
+    });
   }
 }
