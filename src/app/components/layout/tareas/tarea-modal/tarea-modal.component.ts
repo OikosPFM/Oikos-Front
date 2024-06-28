@@ -105,6 +105,7 @@ export class TareaModalComponent {
     if (tarea) {
       this.tareaEditando = {
         idTarea: tarea.idTarea,
+        instalacion: tarea.instalacion,
         nombre: tarea.nombre,
         descripcion: tarea.descripcion,
         fecha: tarea.fecha,
@@ -125,6 +126,9 @@ export class TareaModalComponent {
     }
     const tareaToUpdate = {
       idTarea: this.tareaEditando.idTarea,
+      instalacion: {
+        idInstalacion: this.tareaEditando.instalacion.idInstalacion,
+      },
       nombre: this.tareaEditando.nombre,
       descripcion: this.tareaEditando.descripcion,
       fecha: this.tareaEditando.fecha,
