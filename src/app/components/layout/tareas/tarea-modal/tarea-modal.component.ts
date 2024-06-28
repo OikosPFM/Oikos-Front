@@ -5,12 +5,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
 import { jwtDecode } from 'jwt-decode';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarComponent } from '../../../../calendar/calendar.component';
 
 @Component({
   selector: 'app-tarea-modal',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, DatePipe, FullCalendarModule, CalendarComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    HttpClientModule,
+    DatePipe,
+    FullCalendarModule,
+    CalendarComponent,
+  ],
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
   styleUrl: './tarea-modal.component.css',

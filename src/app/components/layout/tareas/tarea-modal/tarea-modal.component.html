@@ -1,22 +1,3 @@
-<!--<app-calendar></app-calendar>-->
-<section class="vh-100">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <!--<div class="col-12 col-md-8 col-lg-6 col-xl-5">-->
-        <div class="card recuadro dark-blue-oikos-color" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
-            <div class="mb-md-5 mt-md-4 pb-5">
-              <h2 class="fw-bold mb-2 text-uppercase">Tareas</h2>
-              <app-calendar></app-calendar>
-            </div>
-          </div>
-        </div>
-      <!--</div>-->
-    </div>
-  </div>
-</section>
-
-
 <div class="tarea-modal">
   <div class="instalaciones-actuales" *ngFor="let tarea of tareas">
     <h2 *ngIf="!editando">{{ tarea.nombre }}</h2>
@@ -54,17 +35,13 @@
         <select
           id="instalacion"
           name="instalacion"
-
           [(ngModel)]="tareaEditando.instalacion.idInstalacion"
-
           required
         >
           <option value="" disabled>Selecciona una instalación</option>
           <option
             *ngFor="let instalacion of instalaciones"
-
             [value]="tareaEditando.instalacion.idInstalacion"
-
           >
             {{ instalacion.nombre }}
           </option>
@@ -124,6 +101,3 @@
     </form>
   </div>
 </div>
-
-
-
