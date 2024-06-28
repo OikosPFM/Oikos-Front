@@ -5,18 +5,18 @@
       <div class="modal-info">
         <div class="event-info form-group recuadro" style="border-radius: 1rem">
           <h2 class="textocentrado"><strong>{{ event?.title }}</strong></h2>
-          <p><strong>Fecha:</strong> {{ event?.extendedProps.dates }}</p>
-          <p><strong>Hora:</strong> {{ event?.extendedProps.time }}</p>
-          <p>
+          <p style="margin: 2%"><strong>Fecha:</strong> {{ event?.extendedProps.dates }}</p>
+          <p style="margin: 2%"><strong>Hora:</strong> {{ event?.extendedProps.time }}</p>
+          <p style="margin: 2%">
             <strong>Descripción: </strong> {{ event?.extendedProps.description }}
           </p>
-          <p><strong>Categoría: </strong> {{ event?.extendedProps.category }}</p>
+          <p style="margin: 2%"><strong>Categoría: </strong> {{ event?.extendedProps.category }}</p>
 
-          <p><strong>Aforo: </strong> {{ event?.extendedProps.capacity }}</p>
+          <p style="margin: 2%"><strong>Aforo: </strong> {{ event?.extendedProps.capacity }}</p>
           <button (click)="deleteEvent()" class="form-group
-          color_button_crear textocentrado">Eliminar Evento</button>
+          color_button_crear textocentrado" style="margin: 1%">Eliminar Evento</button>
           <button (click)="startEditing(event)" class="form-group
-          color_button_crear textocentrado">Editar Evento</button>
+          color_button_crear textocentrado" style="margin: 1%">Editar Evento</button>
         </div>
         <form
           *ngIf="isEditing"
@@ -24,7 +24,7 @@
           #eventoForm="ngForm"
           novalidate>
         <div class="form-group recuadro" style="border-radius: 1rem">
-            <h1>Editando evento</h1>
+            <h1><strong>Editando evento</strong></h1>
             <div style="margin: 3%;">
               <label for="titulo">Título: </label>
               <input
@@ -111,9 +111,9 @@
             </div>
             <div style="margin: 3%;">
             <button type="submit" class="form-group
-            color_button_crear textocentrado">Actualizar</button>
+            color_button_crear textocentrado" style="margin: 1%">Actualizar</button>
             <button type="button" class="form-group
-            color_button_crear textocentrado">Cancelar</button></div>
+            color_button_crear textocentrado" style="margin: 1%">Cancelar</button></div>
           </div>
           </form>
         </div>

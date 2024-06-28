@@ -53,6 +53,7 @@
 .recuadro {
   --bs-bg-opacity: 1;
   background-color: var(--azul-oscuros-oikos);
+  margin-left: 20%;
 }
 
 .form-group {
