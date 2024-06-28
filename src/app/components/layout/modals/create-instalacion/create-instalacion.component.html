@@ -1,93 +1,100 @@
-<div class="modal">
-  <div class="modal-content">
-    <span class="close" (click)="onClose()">&times;</span>
-    <div class="modal-info">
-      <div class="instalaciones-container">
-        <div>
-          <form
-            (ngSubmit)="createInstalacion(instalacionForm)"
-            #instalacionForm="ngForm"
-            novalidate
-          >
-            <h1>Crear Instalaciones</h1>
-            <div>
-              <label for="nombre">Nombre:</label>
-              <input
-                type="text"
-                id="nombre"
-                name="nombre"
-                [(ngModel)]="instalacion.nombre"
-                required
-              />
-            </div>
-            <div>
-              <label>Días Abierto:</label>
-
-              <div *ngFor="let dia of diasSemana">
+<div class="modal" (click)="onBackdropClick($event)">
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="onClose()">&times;</span>
+      <div class="modal-info">
+        <div class="instalaciones-container">
+          <div>
+            <form
+              (ngSubmit)="createInstalacion(instalacionForm)"
+              #instalacionForm="ngForm"
+              novalidate
+            >
+            <div class="modal_title titulo_h1">
+              <h1>Crear Instalaciones</h1>
+              <div class="recuadro"
+              style="border-radius: 1rem">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
                 <input
-                  type="checkbox"
-                  [value]="dia"
-                  (change)="onDiasAbiertoChange($event)"
-                  [id]="dia"
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  [(ngModel)]="instalacion.nombre"
+                  required
                 />
-                <label [for]="dia">{{ dia }}</label>
               </div>
-            </div>
+              <div class="form-group">
+                <label>Días Abierto:</label>
 
-            <div>
-              <label for="horarioApertura">Horario Apertura:</label>
-              <input
-                type="time"
-                id="horarioApertura"
-                name="horarioApertura"
-                [(ngModel)]="instalacion.horarioApertura"
-                required
-              />
+                <div *ngFor="let dia of diasSemana">
+                  <input
+                    type="checkbox"
+                    [value]="dia"
+                    (change)="onDiasAbiertoChange($event)"
+                    [id]="dia"
+                  />
+                  <label [for]="dia">{{ dia }}</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="horarioApertura">Horario Apertura:</label>
+                <input
+                  type="time"
+                  id="horarioApertura"
+                  name="horarioApertura"
+                  [(ngModel)]="instalacion.horarioApertura"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="horarioCierre">Horario Cierre:</label>
+                <input
+                  type="time"
+                  id="horarioCierre"
+                  name="horarioCierre"
+                  [(ngModel)]="instalacion.horarioCierre"
+                  required
+                />
+              </div>
+              <!--<div>
+                <label for="intervalo">Intervalo:</label>
+                <input
+                  type="time"
+                  id="intervalo"
+                  name="intervalo"
+                  [(ngModel)]="instalacion.intervalo"
+                  required
+                />
+              </div>
+              <div>
+                <label for="plazasIntervalo">Plazas por Intervalo:</label>
+                <input
+                  type="number"
+                  id="plazasIntervalo"
+                  name="plazasIntervalo"
+                  [(ngModel)]="instalacion.plazasIntervalo"
+                  required
+                />
+              </div>
+              <div>
+                <label for="invitacionesMensualesMaximas"
+                  >Invitaciones Mensuales Máximas:</label
+                >
+                <input
+                  type="number"
+                  id="invitacionesMensualesMaximas"
+                  name="invitacionesMensualesMaximas"
+                  [(ngModel)]="instalacion.invitacionesMensualesMaximas"
+                  required
+                />
+              </div>-->
+              <button type="submit" class="dashboard-sidebar button form-group color_button_crear textocentrado">Enviar</button>
             </div>
-            <div>
-              <label for="horarioCierre">Horario Cierre:</label>
-              <input
-                type="time"
-                id="horarioCierre"
-                name="horarioCierre"
-                [(ngModel)]="instalacion.horarioCierre"
-                required
-              />
             </div>
-            <!--<div>
-              <label for="intervalo">Intervalo:</label>
-              <input
-                type="time"
-                id="intervalo"
-                name="intervalo"
-                [(ngModel)]="instalacion.intervalo"
-                required
-              />
-            </div>
-            <div>
-              <label for="plazasIntervalo">Plazas por Intervalo:</label>
-              <input
-                type="number"
-                id="plazasIntervalo"
-                name="plazasIntervalo"
-                [(ngModel)]="instalacion.plazasIntervalo"
-                required
-              />
-            </div>
-            <div>
-              <label for="invitacionesMensualesMaximas"
-                >Invitaciones Mensuales Máximas:</label
-              >
-              <input
-                type="number"
-                id="invitacionesMensualesMaximas"
-                name="invitacionesMensualesMaximas"
-                [(ngModel)]="instalacion.invitacionesMensualesMaximas"
-                required
-              />
-            </div>-->
-            <button type="submit">Enviar</button>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
