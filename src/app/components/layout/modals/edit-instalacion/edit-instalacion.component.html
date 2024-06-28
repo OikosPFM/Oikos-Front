@@ -3,91 +3,95 @@
     <div class="modal-content">
       <span class="close" (click)="onClose()">&times;</span>
       <div class="modal-info">
-        <form
-          (ngSubmit)="updateInstalacion(instalacionForm)"
-          #instalacionForm="ngForm"
-          novalidate
-        >
-          <h1>Editando {{ instalacionEditando.nombre }}</h1>
-          <div>
-            <label for="nombre">Nombre:</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              [(ngModel)]="instalacionEditando.nombre"
-              required
-            />
-          </div>
-          <div>
-            <label>Días Abierto:</label>
-            <div *ngFor="let dia of diasSemana">
+        <div class="event-info form-group recuadro" style="border-radius: 1rem">
+          <form
+            (ngSubmit)="updateInstalacion(instalacionForm)"
+            #instalacionForm="ngForm"
+            novalidate
+          >
+            <h1 class="modal_title titulo_h1">Editando {{ instalacionEditando.nombre }}</h1>
+            <div style="margin: 2%" class="dashboard-sidebar button form-group">
+              <label for="nombre"><strong>Nombre: </strong></label>
               <input
-                type="checkbox"
-                [value]="dia"
-                (change)="onDiasAbiertoChange($event)"
-                [checked]="instalacionEditando.diasAbierto.includes(dia)"
-                [id]="dia"
+                type="text"
+                id="nombre"
+                name="nombre"
+                [(ngModel)]="instalacionEditando.nombre"
+                required
               />
-              <label [for]="dia">{{ dia }}</label>
             </div>
-          </div>
-          <div>
-            <label for="horarioApertura">Horario Apertura:</label>
-            <input
-              type="time"
-              id="horarioApertura"
-              name="horarioApertura"
-              [(ngModel)]="instalacionEditando.horarioApertura"
-              required
-            />
-          </div>
-          <div>
-            <label for="horarioCierre">Horario Cierre:</label>
-            <input
-              type="time"
-              id="horarioCierre"
-              name="horarioCierre"
-              [(ngModel)]="instalacionEditando.horarioCierre"
-              required
-            />
-          </div>
-          <!--<div>
-            <label for="intervalo">Intervalo:</label>
-            <input
-              type="time"
-              id="intervalo"
-              name="intervalo"
-              [(ngModel)]="instalacionEditando.intervalo"
-              required
-            />
-          </div>
-          <div>
-            <label for="plazasIntervalo">Plazas por Intervalo:</label>
-            <input
-              type="number"
-              id="plazasIntervalo"
-              name="plazasIntervalo"
-              [(ngModel)]="instalacionEditando.plazasIntervalo"
-              required
-            />
-          </div>
-          <div>
-            <label for="invitacionesMensualesMaximas"
-              >Invitaciones Mensuales Máximas:</label
-            >
-            <input
-              type="number"
-              id="invitacionesMensualesMaximas"
-              name="invitacionesMensualesMaximas"
-              [(ngModel)]="instalacionEditando.invitacionesMensualesMaximas"
-              required
-            />
-          </div>-->
-          <button type="submit">Actualizar</button>
-          <button type="button" (click)="cancelEditing()">Cancelar</button>
-        </form>
+            <div class="form-group" style="margin: 2%">
+              <label>Días Abierto: </label>
+              <div *ngFor="let dia of diasSemana">
+                <input
+                  type="checkbox"
+                  [value]="dia"
+                  (change)="onDiasAbiertoChange($event)"
+                  [checked]="instalacionEditando.diasAbierto.includes(dia)"
+                  [id]="dia"
+                />
+                <label [for]="dia">{{ dia }}</label>
+              </div>
+            </div>
+            <div class="form-group" style="margin: 2%">
+              <label for="horarioApertura">Horario Apertura: </label>
+              <input
+                type="time"
+                id="horarioApertura"
+                name="horarioApertura"
+                [(ngModel)]="instalacionEditando.horarioApertura"
+                required
+              />
+            </div>
+            <div class="form-group" style="margin: 2%">
+              <label for="horarioCierre">Horario Cierre: </label>
+              <input
+                type="time"
+                id="horarioCierre"
+                name="horarioCierre"
+                [(ngModel)]="instalacionEditando.horarioCierre"
+                required
+              />
+            </div>
+            <!--<div>
+              <label for="intervalo">Intervalo:</label>
+              <input
+                type="time"
+                id="intervalo"
+                name="intervalo"
+                [(ngModel)]="instalacionEditando.intervalo"
+                required
+              />
+            </div>
+            <div>
+              <label for="plazasIntervalo">Plazas por Intervalo:</label>
+              <input
+                type="number"
+                id="plazasIntervalo"
+                name="plazasIntervalo"
+                [(ngModel)]="instalacionEditando.plazasIntervalo"
+                required
+              />
+            </div>
+            <div>
+              <label for="invitacionesMensualesMaximas"
+                >Invitaciones Mensuales Máximas:</label
+              >
+              <input
+                type="number"
+                id="invitacionesMensualesMaximas"
+                name="invitacionesMensualesMaximas"
+                [(ngModel)]="instalacionEditando.invitacionesMensualesMaximas"
+                required
+              />
+            </div>-->
+            <button type="submit" class="form-group
+            color_button_crear textocentrado" style="margin: 1%">Actualizar</button>
+            <button type="button" (click)="cancelEditing()" class="form-group
+            color_button_crear textocentrado" style="margin: 1%">Cancelar</button>
+          </form>
+        </div>
+        </div>
       </div>
     </div>
   </div>
-</div>

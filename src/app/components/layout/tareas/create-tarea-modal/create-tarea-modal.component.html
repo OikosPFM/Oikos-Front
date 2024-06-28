@@ -1,11 +1,11 @@
 <div class="modal">
   <div class="modal-content">
     <span class="close" (click)="onClose()">&times;</span>
-    <div class="modal-info">
+    <div>
       <h1>Crear Tarea</h1>
       <form (ngSubmit)="createTarea(tareaForm)" #tareaForm="ngForm" novalidate>
         <div>
-          <label for="nombre">Nombre:</label>
+          <label for="nombre">Nombre: </label>
           <input
             type="text"
             id="nombre"
@@ -15,7 +15,7 @@
           />
         </div>
         <div>
-          <label for="fecha">Fecha:</label>
+          <label for="fecha">Fecha: </label>
           <input
             type="date"
             id="fecha"
@@ -25,7 +25,7 @@
           />
         </div>
         <div>
-          <label for="duracion">Duracion:</label>
+          <label for="duracion">Duracion: </label>
           <input
             type="text"
             id="duracion"
@@ -34,7 +34,7 @@
           />
         </div>
         <div>
-          <label for="description">Descripción:</label>
+          <label for="description">Descripción: </label>
           <input
             type="text"
             id="description"
@@ -43,7 +43,7 @@
           />
         </div>
         <div>
-          <label for="instalacion">Instalación:</label>
+          <label for="instalacion">Instalación: </label>
           <select
             id="instalacion"
             [(ngModel)]="tarea.instalacion.idInstalacion"

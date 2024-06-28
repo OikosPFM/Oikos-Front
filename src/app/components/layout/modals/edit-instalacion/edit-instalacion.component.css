@@ -55,7 +55,7 @@ form {
 .modal_title {
   text-align: center; /* Centra el título */
   margin-bottom: 20px; /* Añade margen inferior */
-  color:var(--azul-oscuros-oikos); /* Color azul marino */
+  color:azure; /* Color azul marino */
 }
 
 .recuadro {
