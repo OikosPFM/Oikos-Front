@@ -32,6 +32,9 @@
           </div>
         </div>
       </div>
+      <h3 *ngIf="usuariosInactivos.length == 0" class="not-found">
+        No se encontraron usuarios pendientes de aprobación
+      </h3>
     </section>
     <hr class="separator" />
 
@@ -57,6 +60,9 @@
             Eliminar usuario
           </button>
         </div>
+        <h3 *ngIf="usuariosActivos.length == 0" class="not-found">
+          No se encontraron usuarios activos
+        </h3>
       </div>
     </section>
   </div>

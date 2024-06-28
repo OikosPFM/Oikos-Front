@@ -16,7 +16,7 @@
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
-  height: 70%;
+  height: auto;
   border-radius: 10px;
   background-color: rgb(222, 235, 233);
 }
@@ -37,7 +37,69 @@ form {
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: var(--azul-oscuros-oikos);;
   text-decoration: none;
   cursor: pointer;
+}
+
+.modal_title {
+  text-align: center; /* Centra el título */
+  margin-bottom: 20px; /* Añade margen inferior */
+  color:var(--azul-oscuros-oikos); /* Color azul marino */
+}
+
+.recuadro {
+  --bs-bg-opacity: 1;
+  background-color: var(--azul-oscuros-oikos);
+}
+
+.form-group {
+  margin-bottom: 15px; /* Espacio inferior entre grupos de formulario */
+  width: 50%;
+  margin-bottom: 5px; /* Espacio inferior de la etiqueta */
+  width: 50%; /* Ancho completo */
+  padding: 10px; /* Padding interno */
+  box-sizing: border-box; /* Incluye padding y borde en el cálculo del ancho */
+  margin: auto;
+  border-radius: 8px;
+  color:azure;
+  text-align: left;
+}
+
+.dark-blue-oikos-button {
+  color: rgb(67, 110, 142);
+  --bs-btn-border-color: rgb(67, 110, 142);
+}
+
+.color_button_crear{
+  color:var(--bs-heading-color);;
+  font-weight: bold;
+}
+
+h20 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: auto;
+}
+.titulo_h1 {
+  gap: 1rem;
+  align-items: baseline;
+  font-family: Outfit, sans-serif;
+  text-underline-offset: 0.7rem;
+  font-weight: 700;
+  word-spacing: 0.6rem;
+}
+.form-group input,
+.form-group select {
+  margin: 2px;
+  box-sizing: border-box; /* Incluye padding y borde en el cálculo del ancho */
+  border-radius: 5px; /* Bordes redondeados */
+}
+.form-group label:after {
+  content: ' '; /* Añade un espacio después de los dos puntos */
+  display: inline-block;
+  margin-left: 8px; /* Ajusta el margen según sea necesario */
+}
+.textocentrado {
+  text-align: center;
+  margin-bottom: 1%;
 }

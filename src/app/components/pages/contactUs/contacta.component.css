@@ -14,6 +14,22 @@ form {
   margin: 2rem;
 }
 
+.error {
+  color: black;
+}
+
+.asterisk {
+  color: red;
+  margin-left: 5px;
+}
+
+.min-size-textarea {
+  min-width: 500px;
+  min-height: 150px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
 .consulta-container {
   display: flex;
   flex-direction: column;
@@ -24,18 +40,55 @@ form {
   font-size: 20px;
   color: rgb(67, 110, 142);
   height: auto;
-  padding: 2rem; /* Agrega padding para una mejor apariencia */
+  padding: 2rem;
   border-radius: 10px;
 }
 
 .button {
-  justify-content: center;
-  border-radius: 4px;
-  background-color: white;
   font-family: "Outfit";
-  font-size: 20px;
+  border-color: rgb(67, 110, 142);
+  background-color: #9bbcb6;
   color: rgb(67, 110, 142);
-  margin-top: 16px;
+  border-radius: 20px;
+  outline: none;
+  font-weight: 600;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: aliceblue;
+    color: rgb(222, 235, 233);
+  }
+  width: 200px;
+}
+
+.recuadro {
+  --bs-bg-opacity: 1;
+  background-color: rgb(222, 235, 233);
+}
+
+.dark-blue-oikos-color {
+  color: rgb(67, 110, 142);
+}
+
+.dark-blue-oikos-button {
+  color: rgb(67, 110, 142);
+  --bs-btn-border-color: rgb(67, 110, 142);
+}
+
+.status-message {
+  color: black;
+  font-size: 1.2em;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.status-message.success {
+  font-weight: bold;
+}
+
+.status-message.error {
+  color: red;
 }
 
 .consulta-form {
@@ -43,8 +96,8 @@ form {
   justify-content: center;
   align-items: center;
   background-color: rgb(222, 235, 233);
-  height: 70vh;
-  width: 70vw; /* Ajusta el ancho según sea necesario */
+  height: 100vh;
+  width: 70vw;
   padding: 3rem;
   border-radius: 20px;
 }

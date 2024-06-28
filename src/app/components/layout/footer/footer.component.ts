@@ -1,12 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-layout-footer',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, RouterModule],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrl: './footer.component.css',
 })
-export class FooterComponent {
+export class FooterLayoutComponent {
+  constructor(private router: Router) {}
 
+  isHome(): boolean {
+    return this.router.url === '/';
+  }
 }
