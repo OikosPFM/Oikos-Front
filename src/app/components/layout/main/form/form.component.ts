@@ -54,12 +54,13 @@ export class FormComponent {
     nombre: ['', Validators.required],
     primerApellido: ['', Validators.required],
     segundoApellido: ['', Validators.required],
-    dni: ['', Validators.required],
+    dni: ['', [Validators.required, Validators.pattern(/^\d{8}[A-Z]$/)]],
     telefono: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     contraseña: ['', Validators.required],
   });
   fincas: any[] = [];
+  errorMessages: string[] = [];
 
   ngOnInit(): void {
     this.getFincas();
@@ -121,8 +122,15 @@ export class FormComponent {
               );
             },
             (error) => {
-              console.error('Error al registrar el usuario:', error);
-              // Manejar el error si es necesario
+              if (error.status === 409) {
+                console.log('El correo ya está en uso.');
+                this.errorMessages.push(
+                  'El correo con el que estas intentando registrarte ya está en uso.'
+                );
+              } else {
+                console.error('Error al registrar el usuario:', error);
+                // Manejar otros errores si es necesario
+              }
             }
           );
         },
@@ -169,5 +177,15 @@ export class FormComponent {
       email &&
       contraseña
     );
+  }
+
+  get mensajeErrorDNI() {
+    const dniControl = this.usuarioFormGroup.get('dni');
+    if (dniControl?.hasError('pattern') && dniControl?.touched) {
+      this.errorMessages.push(
+        'El formato de DNI no es valido debe tener 8 digitos y una letra'
+      );
+    }
+    return '';
   }
 }

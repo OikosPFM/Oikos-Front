@@ -90,7 +90,12 @@
             >Completa con tus datos personales
             <span
               *ngIf="
-                usuarioFieldsEmpty(usuarioFormGroup) && usuarioFormGroup.touched
+                (usuarioFieldsEmpty(usuarioFormGroup) &&
+                  usuarioFormGroup.touched) ||
+                (usuarioFormGroup.get('dni')?.hasError('pattern') &&
+                  usuarioFormGroup.get('dni')?.touched) ||
+                (usuarioFormGroup.get('email')?.hasError('email') &&
+                  usuarioFormGroup.get('email')?.touched)
               "
               class="error-message"
             >
@@ -123,6 +128,17 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="DNI" formControlName="dni" required />
+            <div
+              *ngIf="
+                usuarioFormGroup.get('dni')?.hasError('pattern') &&
+                usuarioFormGroup.get('dni')?.touched
+              "
+            >
+              <small class="text-danger"
+                >El DNI debe tener 8 dígitos numéricos seguidos de una letra
+                mayúscula.</small
+              >
+            </div>
           </mat-form-field>
           <mat-form-field>
             <input
@@ -139,6 +155,16 @@
               formControlName="email"
               required
             />
+            <div
+              *ngIf="
+                usuarioFormGroup.get('email')?.hasError('email') &&
+                usuarioFormGroup.get('email')?.touched
+              "
+            >
+              <small class="text-danger"
+                >El formato del correo electrónico no es válido.</small
+              >
+            </div>
           </mat-form-field>
           <mat-form-field>
             <input
@@ -185,6 +211,27 @@
           class="error-message"
         >
           Es obligatorio completar todos los campos de usuario.
+        </div>
+        <div
+          *ngIf="
+            usuarioFormGroup.get('dni')?.hasError('pattern') &&
+            usuarioFormGroup.get('dni')?.touched
+          "
+          class="error-message"
+        >
+          El DNI debe tener 8 dígitos numéricos seguidos de una letra mayúscula.
+        </div>
+        <div
+          *ngIf="
+            usuarioFormGroup.get('email')?.hasError('email') &&
+            usuarioFormGroup.get('email')?.touched
+          "
+          class="error-message"
+        >
+          El formato del correo electrónico no es válido.
+        </div>
+        <div *ngFor="let errorMessage of errorMessages">
+          <div class="error-message">{{ errorMessages }}</div>
         </div>
       </mat-step>
     </mat-vertical-stepper>
