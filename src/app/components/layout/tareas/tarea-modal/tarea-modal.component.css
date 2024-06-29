@@ -29,11 +29,24 @@
   }
   width: 400px;
 }
-.instalaciones-actuales {
-  max-height: 80%; /* Altura máxima del contenedor */
-  overflow-y: auto; /* Desplazamiento vertical */
-  flex: 1;
-  margin-right: 2rem; /* Espacio entre la lista y el formulario */
+.tareas_card div {
+  align-self: flex-end;
+}
+
+.tareas_card button {
+  padding: 0.5rem 1rem;
+  margin: 2rem 0.5rem 0 0.5rem;
+  border-radius: 10px;
+  color: var(--azul-oscuros-oikos);
+  border: 2px solid var(--azul-oscuros-oikos) !important;
+  outline: none; /* Elimina el borde de enfoque del navegador */
+  font-weight: 600;
+  transition: 0.3s ease-in-out; /* Transición de 0.5 segundos */
+
+  &:hover {
+    background-color: rgb(73, 150, 174);
+    color: var(--verde-claro-oikos);
+  }
 }
 
 .update-tarea-container {

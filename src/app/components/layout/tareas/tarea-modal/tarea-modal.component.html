@@ -7,7 +7,7 @@
 </button>
 <div class="tarea-modal">
   <div class="tareas-container">
-    <div class="instalaciones-actuales" *ngFor="let tarea of tareas">
+    <div class="tareas_card" *ngFor="let tarea of tareas">
       <h2 *ngIf="!editando">{{ tarea.nombre }}</h2>
       <p>Descripción: {{ tarea.descripcion }}</p>
       <p>Instalación: {{ tarea.instalacion.nombre }}</p>
@@ -110,6 +110,7 @@
     </form>
   </div>
 </div>
+
 <app-create-tarea-modal
   *ngIf="showCreateTareaModal"
   (close)="closeModal()"
