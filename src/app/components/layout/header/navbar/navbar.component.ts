@@ -19,9 +19,8 @@ interface NavigationOption {
   providers: [AuthService],
 })
 export class NavbarComponent {
-
   constructor(private authService: AuthService, private router: Router) {}
-  
+
   options: NavigationOption[] = [
     { link: '/contacta', title: 'Contáctanos' },
     { link: '/about', title: 'Acerca de nosotros' },
@@ -40,6 +39,10 @@ export class NavbarComponent {
     return this.router.url === '/' || this.router.url === '/#register-form';
   }
 
+  isDashboardPage() {
+    return this.router.url === '/dashboard';
+  }
+
   login(): void {
     this.router.navigate(['/login']);
   }
@@ -48,5 +51,9 @@ export class NavbarComponent {
     localStorage.removeItem('token'); // Elimina el token del almacenamiento local
     // Redirige al usuario a la página de inicio de sesión o a la página de inicio
     this.router.navigate(['/']);
+  }
+
+  tareas(): void {
+    this.router.navigate(['/manage-tarea']);
   }
 }

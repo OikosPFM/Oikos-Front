@@ -14,7 +14,6 @@ import { jwtDecode } from 'jwt-decode';
   imports: [
     FullcalendarComponent,
     CreateEventModalComponent,
-    ManageInstalacionesComponent,
     CommonModule,
     RouterModule,
     TareaModalComponent,
@@ -36,12 +35,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getUsuarioInfo();
     this.seleccionarTextoAleatorio();
+    this.getUsuariosByFinca();
   }
 
   decoded: any | null;
   showCreateEventModal: boolean = false;
   showManageInstalacionesModal: boolean = false;
   infoUsuario: any;
+  usuariosInactivos: any[] = [];
   textos: string[] = [
     'Más vale el vecino cercano, que el pariente lejano.',
     'Puerta abierta, vecino que entra.',
@@ -76,5 +77,14 @@ export class DashboardComponent implements OnInit {
   closeModal() {
     this.showCreateEventModal = false;
     this.showManageInstalacionesModal = false;
+  }
+
+  getUsuariosByFinca(): void {
+    this.usuariosService.getUsuariosByFinca(this.decoded).subscribe((data) => {
+      this.usuariosInactivos = data.filter(
+        (usuario: any) => usuario.estado === false
+      );
+      console.log(this.usuariosInactivos);
+    });
   }
 }

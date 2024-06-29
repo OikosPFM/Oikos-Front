@@ -15,6 +15,7 @@ import { CreateEventModalComponent } from '../../create-event-modal/create-event
 import { INITIAL_EVENTS, createEventId } from './../../../../utils/event-utils';
 import { CommonModule } from '@angular/common';
 import { EventosService } from '../../../../services/eventos/eventos.service';
+import { TareasService } from '../../../../services/tarea/tareas.service';
 import { HttpClientModule } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import esLocale from '@fullcalendar/core/locales/es'; // Importa el idioma que necesitas
@@ -38,7 +39,8 @@ export class FullcalendarComponent {
   selectedDate: Date | undefined;
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private eventosService: EventosService
+    private eventosService: EventosService,
+    private tareasService: TareasService
   ) {
     const token = localStorage.getItem('token');
     if (token) {
@@ -50,41 +52,61 @@ export class FullcalendarComponent {
 
   ngOnInit(): void {
     this.getEventosByFincaId(this.decoded.idFinca);
+    this.getFilteredTareas();
   }
   eventos: any[] = [];
+  tareas: any[] = [];
+  tareasProcesadas: any[] = [];
   procesados: any[] = [];
   decoded: any | null;
-  getEventos(): void {
-    this.eventosService.getEventos().subscribe(
+  eventosTareasJuntos: any[] = [];
+  combineEvents(): void {
+    this.eventosTareasJuntos = [...this.procesados, ...this.tareasProcesadas];
+  }
+  getFilteredTareas(): void {
+    this.tareasService.getTareas().subscribe(
       (data) => {
-        this.eventos = data;
-        const eventosProcesadas = data.map((evento: any) => ({
-          id: evento.idEvento,
-          title: evento.titulo,
-          start: `${evento.fecha}T${evento.hora}`,
-          description: evento.descripcion,
-          category: evento.categoria,
-          dates: evento.fecha,
-          time: evento.hora,
-          capacity: evento.aforo,
-          organizer: `${evento.organizador?.nombre} ${evento.organizador?.primerApellido} ${evento.organizador?.segundoApellido}`,
-          color: 'pink',
+        this.tareas = data;
+        console.log(data);
+        this.filterTareasByFincaID();
+        this.filterTareasByUsuarioID();
+        const gestionadas = this.tareas.map((tarea: any) => ({
+          id: tarea.idTarea,
+          facilites: tarea.instalacion.idInstalacion,
+          title: tarea.nombre,
+          description: tarea.descripcion,
+          start: this.formatDateArray(tarea.fecha),
+          duration: tarea.duracion,
+          organizer: `${tarea.usuarioAsignado?.nombre} ${tarea.usuarioAsignado?.primerApellido} ${tarea.usuarioAsignado?.segundoApellido}`,
+          color: 'green',
         }));
-        this.procesados = eventosProcesadas;
-        console.log(this.eventos);
-        console.log(this.procesados);
-
-        // Actualizar las opciones del calendario con los eventos procesados
+        this.tareasProcesadas = gestionadas;
+        console.log('tareas procesadas', this.tareasProcesadas);
+        this.combineEvents();
         this.calendarOptions.update((options) => ({
           ...options,
-          eventSources: [{ events: this.procesados }],
+          eventSources: [{ events: this.eventosTareasJuntos }],
         }));
+        console.log();
+        console.log('Filtered Tareas', this.tareas);
       },
       (error) => {
-        console.error('Error al obtener los eventos', error);
+        console.error('Error al obtener las tareas', error);
       }
     );
   }
+  filterTareasByFincaID(): void {
+    this.tareas = this.tareas.filter(
+      (tarea) => tarea.instalacion.finca.idFinca == this.decoded.idFinca
+    );
+    console.log('filtrado por finca');
+  }
+  filterTareasByUsuarioID(): void {
+    this.tareas = this.tareas.filter(
+      (tarea) => tarea.usuarioAsignado.idUsuario == this.decoded.idUsuario
+    );
+  }
+  // Actualizar las opciones del calendario con los eventos procesados
   //      eventSources: [{ events: this.procesados, color: 'pink' }],
 
   getEventosByFincaId(fincaId: number): void {
@@ -108,10 +130,13 @@ export class FullcalendarComponent {
         console.log(this.procesados);
 
         // Actualizar las opciones del calendario con los eventos procesados
+        this.combineEvents();
         this.calendarOptions.update((options) => ({
           ...options,
-          eventSources: [{ events: this.procesados }],
+          eventSources: [{ events: this.eventosTareasJuntos }],
         }));
+        console.log();
+        console.log('Filtered Tareas', this.tareas);
       },
       (error) => {
         console.error('Error al obtener los eventos por ID de finca', error);
@@ -191,5 +216,22 @@ export class FullcalendarComponent {
 
   onEventoEditado(): void {
     this.getEventosByFincaId(this.decoded.idFinca);
+  }
+  formatDateArray(dateArray: [number, number, number]): string {
+    // Destructure the array into year, month, and day
+    const [year, month, day] = dateArray;
+
+    // Create a Date object from the array. Note: months are zero-based in JavaScript Date.
+    const date = new Date(year, month - 1, day, 12, 0); // Set hours to 12 and minutes to 0
+
+    // Extract parts of the date
+    const formattedYear = date.getFullYear();
+    const formattedMonth = String(date.getMonth() + 1).padStart(2, '0'); // Add 1 because months are zero-based
+    const formattedDay = String(date.getDate()).padStart(2, '0');
+    const formattedHours = String(date.getHours()).padStart(2, '0');
+    const formattedMinutes = String(date.getMinutes()).padStart(2, '0');
+
+    // Format the date string
+    return `${formattedYear}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`;
   }
 }

@@ -107,6 +107,15 @@
   transform: scale(0.95);
 }
 
+.navbar img {
+  width: 30px;
+  margin-bottom: 0.5rem;
+}
+
+.navbar img:hover {
+  filter: brightness(0) saturate(100%);
+}
+
 @media (max-width: 800px) {
   .navbar ul {
     gap: 2rem;

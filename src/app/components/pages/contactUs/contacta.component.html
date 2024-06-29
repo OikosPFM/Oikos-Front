@@ -5,7 +5,7 @@
     #contactForm="ngForm"
     novalidate
   >
-    <h3>Complete los campos para enviarnos vía email su consulta</h3>
+    <h3>Complete los campos para enviarnos su consulta vía email</h3>
     <div class="example-input-wrapper"></div>
     <label for="email">Introduzca aquí su Email:</label>
     <input
@@ -17,6 +17,7 @@
       #email="ngModel"
     />
     <div *ngIf="email.invalid && email.touched" class="error">
+      <span class="asterisk">*</span>
       Su email es requerido y debe ser válido para poder realizar su consulta.
     </div>
     <div class="example-input-wrapper"></div>
@@ -30,6 +31,7 @@
       #subject="ngModel"
     />
     <div *ngIf="subject.invalid && subject.touched" class="error">
+      <span class="asterisk">*</span>
       Este campo es requerido para enviar su consulta.
     </div>
     <div class="example-input-wrapper"></div>
@@ -40,14 +42,34 @@
       [(ngModel)]="contact.message"
       required
       #message="ngModel"
+      class="min-size-textarea"
     ></textarea>
     <div *ngIf="message.invalid && message.touched" class="error">
+      <span class="asterisk">*</span>
       Este campo es requerido para enviar su consulta.
     </div>
-    <button class="button" type="submit" [disabled]="contactForm.invalid">
-      Enviar
-    </button>
+    <div class="button">
+      <button
+        data-mdb-button-init
+        data-mdb-ripple-init
+        class="btn btn-outline-light btn-lg px-5 dark-blue-oikos-button"
+        type="submit"
+        [disabled]="contactForm.invalid"
+      >
+        Enviar
+      </button>
+    </div>
   </form>
-  <div *ngIf="statusMessage" [class]="statusClass">{{ statusMessage }}</div>
-  <app-backFooter />
+  <div *ngIf="statusMessage" class="status-message" [class]="statusClass">
+    {{ statusMessage }}
+  </div>
 </div>
+
+<!--                <button
+                  data-mdb-button-init
+                  data-mdb-ripple-init
+                  class="btn btn-outline-light btn-lg px-5 dark-blue-oikos-button"
+                  type="submit"
+                >
+                  Iniciar Sesión
+                </button>-->
