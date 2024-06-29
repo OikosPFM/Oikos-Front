@@ -11,7 +11,6 @@ import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-mo
   selector: 'app-tarea-modal',
   standalone: true,
 
-
   imports: [
     FormsModule,
     CommonModule,
@@ -19,18 +18,10 @@ import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-mo
     HttpClientModule,
     DatePipe,
   ],
-
 
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
   styleUrl: './tarea-modal.component.css',
-  imports: [
-    FormsModule,
-    CommonModule,
-    HttpClientModule,
-    DatePipe,
-    CreateTareaModalComponent,
-  ],
 })
 export class TareaModalComponent {
   @Output() close = new EventEmitter<void>();
@@ -180,5 +171,9 @@ export class TareaModalComponent {
 
   closeModal() {
     this.showCreateTareaModal = false;
+  }
+
+  onTareaCreada() {
+    this.getTareas();
   }
 }

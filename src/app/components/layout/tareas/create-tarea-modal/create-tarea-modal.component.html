@@ -25,21 +25,21 @@
           />
         </div>
         <div>
-          <label for="duracion">Duracion: </label>
+          <label for="duracion">Duración: </label>
           <input
-            type="text"
+            type="time"
             id="duracion"
             [(ngModel)]="tarea.duracion"
             name="duracion"
           />
         </div>
         <div>
-          <label for="description">Descripción: </label>
+          <label for="descripcion">Descripción: </label>
           <input
             type="text"
-            id="description"
+            id="descripcion"
             [(ngModel)]="tarea.descripcion"
-            name="description"
+            name="descripcion"
           />
         </div>
         <div>
@@ -61,10 +61,8 @@
             </option>
           </select>
         </div>
-
         <button type="submit">Crear Tarea</button>
       </form>
     </div>
   </div>
 </div>
-
