@@ -28,6 +28,25 @@ export class InstalacionesService {
       });
     }
   }
+  getInstalacion(idInstalacion: number): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+
+      const url = `${this.apiUrl}/${idInstalacion}`;
+      return this.http.get<any[]>(url, { headers }).pipe(
+        catchError((error) => {
+          console.error('Error al obtener instalaciones por finca ID:', error);
+          return throwError(error);
+        })
+      );
+    } else {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+  }
 
   getInstalacionesByFincaID(fincaID: number): Observable<any[]> {
     const token = localStorage.getItem('token');

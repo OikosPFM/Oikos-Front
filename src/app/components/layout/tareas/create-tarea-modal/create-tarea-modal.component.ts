@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
 import { jwtDecode } from 'jwt-decode';
+
 @Component({
   selector: 'app-create-tarea-modal',
   standalone: true,
@@ -19,6 +20,7 @@ import { jwtDecode } from 'jwt-decode';
 export class CreateTareaModalComponent {
   //Recibimos del padre(Donde usemos este modal) el selectDate y le enviamos el método para cerrarlo
   @Output() close = new EventEmitter<void>();
+  @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
   @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
   constructor(
@@ -34,12 +36,9 @@ export class CreateTareaModalComponent {
     }
   }
   instalaciones: any[] = [];
-  tareas: any[] = [];
-  editando = false;
   decoded: any | null;
 
   tarea = {
-    idTarea: '',
     instalacion: {
       idInstalacion: '',
     },
@@ -53,7 +52,6 @@ export class CreateTareaModalComponent {
 
   ngOnInit(): void {
     this.getInstalaciones();
-    this.getTareas();
     if (this.selectedDate) {
       this.tarea.fecha =
         this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
@@ -71,19 +69,9 @@ export class CreateTareaModalComponent {
       }
     );
   }
-  getTareas(): void {
-    this.tareasService.getTareas().subscribe(
-      (data) => {
-        this.tareas = data;
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error al obtener las fincas', error);
-      }
-    );
-  }
 
   createTarea(tareaForm: NgForm): void {
+    console.log(this.tarea);
     if (tareaForm.invalid) {
       alert('Por favor, rellena todos los campos.');
       return;
@@ -96,10 +84,12 @@ export class CreateTareaModalComponent {
           descripcion: ${this.tarea.descripcion}, instalacion: ${this.tarea.instalacion},
           con usuario asignado: ${this.tarea.usuarioAsignado} ha sido creada exitosamente.`
         );
-        tareaForm.resetForm();
+        this.onClose(); // Cerrar el modal después de eliminar el evento
+        this.eventoCreado.emit();
       },
       error: (error: any) => {
-        console.error(alert(), tareaForm.resetForm(), error);
+        console.log(this.tarea);
+        console.error(alert('rrrrr'), tareaForm.resetForm(), error);
       },
     });
   }

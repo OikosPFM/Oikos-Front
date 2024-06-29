@@ -102,12 +102,10 @@ export class TareasService {
     });
 
     return this.http
-      .patch<any>(`${this.apiUrl}/${tarea.idTarea}`, tarea, {
-        headers,
-      })
+      .patch(`${this.apiUrl}/${tarea.idTarea}`, tarea, { headers })
       .pipe(
         catchError((error) => {
-          console.error('Error al actualizar instalación:', error);
+          console.error('Error al actualizar la tarea:', error);
           return throwError(error);
         })
       );

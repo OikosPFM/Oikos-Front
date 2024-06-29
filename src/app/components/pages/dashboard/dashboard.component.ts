@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FullcalendarComponent } from '../../layout/main/fullcalendar/fullcalendar.component';
 import { CreateEventModalComponent } from '../../layout/create-event-modal/create-event-modal.component';
 import { CommonModule } from '@angular/common';
-
+import { TareaModalComponent } from '../../layout/tareas/tarea-modal/tarea-modal.component';
+import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-modal/manage-instalaciones-modal.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios/usuarios.service';
 import { jwtDecode } from 'jwt-decode';
@@ -15,6 +16,7 @@ import { jwtDecode } from 'jwt-decode';
     CreateEventModalComponent,
     CommonModule,
     RouterModule,
+    TareaModalComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
