@@ -7,10 +7,10 @@ import { InstalacionesService } from '../../../../services/instalaciones/instala
 import { jwtDecode } from 'jwt-decode';
 import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-modal.component';
 
-
 @Component({
   selector: 'app-tarea-modal',
   standalone: true,
+
 
   imports: [
     FormsModule,
@@ -18,13 +18,19 @@ import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-mo
     CreateTareaModalComponent,
     HttpClientModule,
     DatePipe,
-    FullCalendarModule, 
-    CalendarComponent
   ],
+
 
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
   styleUrl: './tarea-modal.component.css',
+  imports: [
+    FormsModule,
+    CommonModule,
+    HttpClientModule,
+    DatePipe,
+    CreateTareaModalComponent,
+  ],
 })
 export class TareaModalComponent {
   @Output() close = new EventEmitter<void>();
@@ -44,6 +50,7 @@ export class TareaModalComponent {
   }
 
   decoded: any | null;
+  showCreateTareaModal: boolean = false;
   instalaciones: any[] = [];
   tareas: any[] = [];
   editando: boolean = false;
@@ -166,5 +173,12 @@ export class TareaModalComponent {
         );
       },
     });
+  }
+  openCreateTareaModal() {
+    this.showCreateTareaModal = true;
+  }
+
+  closeModal() {
+    this.showCreateTareaModal = false;
   }
 }

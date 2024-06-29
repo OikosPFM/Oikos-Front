@@ -22,7 +22,7 @@ export class CreateTareaModalComponent {
   @Output() close = new EventEmitter<void>();
   @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
-
+  @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
   constructor(
     private tareasService: TareasService,
     private instalacionesService: InstalacionesService,
