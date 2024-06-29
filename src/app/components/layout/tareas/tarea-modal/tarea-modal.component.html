@@ -13,7 +13,11 @@
       <p>Instalación: {{ tarea.instalacion.nombre }}</p>
       <p>Fecha: {{ tarea.fecha }}</p>
       <p>Duración: {{ tarea.duracion }}</p>
-      <p>Usuario: {{ tarea.usuarioAsignado }}</p>
+      <p>
+        Usuario Asignado: {{ tarea.usuarioAsignado.nombre }}
+        {{ tarea.usuarioAsignado.primerApellido }}
+        {{ tarea.usuarioAsignado.segundoApellido }}
+      </p>
       <p>Acabada: {{ tarea.tareaAcabada }}</p>
       <button (click)="deleteTarea(tarea.idTarea)">Eliminar tarea</button>
       <button (click)="startEditing(tarea)">Editar tarea</button>
