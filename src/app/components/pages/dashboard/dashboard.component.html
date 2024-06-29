@@ -14,12 +14,6 @@
       </button>
       <button
         *ngIf="decoded && decoded.rol === 'ADMIN'"
-        routerLink="/manage-instalaciones"
-      >
-        Administrar tareas
-      </button>
-      <button
-        *ngIf="decoded && decoded.rol === 'ADMIN'"
         routerLink="/manage-registros"
       >
         <img
@@ -37,7 +31,8 @@
       </button>
       <button routerLink="/manage-tarea">Administrar tareas</button>
       <button routerLink="/manage_registros">
-        Revisar registros de usuario </button>
+        Revisar registros de usuario
+      </button>
 
       <button>Acceder al foro</button>
       <button *ngIf="decoded && decoded.rol === 'USER'">
