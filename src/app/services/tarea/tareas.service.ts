@@ -92,11 +92,6 @@ export class TareasService {
     const decodedToken: any = mytoken;
     const userRole = decodedToken?.rol;
 
-    if (userRole !== 'ADMIN') {
-      console.error('Usuario no autorizado para actualizar tareas.');
-      return throwError('Usuario no autorizado para actualizar tareas.');
-    }
-
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
@@ -134,5 +129,34 @@ export class TareasService {
       console.error('No se encontró token en localStorage.');
       return throwError('No se encontró token en localStorage.');
     }
+  }
+  updateEstadoTarea(idTarea: any, mytoken: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+
+    // Decodifica el token para obtener el rol del usuario
+    const decodedToken: any = mytoken;
+    const userRole = decodedToken?.rol;
+
+    if (userRole !== 'ADMIN') {
+      console.error('Usuario no autorizado para crear instalaciones.');
+      return throwError('Usuario no autorizado para crear instalaciones.');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http
+      .patch(`${this.apiUrl}/${idTarea}`, { tareaAcabada: true }, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error('Error al crear instalación:', error);
+          return throwError(error);
+        })
+      );
   }
 }
