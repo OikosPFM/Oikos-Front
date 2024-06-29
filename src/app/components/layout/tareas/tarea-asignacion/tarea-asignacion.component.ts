@@ -98,7 +98,7 @@ export class TareaAsignacionComponent {
         roles: usuario.roles,
       },
     };
-    this.tareasService.patchTarea(tarea.idTarea, updatedTarea).subscribe({
+    this.tareasService.updateTarea(tarea.idTarea, updatedTarea).subscribe({
       next: (data) => {
         console.log('Usuario asignado actualizado con éxito', data);
         this.getTareas();
@@ -122,7 +122,7 @@ export class TareaAsignacionComponent {
       ...tarea,
       usuarioAsignado: null,
     };
-    this.tareasService.patchTarea(tarea.idTarea, updatedTarea).subscribe({
+    this.tareasService.updateTarea(tarea.idTarea, updatedTarea).subscribe({
       next: (data) => {
         console.log('Usuario desasignado con éxito', data);
         this.getTareas();
@@ -147,7 +147,7 @@ export class TareaAsignacionComponent {
       ...tarea,
       tareaAcabada: otroEstado,
     };
-    this.tareasService.patchTarea(tarea.idTarea, updatedTarea).subscribe({
+    this.tareasService.updateTarea(tarea.idTarea, updatedTarea).subscribe({
       next: (data) => {
         console.log('Usuario desasignado con éxito', data);
         this.getTareas();

@@ -154,6 +154,13 @@ export class EventModalComponent {
     });
   }
 
+  onBackdropClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('modal')) {
+      this.onClose();
+    }
+  }
+
   /*obtenerIdInstalacionPorIdEvento(
     instalaciones: any[],
     idEventoBuscado: string

@@ -52,4 +52,8 @@ export class NavbarComponent {
     // Redirige al usuario a la página de inicio de sesión o a la página de inicio
     this.router.navigate(['/']);
   }
+
+  tareas(): void {
+    this.router.navigate(['/manage-tarea']);
+  }
 }

@@ -1,4 +1,4 @@
-<div class="modal">
+<div class="modal" (click)="onBackdropClick($event)">
   <div class="modal-content">
     <span class="close" (click)="onClose()">&times;</span>
     <div class="modal-info">
@@ -7,9 +7,13 @@
         #eventoForm="ngForm"
         novalidate
       >
+      <div class="modal_title titulo_h1">
         <h1>Crear Evento</h1>
-        <div>
-          <label for="titulo">Titulo:</label>
+        <div
+          class="recuadro"
+          style="border-radius: 1rem">
+        <div class="form-group">
+          <label for="titulo">Título: </label>
           <input
             type="text"
             id="titulo"
@@ -18,8 +22,8 @@
             required
           />
         </div>
-        <div>
-          <label for="fecha">Fecha:</label>
+        <div class="dashboard-sidebar button form-group">
+          <label for="fecha">Fecha: </label>
           <input
             type="date"
             id="fecha"
@@ -28,12 +32,12 @@
             required
           />
         </div>
-        <div>
-          <label for="hora">Hora:</label>
+        <div class="dashboard-sidebar button form-group">
+          <label for="hora">Hora: </label>
           <input type="time" id="hora" [(ngModel)]="evento.hora" name="hora" />
         </div>
-        <div>
-          <label for="description">Description:</label>
+        <div class="dashboard-sidebar button form-group">
+          <label for="description">Descripción: </label>
           <input
             type="text"
             id="description"
@@ -41,22 +45,22 @@
             name="description"
           />
         </div>
-        <div>
-          <label for="categoria">Categoria:</label>
+        <div class="dashboard-sidebar button form-group">
+          <label for="categoria">Categoría: </label>
           <select
             id="categoria"
             [(ngModel)]="evento.categoria"
             name="categoria"
           >
-            <option value="" disabled selected>Selecciona una categoria</option>
+            <option value="" disabled selected>Selecciona una categoría</option>
             <option value="Fiesta">Fiesta</option>
             <option value="Junta">Junta</option>
-            <option value="Excursion">Excursion</option>
+            <option value="Excursion">Excursión</option>
             <option value="Otros">Otros</option>
           </select>
         </div>
-        <div>
-          <label for="instalacion">Instalación:</label>
+        <div class="dashboard-sidebar button form-group">
+          <label for="instalacion">Instalación: </label>
           <select
             id="instalacion"
             name="instalacion"
@@ -72,25 +76,29 @@
             </option>
           </select>
         </div>
-        <div>
-          <label for="participantes">Participantes:</label>
+        <div class="dashboard-sidebar button form-group">
+          <label for="participantes">Participantes: </label>
           <input
             type="number"
+            min="0"
             id="participantes"
             [(ngModel)]="evento.participantes"
             name="participantes"
           />
         </div>
-        <div>
-          <label for="aforo">aforo:</label>
+        <div class="dashboard-sidebar button form-group">
+          <label for="aforo">Aforo: </label>
           <input
             type="number"
+            min="0"
             id="aforo"
             [(ngModel)]="evento.aforo"
             name="aforo"
           />
         </div>
-        <button type="submit">Crear Evento</button>
+        <button type="submit" class="dashboard-sidebar button form-group color_button_crear textocentrado">Crear Evento</button>
+      </div>
+      </div>
       </form>
     </div>
   </div>
