@@ -7,7 +7,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
-
+import { jwtDecode } from 'jwt-decode';
 @Component({
   selector: 'app-create-tarea-modal',
   standalone: true,
@@ -17,19 +17,26 @@ import { InstalacionesService } from '../../../../services/instalaciones/instala
   providers: [TareasService, InstalacionesService, DatePipe],
 })
 export class CreateTareaModalComponent {
-
   //Recibimos del padre(Donde usemos este modal) el selectDate y le enviamos el método para cerrarlo
   @Output() close = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
-
+  @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
   constructor(
     private tareasService: TareasService,
     private instalacionesService: InstalacionesService,
     private datePipe: DatePipe
-  ) {}
+  ) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.decoded = jwtDecode(token);
+    } else {
+      console.error('Token not found in localStorage');
+    }
+  }
   instalaciones: any[] = [];
   tareas: any[] = [];
   editando = false;
+  decoded: any | null;
 
   tarea = {
     idTarea: '',
@@ -81,7 +88,7 @@ export class CreateTareaModalComponent {
       alert('Por favor, rellena todos los campos.');
       return;
     }
-    this.tareasService.createTarea(this.tarea).subscribe({
+    this.tareasService.createTarea(this.tarea, this.decoded).subscribe({
       next: (data: any) => {
         console.log('Tarea created successfully', data);
         alert(
