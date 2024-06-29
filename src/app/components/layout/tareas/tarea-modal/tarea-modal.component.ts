@@ -32,6 +32,7 @@ export class TareaModalComponent {
   }
 
   decoded: any | null;
+  showCreateTareaModal: boolean = false;
   instalaciones: any[] = [];
   tareas: any[] = [];
   editando: boolean = false;
@@ -133,5 +134,12 @@ export class TareaModalComponent {
         );
       },
     });
+  }
+  openManageInstalacionesModal() {
+    this.showCreateTareaModal = true;
+  }
+
+  closeModal() {
+    this.showCreateTareaModal = false;
   }
 }
