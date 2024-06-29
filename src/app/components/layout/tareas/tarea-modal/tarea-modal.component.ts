@@ -5,11 +5,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
 import { jwtDecode } from 'jwt-decode';
+import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-modal.component';
 
 @Component({
   selector: 'app-tarea-modal',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, DatePipe],
+  imports: [
+    FormsModule,
+    CommonModule,
+    CreateTareaModalComponent,
+    HttpClientModule,
+    DatePipe,
+  ],
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
   styleUrl: './tarea-modal.component.css',
