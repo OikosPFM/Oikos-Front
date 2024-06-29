@@ -6,11 +6,10 @@ import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
 import { jwtDecode } from 'jwt-decode';
 
-
 @Component({
   selector: 'app-tarea-modal',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule, DatePipe, FullCalendarModule, CalendarComponent],
+  imports: [FormsModule, CommonModule, HttpClientModule, DatePipe],
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
   styleUrl: './tarea-modal.component.css',
