@@ -2,7 +2,7 @@
   *ngIf="decoded && decoded.rol === 'ADMIN'"
   (click)="openCreateTareaModal()"
 >
-  Crear evento
+  Crear tarea
 </button>
 <div class="tarea-modal">
   <div class="instalaciones-actuales" *ngFor="let tarea of tareas">
@@ -110,4 +110,5 @@
 <app-create-tarea-modal
   *ngIf="showCreateTareaModal"
   (close)="closeModal()"
+  (tareaCreada)="onTareaCreada()"
 ></app-create-tarea-modal>

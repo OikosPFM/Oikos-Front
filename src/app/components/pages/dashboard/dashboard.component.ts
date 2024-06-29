@@ -3,7 +3,7 @@ import { FullcalendarComponent } from '../../layout/main/fullcalendar/fullcalend
 import { CreateEventModalComponent } from '../../layout/create-event-modal/create-event-modal.component';
 import { CommonModule } from '@angular/common';
 import { TareaModalComponent } from '../../layout/tareas/tarea-modal/tarea-modal.component';
-import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones-modal/manage-instalaciones-modal.component';
+import { ManageInstalacionesComponent } from '../../layout/manage-instalaciones/manage-instalaciones.component';
 import { RouterModule, Routes } from '@angular/router';
 import { UsuariosService } from '../../../services/usuarios/usuarios.service';
 import { jwtDecode } from 'jwt-decode';
