@@ -3,7 +3,16 @@
   justify-content: space-between;
   align-items: flex-start;
 }
-
+.tareas-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--verde-claro-oikos);
+  margin: 2rem;
+  border-radius: 30px;
+  padding: 2rem;
+  flex-wrap: wrap;
+}
 .instalaciones-actuales {
   max-height: 80%; /* Altura máxima del contenedor */
   overflow-y: auto; /* Desplazamiento vertical */
@@ -28,13 +37,11 @@ form {
   background-color: rgb(222, 235, 233);
 }
 
-.dark-blue-oikos-color{
+.dark-blue-oikos-color {
   color: rgb(67, 110, 142);
 }
 
-.dark-blue-oikos-button{
+.dark-blue-oikos-button {
   color: rgb(67, 110, 142);
   --bs-btn-border-color: rgb(67, 110, 142);
 }
-
-
