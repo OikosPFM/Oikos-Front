@@ -42,13 +42,13 @@ export class EntradaForoComponent {
     this.getEntradasByFincaId(this.decoded.idFinca, this.decoded.usuario);
     this.getFilteredEntradas();
     this.isLoggedIn = this.authService.isLoggedIn();
-    const currentUser = this.authService.getCurrentUser();
+    const currentUser = this.decoded;
     this.currentUserId = currentUser ? currentUser.id : null;
     this.entryCreatorId = this.entryUserId;
   }
 
   entradaForo = { titulo: '', textoComentario: '', fecha: '', hora: '', idEntradaForo: { idEntradaForo: ''}, finca: {idFinca: '',},
-  usuario: '' };
+  autor: '' };
   entradasForo: any[] = [];
   public page!: number;
   decoded: any | null;
@@ -81,6 +81,7 @@ export class EntradaForoComponent {
     const currentDate = new Date();
     this.entradaForo.fecha = currentDate.toISOString().split('T')[0];
     this.entradaForo.hora = currentDate.toTimeString().split(' ')[0];
+    this.entradaForo.autor = this.authService.getCurrentUser();
 
     this.entradasService.createEntradas(this.entradaForo, this.decoded).subscribe({
       next: (data: any) => {
@@ -157,10 +158,10 @@ export class EntradaForoComponent {
     this.entradasService.getEntradasByFincaId(fincaId, usuario).subscribe(
       (data) => {
         this.entradasForo = data;
-        console.log('Instalaciones:', this.entradasForo);
+        console.log('Entradas:', this.entradasForo);
       },
       (error) => {
-        console.error('Error al obtener instalaciones:', error);
+        console.error('Error al obtener entradas:', error);
       }
     );
   }
@@ -181,7 +182,7 @@ export class EntradaForoComponent {
         console.log(this.procesados);
       },
       (error: any) => {
-        console.error('Error al obtener los eventos por ID de finca', error);
+        console.error('Error al obtener los entradas por ID de finca', error);
       }
     );
   }
