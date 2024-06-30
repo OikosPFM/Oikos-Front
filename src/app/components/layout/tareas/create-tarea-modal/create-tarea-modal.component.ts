@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
 import { jwtDecode } from 'jwt-decode';
+import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-create-tarea-modal',
@@ -21,6 +22,7 @@ export class CreateTareaModalComponent {
   @Output() tareaCreada: EventEmitter<void> = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
 
+  usuarios: any[] = [];
   instalaciones: any[] = [];
   decoded: any | null = null;
 
@@ -32,12 +34,16 @@ export class CreateTareaModalComponent {
     descripcion: '',
     fecha: '',
     duracion: '',
+    usuarioAsignado: {
+      idUsuario: '',
+    },
     tareaAcabada: false,
   };
 
   constructor(
     private tareasService: TareasService,
     private instalacionesService: InstalacionesService,
+    private usuariosService: UsuariosService,
     private datePipe: DatePipe
   ) {
     const token = localStorage.getItem('token');
@@ -50,6 +56,7 @@ export class CreateTareaModalComponent {
 
   ngOnInit(): void {
     this.getInstalaciones();
+    this.getUsuarios();
     if (this.selectedDate) {
       this.tarea.fecha =
         this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
@@ -66,7 +73,17 @@ export class CreateTareaModalComponent {
       }
     );
   }
-
+  getUsuarios(): void {
+    this.usuariosService.getUsuariosByFinca(this.decoded).subscribe(
+      (data) => {
+        this.usuarios = data;
+        console.log(this.usuarios);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
   createTarea(tareaForm: NgForm): void {
     console.log(this.tarea);
     if (tareaForm.invalid) {

@@ -1,20 +1,30 @@
 <button
+  class="create-button"
   *ngIf="decoded && decoded.rol === 'ADMIN'"
   (click)="openCreateTareaModal()"
 >
   Crear tarea
 </button>
 <div class="tarea-modal">
-  <div class="instalaciones-actuales" *ngFor="let tarea of tareas">
-    <h2 *ngIf="!editando">{{ tarea.nombre }}</h2>
-    <p>Descripción: {{ tarea.descripcion }}</p>
-    <p>Instalación: {{ tarea.instalacion.nombre }}</p>
-    <p>Fecha: {{ tarea.fecha }}</p>
-    <p>Duración: {{ tarea.duracion }}</p>
-    <p>Usuario: {{ tarea.usuarioAsignado }}</p>
-    <p>Acabada: {{ tarea.tareaAcabada }}</p>
-    <button (click)="deleteTarea(tarea.idTarea)">Eliminar tarea</button>
-    <button (click)="startEditing(tarea)">Editar tarea</button>
+  <div class="tareas-container">
+    <div class="tareas_card" *ngFor="let tarea of tareas">
+      <h2 *ngIf="!editando">{{ tarea.nombre }}</h2>
+      <p>Descripción: {{ tarea.descripcion }}</p>
+      <p>Instalación: {{ tarea.instalacion.nombre }}</p>
+      <p>Fecha: {{ tarea.fecha }}</p>
+      <p>Duración: {{ tarea.duracion }}</p>
+      <p>
+        <span *ngIf="tarea.usuarioAsignado; else noAsignado">
+          Usuario Asignado: {{ tarea.usuarioAsignado.nombre }}
+          {{ tarea.usuarioAsignado.primerApellido }}
+          {{ tarea.usuarioAsignado.segundoApellido }}
+        </span>
+        <ng-template #noAsignado> Usuario Asignado: No asignado </ng-template>
+      </p>
+      <p>Acabada: {{ tarea.tareaAcabada }}</p>
+      <button (click)="deleteTarea(tarea.idTarea)">Eliminar tarea</button>
+      <button (click)="startEditing(tarea)">Editar tarea</button>
+    </div>
   </div>
 
   <!--Update form-->
@@ -107,6 +117,7 @@
     </form>
   </div>
 </div>
+
 <app-create-tarea-modal
   *ngIf="showCreateTareaModal"
   (close)="closeModal()"
