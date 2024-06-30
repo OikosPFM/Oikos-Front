@@ -118,6 +118,7 @@ export class FullcalendarComponent {
           title: evento.titulo,
           start: `${evento.fecha}T${evento.hora}`,
           description: evento.descripcion,
+          facility: evento.instalacion.idInstalacion,
           category: evento.categoria,
           dates: evento.fecha,
           time: evento.hora,
@@ -190,7 +191,11 @@ export class FullcalendarComponent {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const eventsInDay = selectInfo.view.calendar.getEvents;
-    if (eventsInDay.length === 0) {
+    if (
+      eventsInDay.length === 0 &&
+      this.decoded &&
+      this.decoded.rol === 'ADMIN'
+    ) {
       this.showCreateEventModal = true;
     }
     this.selectedDate = selectInfo.start;

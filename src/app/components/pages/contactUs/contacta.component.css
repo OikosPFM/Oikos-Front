@@ -28,6 +28,11 @@ form {
   min-height: 150px;
   resize: none;
   margin-bottom: 10px;
+  padding: 0 1rem;
+}
+
+input {
+  padding: 0 1rem;
 }
 
 .consulta-container {
@@ -40,31 +45,29 @@ form {
   font-size: 20px;
   color: rgb(67, 110, 142);
   height: auto;
-  padding: 2rem;
   border-radius: 10px;
 }
 
 .button {
   font-family: "Outfit";
   border-color: rgb(67, 110, 142);
-  background-color: #9bbcb6;
-  color: rgb(67, 110, 142);
-  border-radius: 20px;
+  color: var(--azul-oscuros-oikos);
+  border-radius: 10px;
   outline: none;
   font-weight: 600;
   transition: 0.3s ease-in-out;
   cursor: pointer;
+  margin-top: 1rem;
 
   &:hover {
     background-color: aliceblue;
     color: rgb(222, 235, 233);
   }
-  width: 200px;
 }
 
-.recuadro {
-  --bs-bg-opacity: 1;
-  background-color: rgb(222, 235, 233);
+button {
+  border-color: var(--azul-oscuros-oikos) !important;
+  opacity: 1 !important;
 }
 
 .dark-blue-oikos-color {
@@ -72,8 +75,8 @@ form {
 }
 
 .dark-blue-oikos-button {
-  color: rgb(67, 110, 142);
-  --bs-btn-border-color: rgb(67, 110, 142);
+  color: var(--azul-oscuros-oikos);
+  --bs-btn-border-color: var(--azul-oscuros-oikos);
 }
 
 .status-message {
@@ -96,8 +99,8 @@ form {
   justify-content: center;
   align-items: center;
   background-color: rgb(222, 235, 233);
-  height: 100vh;
+  height: 80vh;
   width: 70vw;
-  padding: 3rem;
+  padding: 1rem 3rem;
   border-radius: 20px;
 }
