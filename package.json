@@ -22,20 +22,16 @@
     "@angular/router": "^17.3.0",
     "@developer-partners/ngx-modal-dialog": "^1.0.5",
     "@emailjs/browser": "^4.3.3",
-
     "@fullcalendar/angular": "^6.1.14",
     "@fullcalendar/core": "^6.1.14",
     "@fullcalendar/daygrid": "^6.1.14",
     "@fullcalendar/interaction": "^6.1.14",
     "@fullcalendar/list": "^6.1.14",
     "@fullcalendar/timegrid": "^6.1.14",
-
-    "ngx-pagination": "^6.0.3",
-
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "jwt-decode": "^4.0.0",
-
+    "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

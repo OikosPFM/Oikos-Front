@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,8 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private http = inject(HttpClient);
-  constructor() {}
+  constructor(private router: Router) {}
   private isAuthenticated: boolean = false;
+
+  private apiUrl = 'http://localhost:8081/api/auth';
 
   registerUsuario(usuarioData: any): Observable<any> {
     return this.http.post<any>('http://localhost:8081/register', usuarioData);
@@ -29,15 +31,12 @@ export class AuthService {
     // Remueve el token del localStorage
     localStorage.removeItem('token');
     this.isAuthenticated = false;
-  }
-  
-  getUserId(): number | null {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decoded: any = jwtDecode(token);
-      return decoded?.id ?? null;
-    }
-    return null;
-  }
-}
+    this.router.navigate(['/login']);
 
+  }
+
+  verifyToken(token: string) {
+    return this.http.post(`${this.apiUrl}/verifyToken`, { token });
+  }
+
+}

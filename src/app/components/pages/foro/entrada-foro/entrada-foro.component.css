@@ -115,7 +115,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 20px;
     justify-content: center;
-    width: 99%;
+    width: 92%;
     max-width: 1200px;
     margin: auto;
     text-decoration: none !important;

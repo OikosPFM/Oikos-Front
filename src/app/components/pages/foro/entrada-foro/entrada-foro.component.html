@@ -11,7 +11,7 @@
             <!-- Crear Entradas -->
             <h1>Crear Entrada</h1>
             <div class="entry-form">
-                <form (ngSubmit)="createEntrada(entryForm)" #entryForm="ngForm" novalidate>
+                <form (ngSubmit)="createEntrada(entryForm, entradaForo, mytoken)" #entryForm="ngForm" novalidate>
                     <div>
                         <label for="titulo">Título:</label>
                         <input type="text" id="titulo" [(ngModel)]="entradaForo.titulo" class="text-input" name="titulo" required>
@@ -44,12 +44,14 @@
                             <small><b>ID:</b>{{ entradaForo.idEntrada }}</small>
                             <br>
                             <small>Created: {{ entradaForo.fecha | date : "medium" }} {{ entradaForo.hora }} </small>
+                            <br>
+                            <small><b>Usuario:</b>{{ entradaForo.usuario }}</small>
                         </div>
                     </a>
                     <br>
                     <button type="button" class="btn btn-info" [routerLink]="['/respuesta', entradaForo.idEntrada]">Responder</button>
                     <!-- <button *ngIf="isLoggedIn" (click)="goToMensaje(entradaForo.idEntrada)" class="btn btn-secondary">Ir a Mensaje</button> -->
-                    <button *ngIf="entradaForo.authorId === currentUserId" (click)="openEditEntradaModal()">Editar</button>
+                    <!-- <button *ngIf="entradaForo.authorId === currentUserId" (click)="openEditEntradaModal()">Editar</button> -->
                     <button *ngIf="entradaForo.authorId === currentUserId" (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
                 </div>
                 <br>

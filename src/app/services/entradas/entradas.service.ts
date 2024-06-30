@@ -49,7 +49,10 @@ export class EntradasService {
   }
 
   getEntradasForo(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.get(`${this.apiUrl}`, { headers: headers });
   }
 
   getAllEntradas(): Observable<any[]> {
@@ -69,9 +72,33 @@ export class EntradasService {
     }
   }
 
-  // updateEntradaForo(entradaForo: any): Observable<any> {
-  //   return this.http.put(`${this.apiUrl}/${entradaForo.idEntrada}`, entradaForo);
-  // }
+  getEntradasByFincaId(fincaId: number, usuarioId: number): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+
+      const url = `${this.apiUrl}/finca/${fincaId}/usuario/${usuarioId}`;
+      return this.http.get<any[]>(url, { headers }).pipe(
+        catchError((error) => {
+          console.error(
+            'Error al obtener tareas por finca ID y usuario ID:',
+            error
+          );
+          return throwError(error);
+        })
+      );
+    } else {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+  }
+
+  responderEntrada(respuesta: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/respuestas`, respuesta);
+  }
+
   updateEntradaForo(entradaForo: any, mytoken: any): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -108,11 +135,27 @@ export class EntradasService {
     return this.http.patch(`${this.apiUrl}/${id}`, updates);
   }
 
-  deleteEntradaForo(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  deleteEntradaForo(idEntrada: string, mytoken: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+
+    // Decodifica el token para obtener el rol del usuario
+    const decodedToken: any = mytoken;
+    const userRole = decodedToken?.rol;
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.delete<any>(`${this.apiUrl}/${idEntrada}`, { headers }).pipe(
+      catchError((error) => {
+        console.error('Error al eliminar tarea:', error);
+        return throwError(error);
+      })
+    );
   }
 
-  responderEntrada(respuesta: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/respuestas`, respuesta);
-  }
 }

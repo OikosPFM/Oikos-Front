@@ -35,8 +35,13 @@
       >
         Administrar instalaciones
       </button>
-      <button>Acceder al foro</button>
-      <button *ngIf="decoded && decoded.rol === 'USER'">
+      <button
+        *ngIf="decoded && (decoded.rol === 'ADMIN' || decoded.rol === 'USER')"
+        routerLink="/entrada-foro">
+        Acceder al foro
+      </button>
+      <button *ngIf="decoded && decoded.rol === 'USER'"
+      routerLink="/manage-instalaciones">
         Asignación de tareas
       </button>
       <button

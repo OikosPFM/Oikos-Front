@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class MensajesService {
   //   return this.http.get<any[]>(`${this.apiUrl}`);
   // }
 
-  getMensaje(id: number): Observable<any> {
+  getMensajes(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
@@ -35,6 +35,28 @@ export class MensajesService {
   // createMensaje(mensaje: any): Observable<any> {
   //   return this.http.post<any>(`${this.apiUrl}/create`, mensaje);
   // }
+  getMensajesByEntradaForoId(entradaForoId: number, usuarioId: number): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      });
+
+      const url = `${this.apiUrl}/finca/${entradaForoId}/usuario/${usuarioId}`;
+      return this.http.get<any[]>(url, { headers }).pipe(
+        catchError((error) => {
+          console.error(
+            'Error al obtener tareas por finca ID y usuario ID:',
+            error
+          );
+          return throwError(error);
+        })
+      );
+    } else {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+  }
 
   updateMensaje(id: number, mensaje: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, mensaje);
