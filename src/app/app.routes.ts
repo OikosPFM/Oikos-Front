@@ -8,6 +8,7 @@ import { AboutComponent } from './components/pages/aboutUs/about.component';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 import { LoginComponent } from './components/pages/login/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { ManageRegistrosComponent } from './components/pages/manage-registros/manage-registros.component';
 import { TareaModalComponent } from './components/layout/tareas/tarea-modal/tarea-modal.component';
 import { TareaAsignacionComponent } from './components/layout/tareas/tarea-asignacion/tarea-asignacion.component';
@@ -38,11 +39,12 @@ export const routes: Routes = [
   {
     path: 'manage-registros',
     component: ManageRegistrosComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'manage-tarea',
     component: TareaModalComponent,
+    canActivate: [AdminGuard],
   },
   {
     path: 'asignacion-tarea',
@@ -51,7 +53,7 @@ export const routes: Routes = [
   {
     path: 'manage-instalaciones',
     component: ManageInstalacionesComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'instalaciones',

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, switchMap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +9,9 @@ export class TareasService {
   private apiUrl = 'http://localhost:8081/api/v1/tareas';
   private http = inject(HttpClient);
 
+  getTareaById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
   getTareas(): Observable<any[]> {
     const token = localStorage.getItem('token');
     if (token) {
@@ -81,7 +84,7 @@ export class TareasService {
     );
   }
 
-  updateTarea(tarea: any, mytoken: any): Observable<any> {
+  updateTarea(tarea: any): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No se encontró token en localStorage.');
@@ -89,25 +92,16 @@ export class TareasService {
     }
 
     // Decodifica el token para obtener el rol del usuario
-    const decodedToken: any = mytoken;
-    const userRole = decodedToken?.rol;
-
-    if (userRole !== 'ADMIN') {
-      console.error('Usuario no autorizado para actualizar tareas.');
-      return throwError('Usuario no autorizado para actualizar tareas.');
-    }
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
 
     return this.http
-      .patch<any>(`${this.apiUrl}/${tarea.idTarea}`, tarea, {
-        headers,
-      })
+      .patch(`${this.apiUrl}/${tarea.idTarea}`, tarea, { headers })
       .pipe(
         catchError((error) => {
-          console.error('Error al actualizar instalación:', error);
+          console.error('Error al actualizar la tarea:', error);
           return throwError(error);
         })
       );
@@ -136,5 +130,33 @@ export class TareasService {
       console.error('No se encontró token en localStorage.');
       return throwError('No se encontró token en localStorage.');
     }
+  }
+  updateEstadoTarea(idTarea: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No se encontró token en localStorage.');
+      return throwError('No se encontró token en localStorage.');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    // Fetch the current state of the task
+    return this.http.get<any>(`${this.apiUrl}/${idTarea}`, { headers }).pipe(
+      switchMap((tarea) => {
+        const nuevoEstado = tarea.tareaAcabada ? false : true;
+        console.log(nuevoEstado);
+        return this.http.patch(
+          `${this.apiUrl}/${idTarea}`,
+          { tareaAcabada: nuevoEstado },
+          { headers }
+        );
+      }),
+      catchError((error) => {
+        console.error('Error al actualizar el estado de la tarea:', error);
+        return throwError(error);
+      })
+    );
   }
 }

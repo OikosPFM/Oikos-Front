@@ -5,8 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
 import { jwtDecode } from 'jwt-decode';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarComponent } from '../../../../calendar/calendar.component';
+import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-modal.component';
 
 @Component({
   selector: 'app-tarea-modal',
@@ -14,10 +13,10 @@ import { CalendarComponent } from '../../../../calendar/calendar.component';
   imports: [
     FormsModule,
     CommonModule,
+    CreateTareaModalComponent,
     HttpClientModule,
     DatePipe,
-    FullCalendarModule,
-    CalendarComponent,
+    CreateTareaModalComponent
   ],
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
@@ -41,6 +40,7 @@ export class TareaModalComponent {
   }
 
   decoded: any | null;
+  showCreateTareaModal: boolean = false;
   instalaciones: any[] = [];
   tareas: any[] = [];
   editando: boolean = false;
@@ -111,9 +111,18 @@ export class TareaModalComponent {
   tareaEditando: any = null;
 
   startEditing(tarea: any): void {
-    this.tareaEditando = { ...tarea };
-    console.log(this.tareaEditando);
-    this.isEditing = true;
+    if (tarea) {
+      this.tareaEditando = {
+        idTarea: tarea.idTarea,
+        instalacion: tarea.instalacion,
+        nombre: tarea.nombre,
+        descripcion: tarea.descripcion,
+        fecha: tarea.fecha,
+        duracion: tarea.duracion,
+        tareaAcabada: tarea.tareaAcabada,
+      };
+      this.isEditing = true;
+    }
   }
   cancelEditing(): void {
     this.tareaEditando = null;
@@ -124,8 +133,20 @@ export class TareaModalComponent {
       alert('Por favor, rellena todos los campos.');
       return;
     }
+    const tareaToUpdate = {
+      idTarea: this.tareaEditando.idTarea,
+      instalacion: {
+        idInstalacion: this.tareaEditando.instalacion.idInstalacion,
+      },
+      nombre: this.tareaEditando.nombre,
+      descripcion: this.tareaEditando.descripcion,
+      fecha: this.tareaEditando.fecha,
+      duracion: this.tareaEditando.duracion,
+      tareaAcabada: this.tareaEditando.tareaAcabada,
+    };
     // Lógica para actualizar la instalación...
-    this.tareasService.updateTarea(this.tareaEditando, this.decoded).subscribe({
+    console.log(tareaToUpdate);
+    this.tareasService.updateTarea(tareaToUpdate).subscribe({
       next: (data) => {
         console.log('Tarea actualizada con éxito', data);
         this.getTareas();
@@ -137,10 +158,21 @@ export class TareaModalComponent {
       },
       error: (error) => {
         console.error(
-          `Error al actualizar la tarea ${JSON.stringify(this.tareaEditando)}`,
+          `Error al actualizar la tarea ${this.tareaEditando}`,
           error
         );
       },
     });
+  }
+  openCreateTareaModal() {
+    this.showCreateTareaModal = true;
+  }
+
+  closeModal() {
+    this.showCreateTareaModal = false;
+  }
+
+  onTareaCreada() {
+    this.getTareas();
   }
 }
