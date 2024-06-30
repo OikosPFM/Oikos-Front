@@ -32,23 +32,7 @@ export class TareaAsignacionComponent {
 
   instalaciones: any[] = [];
   tareas: any[] = [];
-  usuario: any;
   decoded: any | null;
-
-  // Call the service method and handle the response
-  getUsuarioById(id: number): void {
-    this.usuariosService
-      .getUsuarioByIdauth(this.decoded.idUsuario, this.decoded)
-      .subscribe({
-        next: (usuario) => {
-          this.usuario = usuario; // Assign the fetched data to the usuario variable
-          console.log('Usuario fetched successfully', this.usuario);
-        },
-        error: (error) => {
-          console.error('Error fetching usuario', error);
-        },
-      });
-  }
 
   tarea = {
     idTarea: '',
@@ -64,7 +48,6 @@ export class TareaAsignacionComponent {
   };
   ngOnInit(): void {
     this.getInstalaciones();
-    this.getUsuarioById(5);
     this.getTareas();
     if (this.selectedDate) {
       this.tarea.fecha =
@@ -122,8 +105,7 @@ export class TareaAsignacionComponent {
         },
         error: (error) => {
           console.error(
-            'Error al actualizar el usuario asignado: ' +
-              JSON.stringify(updatedTarea),
+            'Error al actualizar el usuario asignado: ' + updatedTarea,
             error
           );
         },
@@ -146,8 +128,7 @@ export class TareaAsignacionComponent {
       },
       error: (error) => {
         console.error(
-          'Error al actualizar el usuario asignado: ' +
-            JSON.stringify(updatedTarea),
+          'Error al actualizar el usuario asignado: ' + updatedTarea,
           error
         );
       },
@@ -159,7 +140,6 @@ export class TareaAsignacionComponent {
       next: (data) => {
         console.log('Usuario desasignado con éxito', data);
         this.getTareas();
-
         alert(
           `El Estado de la tarea con ID: ${tarea.idTarea} ahora es: ${tarea.tareaAcabada}`
         );
