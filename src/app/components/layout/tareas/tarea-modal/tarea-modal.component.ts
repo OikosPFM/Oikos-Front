@@ -147,7 +147,7 @@ export class TareaModalComponent {
     };
     // Lógica para actualizar la instalación...
     console.log(tareaToUpdate);
-    this.tareasService.updateTarea(tareaToUpdate, this.decoded).subscribe({
+    this.tareasService.updateTarea(tareaToUpdate).subscribe({
       next: (data) => {
         console.log('Tarea actualizada con éxito', data);
         this.getTareas();

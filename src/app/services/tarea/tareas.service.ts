@@ -84,7 +84,7 @@ export class TareasService {
     );
   }
 
-  updateTarea(tarea: any, mytoken: any): Observable<any> {
+  updateTarea(tarea: any): Observable<any> {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No se encontró token en localStorage.');
