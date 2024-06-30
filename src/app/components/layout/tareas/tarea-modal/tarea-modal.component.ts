@@ -10,15 +10,14 @@ import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-mo
 @Component({
   selector: 'app-tarea-modal',
   standalone: true,
-
   imports: [
     FormsModule,
     CommonModule,
     CreateTareaModalComponent,
     HttpClientModule,
     DatePipe,
+    CreateTareaModalComponent
   ],
-
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
   styleUrl: './tarea-modal.component.css',
