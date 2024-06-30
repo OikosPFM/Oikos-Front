@@ -1,121 +1,165 @@
+<div class="modal" (click)="onBackdropClick($event)">
+  <div class="modal-content">
+    <span class="close" (click)="onClose()">&times;</span>
+    <div class="modal-info">
+      <div class="event-info form-group recuadro" style="border-radius: 1rem">
+        <h2 class="textocentrado">
+          <strong>{{ event?.title }}</strong>
+        </h2>
+        <p style="margin: 2%">
+          <strong>Fecha:</strong> {{ event?.extendedProps.dates }}
+        </p>
+        <p style="margin: 2%">
+          <strong>Hora:</strong> {{ event?.extendedProps.time }}
+        </p>
+        <p style="margin: 2%">
+          <strong>Instalación:</strong>
+          {{ getFacilityName(event?.extendedProps.facility) }}
+        </p>
+        <p style="margin: 2%">
+          <strong>Descripción: </strong> {{ event?.extendedProps.description }}
+        </p>
+        <p style="margin: 2%">
+          <strong>Categoría: </strong> {{ event?.extendedProps.category }}
+        </p>
 
-  <div class="modal" (click)="onBackdropClick($event)">
-    <div class="modal-content">
-      <span class="close" (click)="onClose()">&times;</span>
-      <div class="modal-info">
-        <div class="event-info form-group recuadro" style="border-radius: 1rem">
-          <h2 class="textocentrado"><strong>{{ event?.title }}</strong></h2>
-          <p style="margin: 2%"><strong>Fecha:</strong> {{ event?.extendedProps.dates }}</p>
-          <p style="margin: 2%"><strong>Hora:</strong> {{ event?.extendedProps.time }}</p>
-          <p style="margin: 2%">
-            <strong>Descripción: </strong> {{ event?.extendedProps.description }}
-          </p>
-          <p style="margin: 2%"><strong>Categoría: </strong> {{ event?.extendedProps.category }}</p>
-
-          <p style="margin: 2%"><strong>Aforo: </strong> {{ event?.extendedProps.capacity }}</p>
-          <button (click)="deleteEvent()" class="form-group
-          color_button_crear textocentrado" style="margin: 1%">Eliminar Evento</button>
-          <button (click)="startEditing(event)" class="form-group
-          color_button_crear textocentrado" style="margin: 1%">Editar Evento</button>
-        </div>
-        <form
-          *ngIf="isEditing"
-          (ngSubmit)="updateEvento(eventoForm)"
-          #eventoForm="ngForm"
-          novalidate>
-        <div class="form-group recuadro" style="border-radius: 1rem">
-            <h1><strong>Editando evento</strong></h1>
-            <div style="margin: 3%;">
-              <label for="titulo">Título: </label>
-              <input
-                type="text"
-                id="titulo"
-                [(ngModel)]="evento.titulo"
-                name="titulo"
-                required
-              />
-            </div>
-            <div style="margin: 3%;">
-              <label for="fecha">Fecha: </label>
-              <input
-                type="date"
-                id="fecha"
-                [(ngModel)]="evento.fecha"
-                name="fecha"
-                required
-              />
-            </div>
-            <div style="margin: 3%;">
-              <label for="hora">Hora: </label>
-              <input type="time" id="hora" [(ngModel)]="evento.hora" name="hora" />
-            </div>
-            <div style="margin: 1%;">
-              <label for="description">Descripción: </label>
-              <input
-                type="text"
-                id="description"
-                [(ngModel)]="evento.descripcion"
-                name="description"
-              />
-            </div>
-            <div style="margin: 3%;">
-              <label for="categoria">Categoría: </label>
-              <select
-                id="categoria"
-                [(ngModel)]="evento.categoria"
-                name="categoria"
-              >
-                <option value="" disabled selected>Selecciona una categoría</option>
-                <option value="Fiesta">Fiesta</option>
-                <option value="Junta">Junta</option>
-                <option value="Excursion">Excursión</option>
-                <option value="Otros">Otros</option>
-              </select>
-            </div>
-            <div style="margin: 3%;">
-              <label for="instalacion">Instalación: </label>
-              <select
-                id="instalacion"
-                [(ngModel)]="evento.instalacion.idInstalacion"
-                name="instalacion"
-                required
-              >
-                <option value="" disabled selected>
-                  Selecciona una instalación
-                </option>
-                <option
-                  *ngFor="let instalacion of instalaciones"
-                  [value]="instalacion.idInstalacion"
-                >
-                  {{ instalacion.nombre }}
-                </option>
-              </select>
-            </div>
-            <div style="margin: 3%;">
-              <label for="participantes">Participantes: </label>
-              <input
-                type="number"
-                id="participantes"
-                [(ngModel)]="evento.participantes"
-                name="participantes"
-              />
-            </div>
-            <div style="margin: 3%;">
-              <label for="aforo">Aforo: </label>
-              <input
-                type="number"
-                id="aforo"
-                [(ngModel)]="evento.aforo"
-                name="aforo"
-              />
-            </div>
-            <div style="margin: 3%;">
-            <button type="submit" class="form-group
-            color_button_crear textocentrado" style="margin: 1%">Actualizar</button>
-            <button type="button" class="form-group
-            color_button_crear textocentrado" style="margin: 1%">Cancelar</button></div>
-          </div>
-          </form>
-        </div>
+        <p style="margin: 2%">
+          <strong>Aforo: </strong> {{ event?.extendedProps.capacity }}
+        </p>
+        <button
+          *ngIf="decoded && decoded.rol === 'ADMIN'"
+          (click)="deleteEvent()"
+          class="form-group color_button_crear textocentrado"
+          style="margin: 1%"
+        >
+          Eliminar Evento
+        </button>
+        <button
+          (click)="startEditing(event)"
+          class="form-group color_button_crear textocentrado"
+          style="margin: 1%"
+          *ngIf="decoded && decoded.rol === 'ADMIN'"
+        >
+          Editar Evento
+        </button>
       </div>
+      <form
+        *ngIf="isEditing"
+        (ngSubmit)="updateEvento(eventoForm)"
+        #eventoForm="ngForm"
+        novalidate
+      >
+        <div class="form-group recuadro" style="border-radius: 1rem">
+          <h1><strong>Editando evento</strong></h1>
+          <div style="margin: 3%">
+            <label for="titulo">Título: </label>
+            <input
+              type="text"
+              id="titulo"
+              [(ngModel)]="evento.titulo"
+              name="titulo"
+              required
+            />
+          </div>
+          <div style="margin: 3%">
+            <label for="fecha">Fecha: </label>
+            <input
+              type="date"
+              id="fecha"
+              [(ngModel)]="evento.fecha"
+              name="fecha"
+              required
+            />
+          </div>
+          <div style="margin: 3%">
+            <label for="hora">Hora: </label>
+            <input
+              type="time"
+              id="hora"
+              [(ngModel)]="evento.hora"
+              name="hora"
+            />
+          </div>
+          <div style="margin: 1%">
+            <label for="description">Descripción: </label>
+            <input
+              type="text"
+              id="description"
+              [(ngModel)]="evento.descripcion"
+              name="description"
+            />
+          </div>
+          <div style="margin: 3%">
+            <label for="categoria">Categoría: </label>
+            <select
+              id="categoria"
+              [(ngModel)]="evento.categoria"
+              name="categoria"
+            >
+              <option value="" disabled selected>
+                Selecciona una categoría
+              </option>
+              <option value="Fiesta">Fiesta</option>
+              <option value="Junta">Junta</option>
+              <option value="Excursion">Excursión</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+          <div style="margin: 3%">
+            <label for="instalacion">Instalación: </label>
+            <select
+              id="instalacion"
+              [(ngModel)]="evento.instalacion.idInstalacion"
+              name="instalacion"
+              required
+            >
+              <option value="" disabled selected>
+                Selecciona una instalación
+              </option>
+              <option
+                *ngFor="let instalacion of instalaciones"
+                [value]="instalacion.idInstalacion"
+              >
+                {{ instalacion.nombre }}
+              </option>
+            </select>
+          </div>
+          <div style="margin: 3%">
+            <label for="participantes">Participantes: </label>
+            <input
+              type="number"
+              id="participantes"
+              [(ngModel)]="evento.participantes"
+              name="participantes"
+            />
+          </div>
+          <div style="margin: 3%">
+            <label for="aforo">Aforo: </label>
+            <input
+              type="number"
+              id="aforo"
+              [(ngModel)]="evento.aforo"
+              name="aforo"
+            />
+          </div>
+          <div style="margin: 3%">
+            <button
+              type="submit"
+              class="form-group color_button_crear textocentrado"
+              style="margin: 1%"
+            >
+              Actualizar
+            </button>
+            <button
+              type="button"
+              class="form-group color_button_crear textocentrado"
+              style="margin: 1%"
+            >
+              Cancelar
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
+</div>
