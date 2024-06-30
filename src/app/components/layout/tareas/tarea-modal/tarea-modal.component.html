@@ -14,9 +14,12 @@
       <p>Fecha: {{ tarea.fecha }}</p>
       <p>Duración: {{ tarea.duracion }}</p>
       <p>
-        Usuario Asignado: {{ tarea.usuarioAsignado.nombre }}
-        {{ tarea.usuarioAsignado.primerApellido }}
-        {{ tarea.usuarioAsignado.segundoApellido }}
+        <span *ngIf="tarea.usuarioAsignado; else noAsignado">
+          Usuario Asignado: {{ tarea.usuarioAsignado.nombre }}
+          {{ tarea.usuarioAsignado.primerApellido }}
+          {{ tarea.usuarioAsignado.segundoApellido }}
+        </span>
+        <ng-template #noAsignado> Usuario Asignado: No asignado </ng-template>
       </p>
       <p>Acabada: {{ tarea.tareaAcabada }}</p>
       <button (click)="deleteTarea(tarea.idTarea)">Eliminar tarea</button>
