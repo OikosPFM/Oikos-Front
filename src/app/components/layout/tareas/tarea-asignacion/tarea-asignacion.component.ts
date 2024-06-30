@@ -37,15 +37,17 @@ export class TareaAsignacionComponent {
 
   // Call the service method and handle the response
   getUsuarioById(id: number): void {
-    this.usuariosService.getUsuarioById(this.decoded.idUsuario).subscribe({
-      next: (usuario) => {
-        this.usuario = usuario; // Assign the fetched data to the usuario variable
-        console.log('Usuario fetched successfully', this.usuario);
-      },
-      error: (error) => {
-        console.error('Error fetching usuario', error);
-      },
-    });
+    this.usuariosService
+      .getUsuarioByIdauth(this.decoded.idUsuario, this.decoded)
+      .subscribe({
+        next: (usuario) => {
+          this.usuario = usuario; // Assign the fetched data to the usuario variable
+          console.log('Usuario fetched successfully', this.usuario);
+        },
+        error: (error) => {
+          console.error('Error fetching usuario', error);
+        },
+      });
   }
 
   tarea = {
@@ -153,24 +155,18 @@ export class TareaAsignacionComponent {
   }
 
   cambiarEstadoTarea(tarea: any): void {
-    let otroEstado: boolean = tarea.tareaAcabada === true ? false : true;
-    const updatedTarea = {
-      ...tarea,
-      tareaAcabada: otroEstado,
-    };
-    this.tareasService.updateTarea(tarea.idTarea, updatedTarea).subscribe({
+    this.tareasService.updateEstadoTarea(tarea.idTarea).subscribe({
       next: (data) => {
         console.log('Usuario desasignado con éxito', data);
         this.getTareas();
 
         alert(
-          `La tarea con ID: ${tarea.idTarea} ya no está asignada a ningún usuario`
+          `El Estado de la tarea con ID: ${tarea.idTarea} ahora es: ${tarea.tareaAcabada}`
         );
       },
       error: (error) => {
         console.error(
-          'Error al actualizar el usuario asignado: ' +
-            JSON.stringify(updatedTarea),
+          'Error al actualizar el usuario asignado: ' + tarea,
           error
         );
       },
