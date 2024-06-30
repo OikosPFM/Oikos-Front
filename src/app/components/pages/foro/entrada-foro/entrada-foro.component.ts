@@ -21,11 +21,12 @@ export class EntradaForoComponent {
   usuario = {}
   authService: any;
   http: any;
-mytoken: any;
+  mytoken: any;
   constructor(
     private entradasService: EntradasService,
     private route: ActivatedRoute,
     private router: Router,
+    
   ) { const token = localStorage.getItem('token');
       if (token) {
         this.decoded = jwtDecode(token);
@@ -40,6 +41,10 @@ mytoken: any;
     this.obtenerEntradasForoPorFincaId(this.decoded.idFinca, this.decoded.usuarioId);
     this.getEntradasByFincaId(this.decoded.idFinca, this.decoded.usuario);
     this.getFilteredEntradas();
+    this.isLoggedIn = this.authService.isLoggedIn();
+    const currentUser = this.authService.getCurrentUser();
+    this.currentUserId = currentUser ? currentUser.id : null;
+    this.entryCreatorId = this.entryUserId;
   }
 
   entradaForo = { titulo: '', textoComentario: '', fecha: '', hora: '', idEntradaForo: { idEntradaForo: ''}, finca: {idFinca: '',},
@@ -55,6 +60,8 @@ mytoken: any;
   procesados: any[] = [];
   entradasProcesadas: any[] = [];
   nombreUsuario: string = '';
+  public entryCreatorId: number | null = null;
+  public entryUserId: number | null = null;
 
   // Usuarios logeados (Da igual el rol)
   getCurrentUserId() {
@@ -64,11 +71,6 @@ mytoken: any;
 
   // Crear Entradas
   createEntrada(entryForm: NgForm, mytoken: any, entradaForo: any): void {
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   console.error('No se encontró token en localStorage.');
-    //   return throwError('No se encontró token en localStorage.');
-    // }
     
     console.log(this.entradaForo);
     if (entryForm.invalid) {
@@ -87,6 +89,7 @@ mytoken: any;
         alert(
           `La entrada: ${this.entradaForo.titulo} y comentario ${this.entradaForo.textoComentario} han sido creadas exitosamente.`
         );
+        this.entryUserId = this.decoded.usuarioId;
         this.onRefreshClick();
       },
       error: (error: any) => {

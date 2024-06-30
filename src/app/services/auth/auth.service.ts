@@ -10,6 +10,7 @@ export class AuthService {
   private http = inject(HttpClient);
   constructor(private router: Router) {}
   private isAuthenticated: boolean = false;
+  private currentUser: any = null;
 
   private apiUrl = 'http://localhost:8081/api/auth';
 
@@ -22,17 +23,25 @@ export class AuthService {
     this.isAuthenticated = true;
   }
 
+  // Método para loguear un usuario
+  login(user: any) {
+    this.currentUser = user;
+  }
+
+  // Método para obtener el usuario autenticado
+  getCurrentUser() {
+    return this.currentUser;
+  }
   isLoggedIn(): boolean {
-    // Verifica si el token está presente en localStorage
     return localStorage.getItem('token') !== null;
+    return this.currentUser !== null;
   }
 
   logout(): void {
-    // Remueve el token del localStorage
     localStorage.removeItem('token');
     this.isAuthenticated = false;
     this.router.navigate(['/login']);
-
+    this.currentUser = null;
   }
 
   verifyToken(token: string) {

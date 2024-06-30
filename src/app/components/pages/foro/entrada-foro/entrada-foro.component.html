@@ -50,9 +50,7 @@
                     </a>
                     <br>
                     <button type="button" class="btn btn-info" [routerLink]="['/respuesta', entradaForo.idEntrada]">Responder</button>
-                    <!-- <button *ngIf="isLoggedIn" (click)="goToMensaje(entradaForo.idEntrada)" class="btn btn-secondary">Ir a Mensaje</button> -->
-                    <!-- <button *ngIf="entradaForo.authorId === currentUserId" (click)="openEditEntradaModal()">Editar</button> -->
-                    <button *ngIf="entradaForo.authorId === currentUserId" (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
+                    <button *ngIf="isLoggedIn && currentUserId === entradaForo.autor.id" (click)="deleteEntrada(entradaForo.idEntrada)" class="btn btn-danger" style="margin-left: 10px">Eliminar</button>
                 </div>
                 <br>
             </div>
