@@ -19,7 +19,7 @@ export class AdminGuard implements CanActivate {
         return true;
       } else {
         // Otros roles (o falta de rol específico) redirigen a la página principal
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
         return false;
       }
     } else {
