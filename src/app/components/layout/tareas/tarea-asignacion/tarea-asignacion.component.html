@@ -9,7 +9,9 @@
     {{ tarea.usuarioAsignado ? tarea.usuarioAsignado.nombre : "No asignado" }}
   </p>
   <p>Acabada: {{ tarea.tareaAcabada }}</p>
-  <button (click)="autoAsignacion(usuario, tarea)">Autoasignarse tarea</button>
+  <button (click)="autoAsignacion(this.decoded, tarea)">
+    Autoasignarse tarea
+  </button>
   <button (click)="desasignarTarea(tarea)">Desasignar tarea</button>
   <button (click)="cambiarEstadoTarea(tarea)">
     {{
