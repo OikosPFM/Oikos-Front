@@ -36,9 +36,6 @@
         Administrar tareas
       </button>
 
-      <button *ngIf="decoded && decoded.rol === 'USER'">
-        Asignación de tareas
-      </button>
       <button
         *ngIf="decoded && decoded.rol === 'USER'"
         routerLink="/instalaciones"
