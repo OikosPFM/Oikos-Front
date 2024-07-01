@@ -1,0 +1,26 @@
+
+            <!-- Update Form -->
+
+            <div class="entry-form">
+                <form
+                *ngIf="isEditing"
+                (ngSubmit)="updateEntrada(entryForm)"
+                #entryForm="ngForm"
+                novalidate>
+                <h1>Editando {{ entradaEditando.nombre }}</h1>
+                    <div>
+                        <label for="titulo">Título:</label>
+                        <input type="text" id="titulo" [(ngModel)]="entradaEditando.titulo" class="text-input" name="titulo" required>
+                    </div>
+                    <div>
+                        <label for="textoComentario">Asunto:</label>
+                        <textarea id="textoComentario" [(ngModel)]="entradaEditando.cuerpo" name="textoComentario" class="text-input" rows="4" cols="50"></textarea>
+                    </div>
+                    <!-- <input type="file" (change)="fileEvent($event)" />
+                    <button (click)="subirArchivo($event)">Adjuntar archivo</button> -->
+                    <!-- <button type="submit" class="btn btn-primary">Actualizar Entrada</button> -->
+                </form>
+                <button type="submit">Actualizar</button>
+                <button type="button" (click)="cancelEditing()">Cancelar</button>
+            </div>
+            Editar Entrada 
