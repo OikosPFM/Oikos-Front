@@ -2,8 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 
-//Importamos lo necesario para utilizar los servicios
-//Después habrá que ponerlos en el provider e instanciarlos en el constructor
 import { HttpClientModule } from '@angular/common/http';
 import { InstalacionesService } from '../../../services/instalaciones/instalaciones.service';
 import { EventosService } from '../../../services/eventos/eventos.service';
@@ -18,7 +16,6 @@ import { jwtDecode } from 'jwt-decode';
   providers: [EventosService, InstalacionesService, DatePipe],
 })
 export class CreateEventModalComponent {
-  //Recibimos del padre(Donde usemos este modal) el selectDate y le enviamos el método para cerrarlo
   @Output() close = new EventEmitter<void>();
   @Output() eventoCreado: EventEmitter<void> = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
@@ -57,10 +54,8 @@ export class CreateEventModalComponent {
   };
 
   ngOnInit(): void {
-    //Al iniciar el componente
-    //get de instalaciones para que nos muestre en el formulario
     this.getInstalaciones();
-    //Si se ha seleccionado una fecha en el calendario añadimos tal fecha al formulario
+
     if (this.selectedDate) {
       this.evento.fecha =
         this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
@@ -87,8 +82,6 @@ export class CreateEventModalComponent {
       alert('Por favor, rellena todos los campos.');
       return;
     }
-    // Asigna el ID del organizador al objeto evento, tendremos que hacer un get del usuario
-    //this.evento.organizadorId = userId;
 
     this.eventosService.createEventos(this.evento, this.decoded).subscribe({
       next: (data: any) => {
@@ -99,8 +92,8 @@ export class CreateEventModalComponent {
           descripcion: ${this.evento.descripcion}, categoria: ${this.evento.categoria},
           participantes: ${this.evento.participantes}, aforo: ${this.evento.aforo} ha sido creado exitosamente. ${this.evento.instalacion.idInstalacion}`
         );
-        this.onClose(); // Cerrar el modal después de eliminar el evento
-        this.eventoCreado.emit(); // Emitir el evento después de que la eliminación sea exitosa
+        this.onClose();
+        this.eventoCreado.emit();
       },
       error: (error: any) => {
         console.error('Error al crear el evento', error);
