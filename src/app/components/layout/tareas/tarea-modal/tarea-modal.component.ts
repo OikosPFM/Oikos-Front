@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,7 +17,8 @@ import { CreateTareaModalComponent } from '../create-tarea-modal/create-tarea-mo
     CreateTareaModalComponent,
     HttpClientModule,
     DatePipe,
-    CreateTareaModalComponent
+    CreateTareaModalComponent,
+    RouterModule,
   ],
   templateUrl: './tarea-modal.component.html',
   providers: [DatePipe],
