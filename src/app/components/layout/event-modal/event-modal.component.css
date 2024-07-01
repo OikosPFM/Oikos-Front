@@ -1,5 +1,5 @@
 .modal {
-  display: block; /* Hidden by default */
+  display: block;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -45,9 +45,9 @@
   cursor: pointer;
 }
 .modal_title {
-  text-align: center; /* Centra el título */
-  margin-bottom: 20px; /* Añade margen inferior */
-  color:azure; /* Color azul marino */
+  text-align: center;
+  margin-bottom: 20px;
+  color: azure;
 }
 
 .recuadro {
@@ -57,14 +57,14 @@
 }
 
 .form-group {
-  margin-bottom: 15px; /* Espacio inferior entre grupos de formulario */
-  /*width: 50%;*/
-  margin-bottom: 5px; /* Espacio inferior de la etiqueta */
-  padding: 10px; /* Padding interno */
-  box-sizing: border-box; /* Incluye padding y borde en el cálculo del ancho */
+  margin-bottom: 15px;
+
+  margin-bottom: 5px;
+  padding: 10px;
+  box-sizing: border-box;
   margin: auto;
   border-radius: 8px;
-  color:azure;
+  color: azure;
   text-align: left;
   margin-bottom: 2rem;
 }
@@ -74,10 +74,10 @@
   --bs-btn-border-color: rgb(67, 110, 142);
 }
 
-.color_button_crear{
-  color:var(--bs-heading-color);
+.color_button_crear {
+  color: var(--bs-heading-color);
   font-weight: bold;
-  color:var(--azul-oscuros-oikos);
+  color: var(--azul-oscuros-oikos);
 }
 
 h20 {
@@ -95,13 +95,13 @@ h20 {
 .form-group input,
 .form-group select {
   margin: 2px;
-  box-sizing: border-box; /* Incluye padding y borde en el cálculo del ancho */
-  border-radius: 5px; /* Bordes redondeados */
+  box-sizing: border-box;
+  border-radius: 5px;
 }
 .form-group label:after {
-  content: ' '; /* Añade un espacio después de los dos puntos */
+  content: " ";
   display: inline-block;
-  margin-left: 8px; /* Ajusta el margen según sea necesario */
+  margin-left: 8px;
 }
 .textocentrado {
   text-align: center;
