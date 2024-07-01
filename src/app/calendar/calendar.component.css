@@ -1,20 +1,16 @@
-/* Cambiar el color de fondo de la barra de herramientas de FullCalendar */
 .fc .fc-toolbar {
-    background-color: #007bff !important; /* Color de fondo azul */
-    color: white; /* Color de texto blanco */
-  }
-  
-  /* Cambiar el color de fondo de los botones en la barra de herramientas */
-  .fc .fc-toolbar button {
-    background-color: #0056b3; /* Color de fondo de los botones */
-    color: white; /* Color de texto blanco */
-  }
-  
-  /* Cambiar el color de fondo del título de la cabecera */
-  .fc .fc-toolbar-title {
-    background-color: #0056b3; /* Color de fondo del título */
-    color: white; /* Color de texto blanco */
-    padding: 5px; /* Agregar relleno */
-    border-radius: 4px; /* Bordes redondeados */
-  }
-  
+  background-color: #007bff !important;
+  color: white;
+}
+
+.fc .fc-toolbar button {
+  background-color: #0056b3;
+  color: white;
+}
+
+.fc .fc-toolbar-title {
+  background-color: #0056b3;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+}

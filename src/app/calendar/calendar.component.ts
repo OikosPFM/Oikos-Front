@@ -13,10 +13,9 @@ import { options } from '@fullcalendar/core/preact';
   standalone: true,
   imports: [CommonModule, FullCalendarModule],
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
+  styleUrls: ['./calendar.component.css'],
 })
 export class CalendarComponent {
-  //public options : any;
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     locale: esLocale,
@@ -28,7 +27,6 @@ export class CalendarComponent {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
     },
 
-    //displayEventTime: false,
     weekends: true,
     editable: true,
     selectable: true,
@@ -37,10 +35,15 @@ export class CalendarComponent {
     eventDisplay: 'block',
 
     events: [
-      { title: 'Evento 1', date: '2024-06-23', start: new Date(), description: "Descripción 1" },
-      { title: 'Evento 2', date: '2024-06-25' }
+      {
+        title: 'Evento 1',
+        date: '2024-06-23',
+        start: new Date(),
+        description: 'Descripción 1',
+      },
+      { title: 'Evento 2', date: '2024-06-25' },
     ],
-    dateClick: this.handleDateClick.bind(this)
+    dateClick: this.handleDateClick.bind(this),
   };
 
   handleDateClick(arg: any) {
