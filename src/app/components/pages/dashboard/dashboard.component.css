@@ -42,10 +42,10 @@
   border-radius: 20px;
   color: var(--azul-oscuros-oikos);
   border: 2px solid var(--azul-oscuros-oikos) !important;
-  outline: none; /* Elimina el borde de enfoque del navegador */
+  outline: none;
 
   font-weight: 600;
-  transition: 0.3s ease-in-out; /* Transición de 0.5 segundos */
+  transition: 0.3s ease-in-out;
 
   &:hover {
     background-color: rgb(73, 150, 174);
@@ -55,6 +55,5 @@
 }
 
 .dashboard-sidebar img {
-  width: 30px;
-  margin-bottom: 0.5rem;
+  width: 25px;
 }

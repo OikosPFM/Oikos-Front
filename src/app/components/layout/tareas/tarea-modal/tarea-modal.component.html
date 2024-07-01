@@ -1,107 +1,108 @@
-<div class="tarea-modal">
-  <div class="instalaciones-actuales" *ngFor="let tarea of tareas">
-    <h2 *ngIf="!editando">{{ tarea.nombre }}</h2>
-    <p>Descripción: {{ tarea.descripcion }}</p>
-    <p>Instalación: {{ tarea.instalacion.nombre }}</p>
-    <p>Fecha: {{ tarea.fecha }}</p>
-    <p>Duración: {{ tarea.duracion }}</p>
-    <p>Usuario: {{ tarea.usuarioAsignado }}</p>
-    <p>Acabada: {{ tarea.tareaAcabada }}</p>
-    <button (click)="deleteTarea(tarea.idTarea)">Eliminar tarea</button>
-    <button (click)="startEditing(tarea)">Editar tarea</button>
+<main class="instalaciones_main fade-in">
+  <a routerLink="/dashboard">
+    <h2 class="regresar">
+      Regresar al menu principal
+      <img src="./../../../../assets/icons/back.svg" /></h2
+  ></a>
+  <h1>TAREAS</h1>
+  <button
+    class="create-button"
+    *ngIf="decoded && decoded.rol === 'ADMIN'"
+    (click)="openCreateTareaModal()"
+  >
+    Crear tarea
+  </button>
+  <div class="tarea-modal">
+    <div class="tareas-container">
+      <div class="tareas_card" *ngFor="let tarea of tareas">
+        <h2 *ngIf="!editando">{{ tarea.nombre }}</h2>
+        <p>Descripción: {{ tarea.descripcion }}</p>
+        <p>Instalación: {{ tarea.instalacion.nombre }}</p>
+        <p>Fecha: {{ tarea.fecha }}</p>
+        <p>Duración: {{ tarea.duracion }}</p>
+        <p>
+          <span *ngIf="tarea.usuarioAsignado; else noAsignado">
+            Usuario Asignado: {{ tarea.usuarioAsignado.nombre }}
+            {{ tarea.usuarioAsignado.primerApellido }}
+            {{ tarea.usuarioAsignado.segundoApellido }}
+          </span>
+          <ng-template #noAsignado> Usuario Asignado: No asignado </ng-template>
+        </p>
+        <p>Acabada: {{ tarea.tareaAcabada }}</p>
+        <button (click)="deleteTarea(tarea.idTarea)">Eliminar tarea</button>
+        <button (click)="startEditing(tarea)">Editar tarea</button>
+      </div>
+    </div>
+
+    <!--Update form-->
+    <div class="update-tarea-container">
+      <form
+        *ngIf="isEditing"
+        (ngSubmit)="updateTarea(tareaForm)"
+        #tareaForm="ngForm"
+        novalidate
+      >
+        <h1>Editando {{ tareaEditando.nombre }}</h1>
+        <div>
+          <label for="nombre">Nombre:</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            [(ngModel)]="tareaEditando.nombre"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="descripcion">Descripción:</label>
+          <input
+            type="text"
+            id="descripcion"
+            name="descripcion"
+            [(ngModel)]="tareaEditando.descripcion"
+            required
+          />
+        </div>
+        <div>
+          <label for="horarioCierre">Fecha:</label>
+          <input
+            type="date"
+            id="fecha"
+            name="fecha"
+            [(ngModel)]="tareaEditando.fecha"
+            required
+          />
+        </div>
+        <div>
+          <label for="duración">Duración:</label>
+          <input
+            type="text"
+            id="duracion"
+            name="duracion"
+            [(ngModel)]="tareaEditando.duracion"
+            required
+          />
+        </div>
+
+        <div>
+          <label for="tareaAcabada">Estado de tarea:</label>
+          <input
+            type="text"
+            id="tareaAcabada"
+            name="tareaAcabada"
+            [(ngModel)]="tareaEditando.tareaAcabada"
+            required
+          />
+        </div>
+        <button type="submit">Actualizar</button>
+        <button type="button" (click)="cancelEditing()">Cancelar</button>
+      </form>
+    </div>
   </div>
-
-  <!--Update form-->
-  <div class="update-tarea-container">
-    <form
-      *ngIf="isEditing"
-      (ngSubmit)="updateTarea(tareaForm)"
-      #tareaForm="ngForm"
-      novalidate
-    >
-      <h1>Editando {{ tareaEditando.nombre }}</h1>
-      <div>
-        <label for="nombre">Nombre:</label>
-        <input
-          type="text"
-          id="nombre"
-          name="nombre"
-          [(ngModel)]="tareaEditando.nombre"
-          required
-        />
-      </div>
-      <div>
-        <label for="instalacion">Instalación:</label>
-        <select
-          id="instalacion"
-          name="instalacion"
-
-          [(ngModel)]="tareaEditando.instalacion.idInstalacion"
-
-          required
-        >
-          <option value="" disabled>Selecciona una instalación</option>
-          <option
-            *ngFor="let instalacion of instalaciones"
-
-            [value]="tareaEditando.instalacion.idInstalacion"
-
-          >
-            {{ instalacion.nombre }}
-          </option>
-        </select>
-      </div>
-      <div>
-        <label for="descripcion">Descripción:</label>
-        <input
-          type="text"
-          id="descripcion"
-          name="descripcion"
-          [(ngModel)]="tareaEditando.descripcion"
-          required
-        />
-      </div>
-      <div>
-        <label for="horarioCierre">Fecha:</label>
-        <input
-          type="date"
-          id="fecha"
-          name="fecha"
-          [(ngModel)]="tareaEditando.fecha"
-          required
-        />
-      </div>
-      <div>
-        <label for="duración">Duración:</label>
-        <input
-          type="text"
-          id="duracion"
-          name="duracion"
-          [(ngModel)]="tareaEditando.duracion"
-          required
-        />
-      </div>
-      <div>
-        <label for="usuarioAsignado">Usuario Asignado:</label>
-        <input
-          type="number"
-          id="plazasIntervalo"
-          name="plazasIntervalo"
-          [(ngModel)]="tareaEditando.usuarioAsignado"
-        />
-      </div>
-      <div>
-        <label for="tareaAcabada">Estado de tarea:</label>
-        <input
-          type="text"
-          id="tareaAcabada"
-          name="tareaAcabada"
-          [(ngModel)]="tareaEditando.tareaAcabada"
-          required
-        />
-      </div>
-      <button type="submit">Actualizar</button>
-      <button type="button" (click)="cancelEditing()">Cancelar</button>
-    </form>
-  </div>
-</div>
+</main>
+<app-create-tarea-modal
+  *ngIf="showCreateTareaModal"
+  (close)="closeModal()"
+  (tareaCreada)="onTareaCreada()"
+></app-create-tarea-modal>

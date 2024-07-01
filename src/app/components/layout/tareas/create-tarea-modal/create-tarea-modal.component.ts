@@ -2,37 +2,31 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 
-//Importamos lo necesario para utilizar los servicios
-//Después habrá que ponerlos en el provider e instanciarlos en el constructor
+// Importamos lo necesario para utilizar los servicios
 import { HttpClientModule } from '@angular/common/http';
 import { TareasService } from '../../../../services/tarea/tareas.service';
 import { InstalacionesService } from '../../../../services/instalaciones/instalaciones.service';
+import { jwtDecode } from 'jwt-decode';
+import { UsuariosService } from '../../../../services/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-create-tarea-modal',
   standalone: true,
   imports: [FormsModule, CommonModule, HttpClientModule, DatePipe],
   templateUrl: './create-tarea-modal.component.html',
-  styleUrl: './create-tarea-modal.component.css',
+  styleUrls: ['./create-tarea-modal.component.css'],
   providers: [TareasService, InstalacionesService, DatePipe],
 })
 export class CreateTareaModalComponent {
-
-  //Recibimos del padre(Donde usemos este modal) el selectDate y le enviamos el método para cerrarlo
   @Output() close = new EventEmitter<void>();
+  @Output() tareaCreada: EventEmitter<void> = new EventEmitter<void>();
   @Input() selectedDate: Date | undefined;
 
-  constructor(
-    private tareasService: TareasService,
-    private instalacionesService: InstalacionesService,
-    private datePipe: DatePipe
-  ) {}
+  usuarios: any[] = [];
   instalaciones: any[] = [];
-  tareas: any[] = [];
-  editando = false;
+  decoded: any | null = null;
 
   tarea = {
-    idTarea: '',
     instalacion: {
       idInstalacion: '',
     },
@@ -40,13 +34,29 @@ export class CreateTareaModalComponent {
     descripcion: '',
     fecha: '',
     duracion: '',
-    usuarioAsignado: null,
+    usuarioAsignado: {
+      idUsuario: '',
+    },
     tareaAcabada: false,
   };
 
+  constructor(
+    private tareasService: TareasService,
+    private instalacionesService: InstalacionesService,
+    private usuariosService: UsuariosService,
+    private datePipe: DatePipe
+  ) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.decoded = jwtDecode(token);
+    } else {
+      console.error('Token not found in localStorage');
+    }
+  }
+
   ngOnInit(): void {
     this.getInstalaciones();
-    this.getTareas();
+    this.getUsuarios();
     if (this.selectedDate) {
       this.tarea.fecha =
         this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
@@ -57,47 +67,43 @@ export class CreateTareaModalComponent {
     this.instalacionesService.getAllInstalaciones().subscribe(
       (data) => {
         this.instalaciones = data;
-        console.log(data);
       },
       (error) => {
-        console.error('Error al obtener las fincas', error);
+        console.error('Error al obtener las instalaciones', error);
       }
     );
   }
-  getTareas(): void {
-    this.tareasService.getTareas().subscribe(
+  getUsuarios(): void {
+    this.usuariosService.getUsuariosByFinca(this.decoded).subscribe(
       (data) => {
-        this.tareas = data;
-        console.log(data);
+        this.usuarios = data;
+        console.log(this.usuarios);
       },
       (error) => {
-        console.error('Error al obtener las fincas', error);
+        console.error(error);
       }
     );
   }
-
   createTarea(tareaForm: NgForm): void {
+    console.log(this.tarea);
     if (tareaForm.invalid) {
       alert('Por favor, rellena todos los campos.');
       return;
     }
-    this.tareasService.createTarea(this.tarea).subscribe({
+    this.tareasService.createTarea(this.tarea, this.decoded).subscribe({
       next: (data: any) => {
-        console.log('Tarea created successfully', data);
-        alert(
-          `La tarea con nombre:  ${this.tarea.nombre}, fecha: ${this.tarea.fecha}, duración: ${this.tarea.duracion},
-          descripcion: ${this.tarea.descripcion}, instalacion: ${this.tarea.instalacion},
-          con usuario asignado: ${this.tarea.usuarioAsignado} ha sido creada exitosamente.`
-        );
-        tareaForm.resetForm();
+        alert(`La tarea ha sido creada exitosamente.`);
+        this.onClose();
+        this.tareaCreada.emit();
       },
       error: (error: any) => {
-        console.error(alert(), tareaForm.resetForm(), error);
+        console.error('Error al crear la tarea', error);
+        console.log(this.tarea);
       },
     });
   }
 
-  onClose() {
+  onClose(): void {
     this.close.emit();
   }
 }

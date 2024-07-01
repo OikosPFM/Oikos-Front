@@ -4,7 +4,7 @@ import {
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -28,7 +28,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
     MatInputModule,
     MatButtonModule,
     CommonModule,
-    MatRadioModule,
+    MatRadioModule
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',

@@ -30,6 +30,7 @@ b {
   line-height: 1.5;
   background: #eaf9ff;
   border-right: 1px solid #d3e2e8;
+  z-index: 0;
 }
 
 .demo-app-sidebar-section {
@@ -38,6 +39,7 @@ b {
 
 .demo-app-main {
   padding: 2rem;
+  z-index: 1;
 }
 
 .fc {
@@ -47,6 +49,6 @@ b {
   background-color: rgb(242, 238, 238);
   border-radius: 10px;
   border: none;
-  padding: 3rem 2rem;
+  padding: 1rem 2rem;
   overflow: hidden;
 }

@@ -1,0 +1,43 @@
+<main class="instalaciones_main fade-in">
+  <a routerLink="/dashboard">
+    <h2 class="regresar">
+      Regresar al menu principal
+      <img src="./../../../../assets/icons/back.svg" /></h2
+  ></a>
+  <div class="instalaciones_container">
+    <div class="instalaciones_card" *ngFor="let instalacion of instalaciones">
+      <h2 *ngIf="!editando">
+        {{ instalacion.nombre }}
+        <img src="./../../../../assets/icons/facility.svg" />
+      </h2>
+      <p>Días Abierto: {{ instalacion.diasAbierto.join(", ") }}</p>
+      <p>Horario de Apertura: {{ instalacion.horarioApertura }}</p>
+      <p>Horario de Cierre: {{ instalacion.horarioCierre }}</p>
+      <p>Intervalo: {{ instalacion.intervalo }}</p>
+      <p>Plazas por Intervalo: {{ instalacion.plazasIntervalo }}</p>
+      <p>
+        Invitaciones Mensuales Máximas:
+        {{ instalacion.invitacionesMensualesMaximas }}
+      </p>
+      <div>
+        <button (click)="deleteInstalacion(instalacion.idInstalacion)">
+          Eliminar instalación
+        </button>
+        <button (click)="openEditInstalacionModal()">Editar instalación</button>
+      </div>
+    </div>
+    <button class="create-button" (click)="openCreateInstalacionModal()">
+      Crear instalacion
+    </button>
+  </div>
+</main>
+
+<app-create-instalacion
+  *ngIf="showCreateInstalacionModal"
+  (close)="closeModal()"
+></app-create-instalacion>
+
+<app-edit-instalacion
+  *ngIf="showEditInstalacionModal"
+  (close)="closeModal()"
+></app-edit-instalacion>

@@ -1,11 +1,11 @@
 <div class="modal">
   <div class="modal-content">
     <span class="close" (click)="onClose()">&times;</span>
-    <div class="modal-info">
+    <div>
       <h1>Crear Tarea</h1>
       <form (ngSubmit)="createTarea(tareaForm)" #tareaForm="ngForm" novalidate>
         <div>
-          <label for="nombre">Nombre:</label>
+          <label for="nombre">Nombre: </label>
           <input
             type="text"
             id="nombre"
@@ -15,7 +15,7 @@
           />
         </div>
         <div>
-          <label for="fecha">Fecha:</label>
+          <label for="fecha">Fecha: </label>
           <input
             type="date"
             id="fecha"
@@ -25,25 +25,25 @@
           />
         </div>
         <div>
-          <label for="duracion">Duracion:</label>
+          <label for="duracion">Duración: </label>
           <input
-            type="text"
+            type="time"
             id="duracion"
             [(ngModel)]="tarea.duracion"
             name="duracion"
           />
         </div>
         <div>
-          <label for="description">Descripción:</label>
+          <label for="descripcion">Descripción: </label>
           <input
             type="text"
-            id="description"
+            id="descripcion"
             [(ngModel)]="tarea.descripcion"
-            name="description"
+            name="descripcion"
           />
         </div>
         <div>
-          <label for="instalacion">Instalación:</label>
+          <label for="instalacion">Instalación: </label>
           <select
             id="instalacion"
             [(ngModel)]="tarea.instalacion.idInstalacion"
@@ -61,10 +61,27 @@
             </option>
           </select>
         </div>
-
+        <div>
+          <label for="usuarioAsignado">Usuario Asignado: </label>
+          <select
+            id="usuarioAsignado"
+            [(ngModel)]="tarea.usuarioAsignado.idUsuario"
+            name="usuarioAsignado"
+            required
+          >
+            <option value="" disabled selected>Selecciona un usuario</option>
+            <option
+              *ngFor="let usuario of usuarios"
+              [value]="usuario.idUsuario"
+            >
+              {{ usuario.nombre }}
+              {{ usuario.primerApellido }}
+              {{ usuario.segundoApellido }}
+            </option>
+          </select>
+        </div>
         <button type="submit">Crear Tarea</button>
       </form>
     </div>
   </div>
 </div>
-

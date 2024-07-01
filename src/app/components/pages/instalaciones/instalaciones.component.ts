@@ -97,4 +97,11 @@ export class InstalacionesComponent {
     const minutos = horario[1].toString().padStart(2, '0');
     return horas + ':' + minutos;
   }
+
+  isTodosLosDias(diasAbierto: string[]): boolean {
+    return (
+      diasAbierto.length === this.diasSemana.length &&
+      diasAbierto.every((dia) => this.diasSemana.includes(dia))
+    );
+  }
 }

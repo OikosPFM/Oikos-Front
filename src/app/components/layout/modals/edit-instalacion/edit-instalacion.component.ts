@@ -113,6 +113,13 @@ export class EditInstalacionComponent {
     this.close.emit();
   }
 
+  onBackdropClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('modal')) {
+      this.onClose();
+    }
+  }
+
   onDiasAbiertoChange(event: Event) {
     const checkbox = event.target as HTMLInputElement;
     if (checkbox.checked) {

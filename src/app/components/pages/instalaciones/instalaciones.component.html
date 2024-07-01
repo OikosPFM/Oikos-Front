@@ -16,7 +16,11 @@
           </h2>
           <p>
             Días Abierto:
-            {{ instalacion.diasAbierto.join(", ") }}
+            {{
+              isTodosLosDias(instalacion.diasAbierto)
+                ? "TODOS LOS DIAS"
+                : instalacion.diasAbierto.join(", ")
+            }}
           </p>
           <p>Horario de Apertura: {{ instalacion.horarioApertura }}</p>
           <p>Horario de Cierre: {{ instalacion.horarioCierre }}</p>

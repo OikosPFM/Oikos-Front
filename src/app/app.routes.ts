@@ -11,8 +11,9 @@ import { MensajeComponent } from './components/pages/foro/mensaje/mensaje.compon
 import { HomeComponent } from './components/pages/home/home.component';
 import { InstalacionesComponent } from './components/pages/instalaciones/instalaciones.component';
 import { LoginComponent } from './components/pages/login/login/login.component';
-import { ManageInstalacionesComponent } from './components/pages/manage-instalaciones/manage-instalaciones.component';
+import { AdminGuard } from './guards/admin.guard';
 import { ManageRegistrosComponent } from './components/pages/manage-registros/manage-registros.component';
+import { ManageInstalacionesComponent } from './components/pages/manage-instalaciones/manage-instalaciones.component';
 import { AuthGuard } from './guards/auth.guard';
 
 
@@ -45,16 +46,16 @@ export const routes: Routes = [
   {
     path: 'respuesta/:id',
     component: MensajeComponent,
-    // path: 'login',
   },
   {
     path: 'manage-registros',
     component: ManageRegistrosComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'manage-tarea',
     component: TareaModalComponent,
+    canActivate: [AdminGuard],
   },
   {
     path: 'asignacion-tarea',
@@ -63,18 +64,13 @@ export const routes: Routes = [
   {
     path: 'manage-instalaciones',
     component: ManageInstalacionesComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'instalaciones',
     component: InstalacionesComponent,
     canActivate: [AuthGuard],
   },
-  {
-    path: '',
-    component: HomeComponent,
-    canActivate: [AuthGuard],
-  }
 ];
 
 @NgModule({

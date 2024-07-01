@@ -85,15 +85,17 @@ export class EventModalComponent {
   instalaciones: any[] = [];
 
   getInstalaciones(): void {
-    this.instalacionesService.getAllInstalaciones().subscribe(
-      (data) => {
-        this.instalaciones = data;
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error al obtener las fincas', error);
-      }
-    );
+    this.instalacionesService
+      .getInstalacionesByFincaID(this.decoded.idFinca)
+      .subscribe(
+        (data) => {
+          this.instalaciones = data;
+          console.log(data);
+        },
+        (error) => {
+          console.error('Error al obtener las fincas', error);
+        }
+      );
   }
 
   getEvento(idEvento: any): void {
@@ -154,6 +156,19 @@ export class EventModalComponent {
     });
   }
 
+  onBackdropClick(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('modal')) {
+      this.onClose();
+    }
+  }
+
+  getFacilityName(facilityId: string): string {
+    const facility = this.instalaciones.find(
+      (instalacion) => instalacion.idInstalacion === facilityId
+    );
+    return facility ? facility.nombre : 'Desconocido';
+  }
   /*obtenerIdInstalacionPorIdEvento(
     instalaciones: any[],
     idEventoBuscado: string
