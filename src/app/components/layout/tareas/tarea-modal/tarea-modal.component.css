@@ -1,6 +1,6 @@
 .tarea-modal {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
 }
 .tareas-container {
@@ -13,21 +13,36 @@
   padding: 2rem;
   flex-wrap: wrap;
 }
+.title {
+  justify-content: center;
+  align-items: flex-start;
+}
 .create-button {
+  display: block;
+  margin: 2rem auto; /* Center horizontally */
   padding: 1rem 2rem;
   border-radius: 20px;
   color: var(--azul-oscuros-oikos);
   border: 2px solid var(--azul-oscuros-oikos) !important;
-  outline: none; /* Elimina el borde de enfoque del navegador */
-
+  outline: none; /* Remove browser focus outline */
   font-weight: 600;
-  transition: 0.3s ease-in-out; /* Transición de 0.5 segundos */
+  transition: 0.3s ease-in-out; /* Smooth transition */
 
   &:hover {
     background-color: rgb(73, 150, 174);
     color: var(--verde-claro-oikos);
   }
   width: 400px;
+}
+.tareas_card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--azul-oscuros-oikos);
+  color: var(--verde-claro-oikos);
+  padding: 2rem;
+  border-radius: 30px;
+  border: var(--verde-claro-oikos) solid 2px;
+  width: 45%;
 }
 .tareas_card div {
   align-self: flex-end;
@@ -61,11 +76,6 @@ form {
   margin: 2rem;
 }
 
-.recuadro {
-  --bs-bg-opacity: 1;
-  background-color: rgb(222, 235, 233);
-}
-
 .dark-blue-oikos-color {
   color: rgb(67, 110, 142);
 }
@@ -73,4 +83,13 @@ form {
 .dark-blue-oikos-button {
   color: rgb(67, 110, 142);
   --bs-btn-border-color: rgb(67, 110, 142);
+}
+.regresar {
+  font-weight: 700;
+  color: var(--verde-claro-oikos);
+}
+
+.regresar img {
+  width: 30px;
+  margin-bottom: 0.5rem;
 }

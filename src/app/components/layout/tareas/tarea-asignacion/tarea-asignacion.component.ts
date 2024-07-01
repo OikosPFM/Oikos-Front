@@ -92,24 +92,22 @@ export class TareaAsignacionComponent {
         roles: usuario.roles,
       },
     };
-    this.tareasService
-      .updateTarea(updatedTarea, this.decoded.idUsuario)
-      .subscribe({
-        next: (data) => {
-          console.log('Usuario asignado actualizado con éxito', data);
-          this.getTareas();
+    this.tareasService.updateTarea(updatedTarea).subscribe({
+      next: (data) => {
+        console.log('Usuario asignado actualizado con éxito', data);
+        this.getTareas();
 
-          alert(
-            `El usuario con ID: ${usuario.idUsuario} ha sido asignado a la tarea con ID: ${tarea.idTarea}`
-          );
-        },
-        error: (error) => {
-          console.error(
-            'Error al actualizar el usuario asignado: ' + updatedTarea,
-            error
-          );
-        },
-      });
+        alert(
+          `El usuario con ID: ${usuario.idUsuario} ha sido asignado a la tarea con ID: ${tarea.idTarea}`
+        );
+      },
+      error: (error) => {
+        console.error(
+          'Error al actualizar el usuario asignado: ' + updatedTarea,
+          error
+        );
+      },
+    });
   }
 
   desasignarTarea(tarea: any): void {
@@ -117,7 +115,7 @@ export class TareaAsignacionComponent {
       ...tarea,
       usuarioAsignado: null,
     };
-    this.tareasService.updateTarea(updatedTarea, this.decoded).subscribe({
+    this.tareasService.updateTarea(updatedTarea).subscribe({
       next: (data) => {
         console.log('Usuario desasignado con éxito', data);
         this.getTareas();
