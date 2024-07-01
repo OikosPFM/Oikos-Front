@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { EntradasService } from '../../../../services/entradas/entradas.service';
 import { MensajesService } from '../../../../services/mensajes/mensajes.service';
 
@@ -10,15 +10,28 @@ import { MensajesService } from '../../../../services/mensajes/mensajes.service'
   standalone: true, // HeaderLayoutComponent, FooterLayoutComponent
   templateUrl: './mensaje.component.html',
   styleUrls: ['./mensaje.component.css'],
-  imports: [ FormsModule, CommonModule ]
+  imports: [FormsModule, CommonModule, RouterModule],
 })
 export class MensajeComponent implements OnInit {
   // entradaSeleccionada: EntradaForoComponent | undefined | any = { titulo: ' ', textoComentario: ' '};
   entradaSeleccionada: any = { titulo: '', textoComentario: '' };
   respuesta: string = '';
-  mensaje: any = { cuerpo: ' ', autor: ' ', ID_entrada: ' ', ID_mensaje: ' ', fecha: ' ', hora: ' ' };
+  mensaje: any = {
+    cuerpo: ' ',
+    autor: ' ',
+    ID_entrada: ' ',
+    ID_mensaje: ' ',
+    fecha: ' ',
+    hora: ' ',
+  };
   mensajes: any[] = [];
-  entradaForo = { titulo: '', textoComentario: '', fecha: '', hora: '', idEntradaForo: { idEntradaForo: ''}};
+  entradaForo = {
+    titulo: '',
+    textoComentario: '',
+    fecha: '',
+    hora: '',
+    idEntradaForo: { idEntradaForo: '' },
+  };
   entradasForo: any[] = [];
   decoded: any | null;
   currentUserId: number | null = null;
@@ -48,8 +61,13 @@ export class MensajeComponent implements OnInit {
   getEntradas(entradaId: number): void {
     this.entradasService.getEntradasForo().subscribe({
       next: (data: any) => {
-        this.entradasForo = data.sort((a: any, b: any) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
-        this.entradaSeleccionada = this.entradasForo.find(entrada => entrada.idEntrada === entradaId);
+        this.entradasForo = data.sort(
+          (a: any, b: any) =>
+            new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
+        );
+        this.entradaSeleccionada = this.entradasForo.find(
+          (entrada) => entrada.idEntrada === entradaId
+        );
         // this.entradasForo = data.sort((a: any, b: any) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
         //  this.entradasForo = data;
         // this.entradaSeleccionada = this.entradasForo.find(e => e.idEntradaForo === entradaId) || { titulo: '', textoComentario: '' };
@@ -60,7 +78,6 @@ export class MensajeComponent implements OnInit {
       },
     });
   }
-
 
   createMensaje(responseForm: NgForm): void {
     console.log(this.mensaje);
@@ -119,37 +136,44 @@ export class MensajeComponent implements OnInit {
     this.getMensajes();
   }
 
-    // Obtener Entrada dependiendo de la finca
-  obtenerMensajesPorEntradaForoId(entradaForoId: number, usuario: number): void {
-    this.mensajesService.getMensajesByEntradaForoId(entradaForoId, usuario).subscribe(
-      (data) => {
-        this.mensajes = data;
-        console.log('Instalaciones:', this.mensajes);
-      },
-      (error) => {
-        console.error('Error al obtener instalaciones:', error);
-      }
-    );
+  // Obtener Entrada dependiendo de la finca
+  obtenerMensajesPorEntradaForoId(
+    entradaForoId: number,
+    usuario: number
+  ): void {
+    this.mensajesService
+      .getMensajesByEntradaForoId(entradaForoId, usuario)
+      .subscribe(
+        (data) => {
+          this.mensajes = data;
+          console.log('Instalaciones:', this.mensajes);
+        },
+        (error) => {
+          console.error('Error al obtener instalaciones:', error);
+        }
+      );
   }
 
   getMensajesByEntradaForoId(entradaForoId: number): void {
-    this.mensajesService.getMensajesByEntradaForoId(entradaForoId, this.decoded.idUsuario).subscribe(
-      (data: any) => {
-        this.mensajes = data;
-        const mensajesProcesadas = data.map((mensaje: any) => ({
-          id: this.mensaje.idMensaje,
-          texto: this.mensaje.cuerpo,
-          start: `${this.mensaje.fecha}T${this.mensaje.hora}`,
-          color: 'pink',
-        }));
-        this.procesados = mensajesProcesadas;
-        console.log(this.mensajes);
-        console.log(this.procesados);
-      },
-      (error: any) => {
-        console.error('Error al obtener los eventos por ID de finca', error);
-      }
-    );
+    this.mensajesService
+      .getMensajesByEntradaForoId(entradaForoId, this.decoded.idUsuario)
+      .subscribe(
+        (data: any) => {
+          this.mensajes = data;
+          const mensajesProcesadas = data.map((mensaje: any) => ({
+            id: this.mensaje.idMensaje,
+            texto: this.mensaje.cuerpo,
+            start: `${this.mensaje.fecha}T${this.mensaje.hora}`,
+            color: 'pink',
+          }));
+          this.procesados = mensajesProcesadas;
+          console.log(this.mensajes);
+          console.log(this.procesados);
+        },
+        (error: any) => {
+          console.error('Error al obtener los eventos por ID de finca', error);
+        }
+      );
   }
 
   getFilteredMensajes(): void {
@@ -167,7 +191,7 @@ export class MensajeComponent implements OnInit {
           color: 'green',
         }));
         this.mensajesProcesadas = gestionadas;
-        console.log('tareas procesadas', this.mensajesProcesadas)
+        console.log('tareas procesadas', this.mensajesProcesadas);
         console.log();
         console.log('Filtered Tareas', this.mensajes);
       },
@@ -191,7 +215,6 @@ export class MensajeComponent implements OnInit {
   // }
 
   // Obtener solo los mensajes de esa entradaa
-
 
   // Responder a la Entrada
   responderEntrada(respuestaForm: NgForm): void {
@@ -222,18 +245,18 @@ export class MensajeComponent implements OnInit {
   }
 
   // Eliminar Mensaje
-   deleteMensaje(id: number): void {
-     this.mensajesService.deleteMensaje(id).subscribe({
-       next: (data: any) => {
-         console.log('Mensaje eliminado con éxito', data);
-         this.getMensajes();
-       },
-       error: (error: any) => {
-         console.error('Error al eliminar el mensaje', error);
-       },
-     });
+  deleteMensaje(id: number): void {
+    this.mensajesService.deleteMensaje(id).subscribe({
+      next: (data: any) => {
+        console.log('Mensaje eliminado con éxito', data);
+        this.getMensajes();
+      },
+      error: (error: any) => {
+        console.error('Error al eliminar el mensaje', error);
+      },
+    });
 
-     console.log(this.mensaje);
+    console.log(this.mensaje);
   }
 }
 // [
